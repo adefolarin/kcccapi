@@ -40,10 +40,10 @@ Route::get('/', function () {
         Route::get('/admin/banner', [BannerController::class,'index']);
         Route::get('/admin/banner-add', [BannerController::class,'create']);
         Route::post('/admin/banner-add', [BannerController::class,'store']);
-        Route::match(['get'],'/admin/banner-edit/{id?}', [BannerController::class,'edit']);
-        Route::match(['post'],'/admin/banner-edit/{id?}', [BannerController::class,'update']);
-        Route::match(['post'],'/admin/banner-file-edit/{id?}', [BannerController::class,'updateBannerFile']);
-        Route::match(['get'],'/admin/delete-banner/{id?}', [BannerController::class,'destroy']);
+        Route::get('/admin/banner-edit/{id?}', [BannerController::class,'edit']);
+        Route::post('/admin/banner-edit/{id?}', [BannerController::class,'update']);
+        Route::post('/admin/banner-file-edit/{id?}', [BannerController::class,'updateBannerFile']);
+        Route::get('/admin/delete-banner/{id?}', [BannerController::class,'destroy']);
      
     });
 //});
