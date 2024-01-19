@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if(!Schema::hasTable('eventregs')) {
         Schema::create('eventregs', function (Blueprint $table) {
             $table->bigInteger('eventregs_id')->primary();
             $table->text('enventuser_name');
@@ -18,8 +19,9 @@ return new class extends Migration
             $table->text('enventuser_pnum');
             $table->text('enventuser_event');
             $table->date('enventregs_date');
-            $table->dropTimestamps();
+            $table->timestamps();
         });
+        }
     }
 
     /**

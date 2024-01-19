@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        if(!Schema::hasTable('volforms')) {
-        Schema::create('volforms', function (Blueprint $table) {
-            $table->bigInteger('volforms_id')->primary();
-            $table->bigInteger('volcategoriesid');
-            $table->dateTime('voldatetime');
+        if(!Schema::hasTable('categories')) {
+        Schema::create('categories', function (Blueprint $table) {
+            $table->id();
             $table->timestamps();
         });
-       }
+         }
     }
 
     /**
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('volforms');
+        Schema::dropIfExists('cecategories');
     }
 };

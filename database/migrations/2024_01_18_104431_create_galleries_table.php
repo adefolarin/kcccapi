@@ -11,12 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if(!Schema::hasTable('galleries')) {
         Schema::create('galleries', function (Blueprint $table) {
             $table->bigInteger('galleries_id')->primary();
             $table->text('galleries_file');
             $table->date('galleries_date');
-            $table->dropTimestamps();
+            $table->timestamps();
         });
+        }
     }
 
     /**

@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if(!Schema::hasTable('prayers')) {
         Schema::create('prayers', function (Blueprint $table) {
             $table->bigInteger('prayers_id')->primary();
             $table->text('prayeruser_name');
@@ -18,8 +19,9 @@ return new class extends Migration
             $table->text('prayeruser_pnum');
             $table->text('prayeruser_request');
             $table->date('prayers_date');
-            $table->dropTimestamps();
+            $table->timestamps();
         });
+        }
     }
 
     /**

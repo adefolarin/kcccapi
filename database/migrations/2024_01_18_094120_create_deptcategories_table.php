@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if(!Schema::hasTable('deptcategories')) {
         Schema::create('deptcategories', function (Blueprint $table) {
             $table->bigInteger('deptcategories_id')->primary();
             $table->text('deptcategories_name');
-            $table->dropTimestamps();
+            $table->timestamps();
         });
+       }
     }
 
     /**

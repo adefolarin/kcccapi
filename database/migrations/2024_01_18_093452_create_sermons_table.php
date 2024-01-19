@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if(!Schema::hasTable('sermons')) {
         Schema::create('sermons', function (Blueprint $table) {
             $table->bigInteger('sermons_id')->primary();
-            $table->bigInteger('sermoncategoriesid')->primary();
+            $table->bigInteger('sermoncategoriesid');
             $table->text('sermons_title');
             $table->text('sermons_file');
             $table->date('sermons_date');
@@ -21,8 +22,9 @@ return new class extends Migration
             $table->text('sermons_preacher')->nullable(true);
             $table->text('sermons_likes')->nullable(true);
             $table->text('sermons_shares')->nullable(true);
-            $table->dropTimestamps();
+            $table->timestamps();
         });
+      }
     }
 
     /**

@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if(!Schema::hasTable('deptmembregs')) {
         Schema::create('deptmembregs', function (Blueprint $table) {
             $table->bigInteger('deptmembregs_id')->primary();
             $table->text('deptmembuser_name');
@@ -18,8 +19,9 @@ return new class extends Migration
             $table->text('deptmembuser_pnum');
             $table->text('deptmembuser_dept');
             $table->date('deptmembregs_date');
-            $table->dropTimestamps();
+            $table->timestamps();
         });
+        }
     }
 
     /**

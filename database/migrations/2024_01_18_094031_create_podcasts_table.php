@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if(!Schema::hasTable('podcasts')) {
         Schema::create('podcasts', function (Blueprint $table) {
             $table->bigInteger('podcasts_id')->primary();
-            $table->bigInteger('podcastcategoriesid')->primary();
+            $table->bigInteger('podcastcategoriesid');
             $table->text('podcast_title');
             $table->text('podcast_file');
             $table->date('podcast_date');
@@ -21,8 +22,9 @@ return new class extends Migration
             $table->text('podcast_preacher')->nullable(true);
             $table->text('podcast_likes')->nullable(true);
             $table->text('podcast_shares')->nullable(true);
-            $table->dropTimestamps();
+            $table->timestamps();
         });
+        }
     }
 
     /**

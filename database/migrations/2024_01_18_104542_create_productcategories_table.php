@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if(!Schema::hasTable('productcategories')) {
         Schema::create('productcategories', function (Blueprint $table) {
             $table->bigInteger('productcategories_id')->primary();
             $table->text('productcategories_name');
-            $table->dropTimestamps();
+            $table->timestamps();
         });
+        }
     }
 
     /**

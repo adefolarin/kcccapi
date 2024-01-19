@@ -11,14 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if(!Schema::hasTable('departments')) {
         Schema::create('departments', function (Blueprint $table) {
             $table->bigInteger('departments_id')->primary();
-            $table->bigInteger('deptcategoriesid')->primary();
+            $table->bigInteger('deptcategoriesid');
             $table->text('departments_content');
             $table->text('departments_status');
             $table->text('departments_date');
-            $table->dropTimestamps();
+            $table->timestamps();
         });
+        }
     }
 
     /**

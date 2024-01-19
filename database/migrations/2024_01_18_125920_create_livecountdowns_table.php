@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if(!Schema::hasTable('livecountdowns')) {
         Schema::create('livecountdowns', function (Blueprint $table) {
             $table->bigInteger('livecountdows_id')->primary();
             $table->dateTime('livecountdowns_datetime');
-            $table->dropTimestamps();
+            $table->timestamps();
         });
+        }
     }
 
     /**

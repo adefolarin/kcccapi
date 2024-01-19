@@ -11,14 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if(!Schema::hasTable('resources')) {
         Schema::create('resources', function (Blueprint $table) {
             $table->bigInteger('resources_id')->primary();
             $table->bigInteger('resourcecategoriesid');
             $table->text('resources_name');
             $table->text('resources_file');
             $table->date('resources_date');
-            $table->dropTimestamps();
+            $table->timestamps();
         });
+        }
     }
 
     /**

@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if(!Schema::hasTable('volcategories')) {
         Schema::create('volcategories', function (Blueprint $table) {
             $table->bigInteger('volcategories_id')->primary();
             $table->text('volcategories_name');
-            $table->dropTimestamps();
+            $table->timestamps();
         });
+        }
     }
 
     /**

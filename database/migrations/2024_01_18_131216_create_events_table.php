@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if(!Schema::hasTable('events')) {
         Schema::create('events', function (Blueprint $table) {
             $table->bigInteger('events_id')->primary();
             $table->bigInteger('eventcategoriesid');
@@ -23,8 +24,9 @@ return new class extends Migration
             $table->text('events_address');
             $table->text('events_organizer');
             $table->date('events_date');
-            $table->dropTimestamps();
+            $table->timestamps();
         });
+      }
     }
 
     /**

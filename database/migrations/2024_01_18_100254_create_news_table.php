@@ -11,15 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if(!Schema::hasTable('news')) {
         Schema::create('news', function (Blueprint $table) {
             $table->bigInteger('news_id')->primary();
-            $table->bigInteger('newscategoriesid')->primary();
+            $table->bigInteger('newscategoriesid');
             $table->text('news_title');
             $table->text('news_file');
             $table->text('news_content');
             $table->date('news_date');
-            $table->dropTimestamps();
+            $table->timestamps();
         });
+       }
     }
 
     /**

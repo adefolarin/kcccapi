@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if(!Schema::hasTable('devicetokens')) {
         Schema::create('devicetokens', function (Blueprint $table) {
             $table->bigInteger('devicetokens_id')->primary();
             $table->bigInteger('tokens_id');
-            $table->dropTimestamps();
+            $table->timestamps();
         });
+        }
     }
 
     /**
