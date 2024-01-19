@@ -14,7 +14,7 @@ return new class extends Migration
       if(!Schema::hasTable('eventcategories')) {
         Schema::create('eventcategories', function (Blueprint $table) {
             $table->bigInteger('eventcategories_id')->primary();
-            $table->text('eventcategories_name');
+            $table->text('eventcategories_name')->unique();
             $table->timestamps();
         });
       }

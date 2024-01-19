@@ -71,11 +71,11 @@ Route::get('/', function () {
         Route::get('/admin/delete-banner/{id?}', [BannerController::class,'destroy']);
 
         // Event Categories
-        Route::get('/admin/eventcategory', [EventCategoryController::class,'index']);
-        Route::get('/admin/eventcategory-add', [EventCategoryController::class,'create']);
-        Route::post('/admin/eventcategory-add', [EventCategoryController::class,'store']);
-        Route::get('/admin/eventcategory-edit/{id?}', [EventCategoryController::class,'edit']);
-        Route::post('/admin/eventcategory-edit/{id?}', [EventCategoryController::class,'update']);
+        Route::get('/admin/eventcategory/{id?}', [EventCategoryController::class,'index']);
+        //Route::get('/admin/eventcategory-add', [EventCategoryController::class,'create']);
+        Route::post('/admin/eventcategory', [EventCategoryController::class,'store']);
+        //Route::get('/admin/eventcategory/{id?}', [EventCategoryController::class,'edit']);
+        Route::post('/admin/eventcategory/{id?}', [EventCategoryController::class,'update']);
         Route::get('/admin/delete-eventcategory/{id?}', [EventCategoryController::class,'destroy']);
 
         // Sermon Categories
@@ -147,11 +147,11 @@ Route::get('/', function () {
         Route::get('/admin/delete-productcategory/{id?}', [ProductCategoryController::class,'destroy']);
 
         // Events
-        Route::get('/admin/event', [EventController::class,'index']);
-        Route::get('/admin/event-add', [EventController::class,'create']);
+        Route::get('/admin/event/{id?}', [EventController::class,'index']);
+        //Route::get('/admin/event-add', [EventController::class,'create']);
         Route::post('/admin/event-add', [EventController::class,'store']);
-        Route::get('/admin/event-edit/{id?}', [EventController::class,'edit']);
-        Route::post('/admin/event-edit/{id?}', [EventController::class,'update']);
+        //Route::get('/admin/event-edit/{id?}', [EventController::class,'edit']);
+        Route::post('/admin/event/{id?}', [EventController::class,'update']);
         Route::post('/admin/event-file-edit/{id?}', [EventController::class,'updateEventFile']);
         Route::get('/admin/delete-event/{id?}', [EventController::class,'destroy']);
 

@@ -1,8 +1,8 @@
  <!-- Main Sidebar Container -->
  <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
-      <img src="{{ asset('') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+    <a href="{{ url('admin/dashboard') }}" class="brand-link">
+      <img src="{{ asset('') }}" alt="KCCC Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">KCCC</span>
     </a>
 
@@ -117,6 +117,48 @@
                 Banners
               </p>
             </a>
+          </li>
+
+
+          <?php //  CATEGORIES    ?>
+
+          @if(Session::get('page') == "categories-page" || Session::get('page') == "categories" ||  Session::get('page') == "eventcategory" || Session::get('page') == "sermoncategory" )
+             @php $active = "active" @endphp
+          @else
+             @php $active = "" @endphp
+          @endif
+          <li class="nav-item menu-open">
+            <a href="#" class="nav-link {{  $active }}">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Categories
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+            @if(Session::get('page') == "eventcategory")
+             @php $active = "active" @endphp
+            @else
+              @php $active = "" @endphp
+            @endif
+              <li class="nav-item">
+                <a href="{{ url('admin/eventcategory') }}" class="nav-link {{  $active }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Event Categories</p>
+                </a>
+              </li>
+              @if(Session::get('page') == "sermoncategory")
+                @php $active = "active" @endphp
+              @else
+                @php $active = "" @endphp
+              @endif
+              <li class="nav-item">
+                <a href="{{ url('admin/sermoncategory') }}" class="nav-link {{  $active }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Sermon Categories</p>
+                </a>
+              </li>
+            </ul>
           </li>
 
           

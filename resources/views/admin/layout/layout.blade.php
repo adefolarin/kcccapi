@@ -94,6 +94,10 @@
 <script>
   $(function () {
     $("#cmspages").DataTable();
+    $("#tablepages").DataTable({
+      "ordering": false,
+    });
+
 
     //Initialize Select2 Elements
     $('.select2').select2()

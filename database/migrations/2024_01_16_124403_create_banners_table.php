@@ -16,7 +16,7 @@ return new class extends Migration
                 $table->bigInteger('banner_id');
                 $table->text('banner_type');
                 $table->text('banner_name');
-                $table->text('banner_desc');
+                $table->text('banner_desc')->nullable();
                 $table->text('banner_file');
                 $table->date('banner_date');
                 //$table->timestamps();
