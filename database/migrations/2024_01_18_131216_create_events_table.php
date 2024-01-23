@@ -13,7 +13,7 @@ return new class extends Migration
     {
         if(!Schema::hasTable('events')) {
         Schema::create('events', function (Blueprint $table) {
-            $table->bigInteger('events_id')->primary();
+            $table->bigInteger('events_id')->autoIncrement();
             $table->bigInteger('eventcategoriesid');
             $table->text('events_title');
             $table->text('events_desc');

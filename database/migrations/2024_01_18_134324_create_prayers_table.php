@@ -13,7 +13,7 @@ return new class extends Migration
     {
         if(!Schema::hasTable('prayers')) {
         Schema::create('prayers', function (Blueprint $table) {
-            $table->bigInteger('prayers_id')->primary();
+            $table->bigInteger('prayers_id')->autoIncrement();
             $table->text('prayeruser_name');
             $table->text('prayeruser_email');
             $table->text('prayeruser_pnum');

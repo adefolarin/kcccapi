@@ -13,7 +13,7 @@ return new class extends Migration
     {
         if(!Schema::hasTable('devicetokens')) {
         Schema::create('devicetokens', function (Blueprint $table) {
-            $table->bigInteger('devicetokens_id')->primary();
+            $table->bigInteger('devicetokens_id')->autoIncrement();
             $table->bigInteger('tokens_id');
             $table->timestamps();
         });

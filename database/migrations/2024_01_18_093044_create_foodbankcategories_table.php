@@ -13,7 +13,7 @@ return new class extends Migration
     {
         if(!Schema::hasTable('foodbankcategories')) {
         Schema::create('foodbankcategories', function (Blueprint $table) {
-            $table->bigInteger('foodbankcategories_id')->primary();
+            $table->bigInteger('foodbankcategories_id')->autoIncrement();
             $table->text('foodbankcategories_name');
             $table->timestamps();
         });

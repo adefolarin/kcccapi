@@ -13,7 +13,8 @@ return new class extends Migration
     {
         if(!Schema::hasTable('galleries')) {
         Schema::create('galleries', function (Blueprint $table) {
-            $table->bigInteger('galleries_id')->primary();
+            $table->bigInteger('galleries_id')->autoIncrement();
+            $table->bigInteger('gallerycategoriesid');
             $table->text('galleries_file');
             $table->date('galleries_date');
             $table->timestamps();

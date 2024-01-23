@@ -13,7 +13,7 @@ return new class extends Migration
     {
         if(!Schema::hasTable('sermoncategories')) {
         Schema::create('sermoncategories', function (Blueprint $table) {
-            $table->bigInteger('sermoncategories_id')->primary();
+            $table->bigInteger('sermoncategories_id')->autoIncrement();
             $table->text('sermoncategories_name');
             $table->timestamps();
         });

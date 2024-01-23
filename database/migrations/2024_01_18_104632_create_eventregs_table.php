@@ -13,7 +13,7 @@ return new class extends Migration
     {
         if(!Schema::hasTable('eventregs')) {
         Schema::create('eventregs', function (Blueprint $table) {
-            $table->bigInteger('eventregs_id')->primary();
+            $table->bigInteger('eventregs_id')->autoIncrement();
             $table->text('enventuser_name');
             $table->text('enventuser_email');
             $table->text('enventuser_pnum');

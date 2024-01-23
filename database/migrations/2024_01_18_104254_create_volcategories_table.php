@@ -13,7 +13,7 @@ return new class extends Migration
     {
         if(!Schema::hasTable('volcategories')) {
         Schema::create('volcategories', function (Blueprint $table) {
-            $table->bigInteger('volcategories_id')->primary();
+            $table->bigInteger('volcategories_id')->autoIncrement();
             $table->text('volcategories_name');
             $table->timestamps();
         });

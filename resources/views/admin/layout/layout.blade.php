@@ -12,11 +12,27 @@
   <link rel="stylesheet" href="{{ url('admin/plugins/fontawesome-free/css/all.min.css') }}">
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="{{ url('admin/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
-    <!-- Select2 -->
+  <!-- daterange picker -->
+  <link rel="stylesheet" href="{{ url('admin/plugins/daterangepicker/daterangepicker.css') }}">
+  <!-- Select2 -->
   <link rel="stylesheet" href="{{ url('admin/plugins/select2/css/select2.min.css') }}">
   <link rel="stylesheet" href="{{ url('admin/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+    <!-- iCheck for checkboxes and radio inputs -->
+    <link rel="stylesheet" href="{{ url('admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
+  <!-- Bootstrap Color Picker -->
+  <link rel="stylesheet" href="{{ url('admin/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css') }}">
+  <!-- Tempusdominus Bootstrap 4 -->
+  <link rel="stylesheet" href="{{ url('admin/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
+  <!-- Bootstrap4 Duallistbox -->
+  <link rel="stylesheet" href="{{ url('admin/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css') }}">
+  <!-- BS Stepper -->
+  <link rel="stylesheet" href="{{ url('admin/plugins/bs-stepper/css/bs-stepper.min.css') }}">
+  <!-- dropzonejs -->
+  <link rel="stylesheet" href="{{ url('admin/plugins/dropzone/min/dropzone.min.css') }}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ url('admin/css/adminlte.min.css') }}">
+  <!--<link rel="stylesheet" href="{{ url('admin/css/jquery-ui-1.8.4.custom.css') }}">
+  <link rel="stylesheet" href="{{ url('admin/css/jquery-datetimepicker.css') }}">-->
 
   <link rel="stylesheet" href="{{ url('admin/css/custom.css') }}">
 </head>
@@ -52,8 +68,6 @@
 <script src="{{ url('admin/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <!-- overlayScrollbars -->
 <script src="{{ url('admin/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
-<!-- AdminLTE App -->
-<script src="{{ url('admin/js/adminlte.js') }}"></script>
 
 <!-- PAGE PLUGINS -->
 <!-- jQuery Mapael -->
@@ -69,8 +83,6 @@
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{ url('admin/js/pages/dashboard2.js') }}"></script>
 
-<!-- Custom JS File -->
-<script src="{{ url('admin/js/custom.js') }}"></script>
 <!-- DataTables  & Plugins -->
 <script src="{{ url('admin/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ url('admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
@@ -86,6 +98,34 @@
 <script src="{{ url('admin/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 <!-- Select2 -->
 <script src= "{{ url('admin/plugins/select2/js/select2.full.min.js') }}"></script>
+<!-- Bootstrap4 Duallistbox -->
+<script src="{{ url('admin/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js') }}"></script>
+<!-- InputMask -->
+<script src="{{ url('admin/plugins/moment/moment.min.js') }}"></script>
+<script src="{{ url('admin/plugins/inputmask/jquery.inputmask.min.js') }}"></script>
+<!-- date-range-picker -->
+<script src="{{ url('admin/plugins/daterangepicker/daterangepicker.js') }}"></script>
+<!-- bootstrap color picker -->
+<script src="{{ url('admin/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js') }}"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="{{ url('admin/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
+<!-- Bootstrap Switch -->
+<script src="{{ url('admin/plugins/bootstrap-switch/js/bootstrap-switch.min.js') }}"></script>
+<!-- BS-Stepper -->
+<script src="{{ url('admin/plugins/bs-stepper/js/bs-stepper.min.js') }}"></script>
+<!-- dropzonejs -->
+<script src="{{ url('admin/plugins/dropzone/min/dropzone.min.js') }}"></script>
+<!-- AdminLTE App -->
+<!-- date-range-picker -->
+<script src="{{ url('admin/plugins/daterangepicker/daterangepicker.js') }}"></script>
+
+<!--<script src="{{ url('admin/js/jquery.datetimepicker.full.js') }}"></script>-->
+
+<!-- AdminLTE App -->
+<script src="{{ url('admin/js/adminlte.js') }}"></script>
+
+<!-- Custom JS File -->
+<script src="{{ url('admin/js/custom.js') }}"></script>
 
 <!-- Sweet Alert -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -96,6 +136,13 @@
     $("#cmspages").DataTable();
     $("#tablepages").DataTable({
       "ordering": false,
+       scrollY: true,
+
+    });
+
+    $("#divtablepages").DataTable({
+       scrollY: true,
+
     });
 
 
@@ -105,9 +152,43 @@
     //Initialize Select2 Elements
     $('.select2bs4').select2({
       theme: 'bootstrap4'
-    })
+    });
+
+
+
 
   });
 </script>
+
+
+<script>
+
+  $(function () {
+    //'use strict';
+
+    //jQuery('#events_startdate, #events_enddate').datetimepicker({format: 'Y-m-d',timepicker: true });
+    
+      //Date and time picker
+
+    $('#events_startdate').datetimepicker(
+      { 
+        format: 'Y-MM-DD HH:mm',
+        timePicker: true
+      }
+    );
+
+
+    $('#events_enddate').datetimepicker(
+      { 
+        format: 'Y-MM-DD HH:mm',
+        timePicker: true
+      }
+    );
+
+
+});
+
+</script>
+
 </body>
 </html>

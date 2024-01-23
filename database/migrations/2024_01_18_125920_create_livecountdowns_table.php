@@ -13,7 +13,7 @@ return new class extends Migration
     {
         if(!Schema::hasTable('livecountdowns')) {
         Schema::create('livecountdowns', function (Blueprint $table) {
-            $table->bigInteger('livecountdows_id')->primary();
+            $table->bigInteger('livecountdows_id')->autoIncrement();
             $table->dateTime('livecountdowns_datetime');
             $table->timestamps();
         });

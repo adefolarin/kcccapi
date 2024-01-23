@@ -94,7 +94,7 @@
                     </div>
                     <div class="form-group" style="display:none;">
                         <label for="eventcategories_id">Event Category ID</label>
-                        <input type="text" class="form-control"  name="eventcategories_id" id="eventcategories_name" value="{{ $eventcategoryone['eventcategories_id'] }}">
+                        <input type="text" class="form-control"  name="eventcategories_id" id="eventcategories_id" value="{{ $eventcategoryone['eventcategories_id'] }}">
                     </div> 
                     <div class="form-group">
                         <label for="eventcategories_name">Name</label>

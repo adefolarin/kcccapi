@@ -8,6 +8,8 @@ use App\Models\EventCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 
 class EventController extends Controller
 {
@@ -18,13 +20,13 @@ class EventController extends Controller
     {
         Session::put("page", "events");
 
-        $events = DB::table('eventcategories')->join('events','eventcategories.eventcategories_id','=', 'events.eventcategoriesid')->select('events.*','eventcategories.eventcategories_name')->get()->toArray();
+        $eventcategories = EventCategory::query()->get()->toArray();
+
+        $events = DB::table('eventcategories')->orderByDesc('events_id')->join('events','eventcategories.eventcategories_id','=', 'events.eventcategoriesid')->select('events.*','eventcategories.eventcategories_name')->get()->toArray();
 
         if($eventsid == null) {
-            
-          //$events = Event::query()->get()->toArray(); 
-          //return view('admin.event')->with(compact('events'));   
-           return view('admin.event')->with(compact('events'));
+              
+           return view('admin.event')->with(compact('events','eventcategories'));
            //dd($events); die;
            //echo "<prev>"; print_r($events); die;
 
@@ -37,11 +39,9 @@ class EventController extends Controller
             
             //dd($eventcategoryone['eventcategories_name']); die;
             //$events = Event::query()->get()->toArray(); 
-             return view('admin.event')->with(compact('events','eventone','eventcategoryone'));
+             return view('admin.event')->with(compact('events','eventone','eventcategoryone','eventcategories'));
         }
 
-         
-        //dd($CmsPages);
 
     }
 
@@ -58,10 +58,10 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        //$title = "Banner";
-        $eventcategory = new EventCategory;
+
+        $event = new Event;
     
-        $message = "Event Category added succesfully";
+        $message = "Event added succesfully";
 
         if($request->isMethod('post')) {
             $data = $request->all();
@@ -70,32 +70,69 @@ class EventController extends Controller
             // Event Category Vallidations
 
                 $rules = [
-                    'eventcategories_name' => 'required',
+                    'eventcategoriesid' => 'required',
+                    'events_title' => 'required',
+                    'events_desc' => 'required',
+                    'events_file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5240',
+                    'events_startdate' => 'required',
+                    'events_enddate' => 'required',
+                    'events_venue' => 'required',
+                    'events_address' => 'required',
+                    'events_organizer' => 'required',
+                    
                 ];
                 $customMessages = [
-                    'eventcategories_name.required' => 'Name of Event Category is required',
+                    'eventcategoriesid.required' => 'Name of Event Category is required',
+                    'events_title.required' => 'Name of Event Title is required',
+                    'events_desc.required' => 'Name of Event Description is required',
+                    'events_file.required' => 'Name of Event File is required',
+                    'events_file.mimes' => "The Image format is not allowed",
+                    'events_file.max' => "Image upload size can't exceed 5MB",
+                    'events_startdate.required' => 'Name of Event Start Date is required',
+                    'events_enddate.required' => 'Name of Event End Date is required',
+                    'events_venue.required' => 'Name of Event Venue is required',
+                    'events_address.required' => 'Name of Event Address is required',
+                    'events_organizer.required' => 'Name of Event Organizer is required',
                 ];
                      
 
-            $this->validate($request,$rules,$customMessages);
+               $this->validate($request,$rules,$customMessages);
+
+               if($request->hasFile('events_file')) {
+                $image_tmp = $request->file('events_file');
+                if($image_tmp->isValid()) {
+                $manager = new ImageManager(new Driver());
+                $fileName = hexdec(uniqid()).'.'.$image_tmp->getClientOriginalExtension();
+                $image = $manager->read($image_tmp);
+                //$image = $image->resize(60,60);
+    
+                ///$storePath = 'admin/img/events/';
+                $storePath = public_path('admin/img/events/');
+                //$image->toJpeg(80)->save($storePath . $imageName);
+                $image->save($storePath . $fileName);
+                      
+                }
+              } 
 
               $store = [
                 [
-                'eventcategories_name' => $data['eventcategories_name'],
+                'eventcategoriesid' => $data['eventcategoriesid'],
+                'events_title' => $data['events_title'],
+                'events_desc' => $data['events_desc'],
+                'events_file' => $fileName,
+                'events_startdate' => $data['events_startdate'],
+                'events_enddate' => $data['events_enddate'],
+                'events_venue' => $data['events_venue'],
+                'events_address' => $data['events_address'],
+                'events_organizer' => $data['events_organizer'],
+                'events_date' => date("Y-m-d"),
+
                ]
             ];
 
-              //$eventcategoryone = EventCategory::find($data['eventcategories_name']);
-              $eventcategoryone = $eventcategory->where('eventcategories_name', '=', $data['eventcategories_name'])->first();                           
-        
-               //echo "<prev>"; print_r($eventcategoryone['eventcategories_name']); die;
-
-              if($eventcategoryone['eventcategories_name'] == $data['eventcategories_name']) {
-                return redirect('admin/eventcategory')->with('error_message', 'Event Category Name Already Exists'); 
-              } else {
-                $eventcategory->insert($store);
-                return redirect('admin/eventcategory')->with('success_message', $message);
-              }
+                $event->insert($store);
+                return redirect('admin/event')->with('success_message', $message);
+              
 
           }
     }
@@ -123,31 +160,75 @@ class EventController extends Controller
      */
     public function update(Request $request)
     {
-        $message = "Event Category updated succesfully";
+        $message = "Event updated succesfully";
 
         if($request->isMethod('post')) {
             $data = $request->all();
             //echo "<prev>"; print_r($data); die;
 
-            // Banner Vallidations
-                $rules = [
-                'eventcategories_name' => 'required',
-                ];
-            
+            //  Vallidations
+            $rules = [
+                'eventcategoriesid' => 'required',
+                'events_title' => 'required',
+                'events_desc' => 'required',
+                'events_file' => 'image|mimes:jpeg,png,jpg,gif,svg|max:5240',
+                'events_startdate' => 'required',
+                'events_enddate' => 'required',
+                'events_venue' => 'required',
+                'events_address' => 'required',
+                'events_organizer' => 'required',
+            ];
             $customMessages = [
-                'eventcategories_name.required' => 'Name of Event Category is required',
+                'eventcategoriesid.required' => 'Name of Event Category is required',
+                'events_title.required' => 'Name of Event Title is required',
+                'events_desc.required' => 'Name of Event Description is required',
+                'events_file.mimes' => "The Image format is not allowed",
+                'events_file.max' => "Image upload size can't exceed 5MB",
+                'events_startdate.required' => 'Name of Event Start Date is required',
+                'events_enddate.required' => 'Name of Event End Date is required',
+                'events_venue.required' => 'Name of Event Venue is required',
+                'events_address.required' => 'Name of Event Address is required',
+                'events_organizer.required' => 'Name of Event Organizer is required',
             ];
 
             $this->validate($request,$rules,$customMessages);
 
+            if($request->hasFile('events_file') && !empty($request->file('events_file'))) {
+                $image_tmp = $request->file('events_file');
+                if($image_tmp->isValid()) {
+                $manager = new ImageManager(new Driver());
+                $fileName = hexdec(uniqid()).'.'.$image_tmp->getClientOriginalExtension();
+                $image = $manager->read($image_tmp);
+                //$image = $image->resize(60,60);
+    
+                //$storePath = 'admin/img/events/';
+                $storePath = public_path('admin/img/events/');
+                //$image->toJpeg(80)->save($storePath . $imageName);
+                $image->save($storePath . $fileName);
+                            
+                
+                }
+            } else {
+                $fileName = $data['currentevents_file'];
+            }
+
               $store = [
             
-                'eventcategories_name' => $data['eventcategories_name'],
+                'eventcategoriesid' => $data['eventcategoriesid'],
+                'events_title' => $data['events_title'],
+                'events_desc' => $data['events_desc'],
+                'events_file' => $fileName,
+                'events_startdate' => $data['events_startdate'],
+                'events_enddate' => $data['events_enddate'],
+                'events_venue' => $data['events_venue'],
+                'events_address' => $data['events_address'],
+                'events_organizer' => $data['events_organizer'],
+                'events_date' => date("Y-m-d"),
                
             ];
 
-              EventCategory::where('eventcategories_id',$data['eventcategories_id'])->update($store);
-              return redirect('admin/eventcategory/'.$data['eventcategories_id'])->with('success_message', $message);
+              Event::where('events_id',$data['events_id'])->update($store);
+              return redirect('admin/event/'.$data['events_id'])->with('success_message', $message);
 
           }   
     }
@@ -158,8 +239,59 @@ class EventController extends Controller
      */
     public function destroy($eventsid)
     {
-        EventCategory::where('events_id',$eventsid)->delete();
+        Event::where('events_id',$eventsid)->delete();
         return redirect('admin/event')->with('success_message', 'Event deleted successfully');
+    }
+
+
+    public function updateEventFile(Request $request) {
+        $message = "Banner File changed succesfully";
+
+        if($request->isMethod('post')) {
+            $data = $request->all();
+            //echo "<prev>"; print_r($data); die;
+
+            // Banner Vallidations
+
+                $rules = [
+                'events_file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:10240',
+                ];
+                 
+                $customMessages = [
+                    'events_file.required' => 'Event File is required',
+                    'events_file.mimes' => "The Image format is not allowed",
+                    'events_file.max' => "Image upload size can't exceed 10MB",
+                ];
+                   
+            $this->validate($request,$rules,$customMessages);
+
+                if($request->hasFile('events_file')) {
+                    $image_tmp = $request->file('events_file');
+                    if($image_tmp->isValid()) {
+                    $manager = new ImageManager(new Driver());
+                    $fileName = hexdec(uniqid()).'.'.$image_tmp->getClientOriginalExtension();
+                    $image = $manager->read($image_tmp);
+                    //$image = $image->resize(60,60);
+        
+                    $storePath = 'admin/img/events/';
+                    //$image->toJpeg(80)->save($storePath . $imageName);
+                    $image->save($storePath . $fileName);
+                    
+                    
+                    
+                    }
+                } 
+
+              $store = [
+                'events_file' => $fileName,
+                'events_date' => date('Y-m-d'),
+               
+            ];
+
+            Event::where('events_id',$data['events_id'])->update($store);
+            return redirect('admin/event/'.$data['events_id'])->with('success_message', $message);
+
+         }
     }
 
 }

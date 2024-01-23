@@ -13,7 +13,7 @@ return new class extends Migration
     {
         if(!Schema::hasTable('banners')) {
             Schema::create('banners', function (Blueprint $table) {
-                $table->bigInteger('banner_id');
+                $table->bigInteger('banner_id')->autoIncrement();
                 $table->text('banner_type');
                 $table->text('banner_name');
                 $table->text('banner_desc')->nullable();

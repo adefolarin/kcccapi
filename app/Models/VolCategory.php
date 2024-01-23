@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class VolCategory extends Model
 {
     use HasFactory;
+
+    protected $table = "volcategories";
+    protected $primaryKey = "voleventcategories_id";
 }

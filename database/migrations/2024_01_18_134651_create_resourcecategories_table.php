@@ -13,7 +13,7 @@ return new class extends Migration
     {
         if(!Schema::hasTable('resourcecategories')) {
         Schema::create('resourcecategories', function (Blueprint $table) {
-            $table->bigInteger('resourcecategories_id')->primary();
+            $table->bigInteger('resourcecategories_id')->autoIncrement();
             $table->text('resourcecategories_name');
             $table->timestamps();
         });

@@ -158,7 +158,124 @@
                   <p>Sermon Categories</p>
                 </a>
               </li>
+
+              @if(Session::get('page') == "podcastcategory")
+                @php $active = "active" @endphp
+              @else
+                @php $active = "" @endphp
+              @endif
+              <li class="nav-item">
+                <a href="{{ url('admin/podcastcategory') }}" class="nav-link {{  $active }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Podcast Categories</p>
+                </a>
+              </li>
+
+              @if(Session::get('page') == "newscategory")
+                @php $active = "active" @endphp
+              @else
+                @php $active = "" @endphp
+              @endif
+              <li class="nav-item">
+                <a href="{{ url('admin/newscategory') }}" class="nav-link {{  $active }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>News Categories</p>
+                </a>
+              </li>
+
+              @if(Session::get('page') == "deptcategory")
+                @php $active = "active" @endphp
+              @else
+                @php $active = "" @endphp
+              @endif
+              <li class="nav-item">
+                <a href="{{ url('admin/deptcategory') }}" class="nav-link {{  $active }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Department Categories</p>
+                </a>
+              </li>
+
+
+              @if(Session::get('page') == "gallerycategory")
+                @php $active = "active" @endphp
+              @else
+                @php $active = "" @endphp
+              @endif
+              <li class="nav-item">
+                <a href="{{ url('admin/gallerycategory') }}" class="nav-link {{  $active }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Gallery Categories</p>
+                </a>
+              </li>
+
+
+              @if(Session::get('page') == "productcategory")
+                @php $active = "active" @endphp
+              @else
+                @php $active = "" @endphp
+              @endif
+              <li class="nav-item">
+                <a href="{{ url('admin/productcategory') }}" class="nav-link {{  $active }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Product Categories</p>
+                </a>
+              </li>
+
+
+              @if(Session::get('page') == "resourcecategory")
+                @php $active = "active" @endphp
+              @else
+                @php $active = "" @endphp
+              @endif
+              <li class="nav-item">
+                <a href="{{ url('admin/resourcecategory') }}" class="nav-link {{  $active }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Resource Categories</p>
+                </a>
+              </li>
+
+              @if(Session::get('page') == "volcategory")
+                @php $active = "active" @endphp
+              @else
+                @php $active = "" @endphp
+              @endif
+              <li class="nav-item">
+                <a href="{{ url('admin/volcategory') }}" class="nav-link {{  $active }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Volunteer Categories</p>
+                </a>
+              </li>
+
+
+              @if(Session::get('page') == "foodbankcategory")
+                @php $active = "active" @endphp
+              @else
+                @php $active = "" @endphp
+              @endif
+              <li class="nav-item">
+                <a href="{{ url('admin/foodbankcategory') }}" class="nav-link {{  $active }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Food Bank Categories</p>
+                </a>
+              </li>
+
+
+
             </ul>
+          </li>
+
+          @if(Session::get('page') == "events")
+             @php $active = "active" @endphp
+          @else
+             @php $active = "" @endphp
+          @endif
+          <li class="nav-item">
+            <a href="{{ url('admin/event') }}" class="nav-link {{ $active }}">
+              <i class="nav-icon fas fa-image"></i>
+              <p>
+                Events
+              </p>
+            </a>
           </li>
 
           

@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class PodcastCategory extends Model
 {
     use HasFactory;
+
+    protected $table = "podcastcategories";
+    protected $primaryKey = "podcastcategories_id";
 }

@@ -51,14 +51,14 @@ class BannerController extends Controller
                 $rules = [
                 'banner_type' => 'required',
                 'banner_name' => 'required',
-                'banner_file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:10240',
+                'banner_file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5240',
                 ];
                 $customMessages = [
                     'banner_type.required' => 'Banner Type is required',
                     'banner_name.required' => 'Banner Caption is required',
                     'banner_file.required' => 'Banner File is required',
                     'banner_file.mimes' => "The Image format is not allowed",
-                    'banner_file.max' => "Image upload size can't exceed 10MB",
+                    'banner_file.max' => "Image upload size can't exceed 5MB",
                 ];
             } else {
                 $rules = [
@@ -202,7 +202,7 @@ class BannerController extends Controller
                 ];
             } else {
                 $rules = [
-                    'banner_file' => 'required|mimes:mp4|max:1=500240',
+                    'banner_file' => 'required|mimes:mp4|max:500240',
                 ];
                  
                 $customMessages = [

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         if(!Schema::hasTable('resources')) {
         Schema::create('resources', function (Blueprint $table) {
-            $table->bigInteger('resources_id')->primary();
+            $table->bigInteger('resources_id')->autoIncrement();
             $table->bigInteger('resourcecategoriesid');
             $table->text('resources_name');
             $table->text('resources_file');

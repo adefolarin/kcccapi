@@ -13,7 +13,7 @@ return new class extends Migration
     {
         if(!Schema::hasTable('productcategories')) {
         Schema::create('productcategories', function (Blueprint $table) {
-            $table->bigInteger('productcategories_id')->primary();
+            $table->bigInteger('productcategories_id')->autoIncrement();
             $table->text('productcategories_name');
             $table->timestamps();
         });

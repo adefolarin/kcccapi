@@ -13,7 +13,7 @@ return new class extends Migration
     {
         if(!Schema::hasTable('news')) {
         Schema::create('news', function (Blueprint $table) {
-            $table->bigInteger('news_id')->primary();
+            $table->bigInteger('news_id')->autoIncrement();
             $table->bigInteger('newscategoriesid');
             $table->text('news_title');
             $table->text('news_file');
