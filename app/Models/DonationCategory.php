@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class LiveCountDown extends Model
+class DonationCategory extends Model
 {
     use HasFactory;
 
-    protected $table = "livecountdowns";
-    protected $primaryKey = "livecountdowns_id";
+    protected $table = "donationcategories";
+    protected $primaryKey = "donationcategories_id";
 }

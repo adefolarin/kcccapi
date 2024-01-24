@@ -105,16 +105,14 @@ class SermonController extends Controller
 
                $this->validate($request,$rules,$customMessages);
 
-               if($data['sermons_filetype'] == 'local') {
-                if ($request->hasFile('sermon_videofile')) {
-                    $videoFile = $request->file('sermon_videofile');
+               /*if($data['sermons_filetype'] == 'local') {
+                if ($request->hasFile('sermons_videofile')) {
+                    $videoFile = $request->file('sermons_videofile');
                     $fileName = time() . '_' . $videoFile->getClientOriginalExtension();
-                    // Move the uploaded file to the storage directory
-                    //$videoFile->storeAs('public/admin/videos/banners', $fileName);
                     $videoFile->storeAs('admin/videos/sermons', $fileName);
-                    //$videoFile->store()
                  }
-                } else if($data['sermons_filetype'] == 'remote') {
+                }*/
+                if($data['sermons_filetype'] == 'remote') {
                     $fileName = $data['sermons_urlfile'];
                 }
 
@@ -204,21 +202,20 @@ class SermonController extends Controller
             $this->validate($request,$rules,$customMessages);
 
          
-            if($data['sermons_filetype'] == 'local') {
+            /*if($data['sermons_filetype'] == 'local') {
                 if($request->hasFile('sermons_videofile') && !empty($request->file('sermons_videofile'))) {
 
-                    $videoFile = $request->file('sermon_videofile');
+                    $videoFile = $request->file('sermons_videofile');
                     $fileName = time() . '_' . $videoFile->getClientOriginalExtension();
-                    // Move the uploaded file to the storage directory
-                    //$videoFile->storeAs('public/admin/videos/banners', $fileName);
                     $videoFile->storeAs('admin/videos/sermons', $fileName);
-                    //$videoFile->store()
+                   
                 } else {
                     $fileName = $data['currentsermons_file'];
                 }
-            } else if($data['sermons_filetype'] == 'remote') {
+            } */
+              if($data['sermons_filetype'] == 'remote') {
                     $fileName = $data['sermons_urlfile'];
-            }
+              }
 
               $store = [
             

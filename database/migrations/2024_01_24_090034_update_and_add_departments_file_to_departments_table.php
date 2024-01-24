@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        if(!Schema::hasTable('livecountdowns')) {
-        Schema::create('livecountdowns', function (Blueprint $table) {
-            $table->bigInteger('livecountdowns_id')->autoIncrement();
-            $table->dateTime('livecountdowns_datetime');
-            $table->timestamps();
+        Schema::table('departments', function (Blueprint $table) {
+            if (Schema::hasTable('departments')){
+                $table->text('departments_file');
+            }
         });
-        }
     }
 
     /**
@@ -25,6 +23,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('livecountdowns');
+        Schema::table('departments', function (Blueprint $table) {
+            //
+        });
     }
 };

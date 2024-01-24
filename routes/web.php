@@ -156,6 +156,15 @@ Route::get('/', function () {
         Route::post('/admin/productcategory/{id?}', [ProductCategoryController::class,'update']);
         Route::get('/admin/delete-productcategory/{id?}', [ProductCategoryController::class,'destroy']);
 
+
+        // Donation Categories
+        Route::get('/admin/donationcategory/{id?}', [DonationCategoryController::class,'index']);
+        //Route::get('/admin/donationcategory-add', [DonationCategoryController::class,'create']);
+        Route::post('/admin/donationcategory', [DonationCategoryController::class,'store']);
+        //Route::get('/admin/donationcategorycategory-edit/{id?}', [DonationCategoryController::class,'edit']);
+        Route::post('/admin/donationcategory/{id?}', [DonatioCategoryController::class,'update']);
+        Route::get('/admin/delete-donationcategory/{id?}', [DonationCategoryController::class,'destroy']);
+
         // Events
         Route::get('/admin/event/{id?}', [EventController::class,'index']);
         //Route::get('/admin/event-add', [EventController::class,'create']);

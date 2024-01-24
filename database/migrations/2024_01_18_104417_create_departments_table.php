@@ -16,6 +16,7 @@ return new class extends Migration
             $table->bigInteger('departments_id')->autoIncrement();
             $table->bigInteger('deptcategoriesid');
             $table->text('departments_content');
+            $table->text('departments_file');
             $table->text('departments_status');
             $table->text('departments_date');
             $table->timestamps();

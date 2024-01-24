@@ -101,17 +101,22 @@
                     <div class="form-group">
                       <label for="sermons_filetype">Sermon File Type</label>
                       <select  class="form-control select2" id="sermons_filetype" name="sermons_filetype" required style="width: 100%;">
-                          <option value="">Select File Type</option>
+                          <!--<option value="">Select File Type</option>-->
                           <option value="remotefile">Remote</option>
-                          <option value="localfile">Local</option>
+                          <!--<option value="localfile">Local</option>-->
                       </select>
                     </div>
 
                     <!--<div class="form-group">
-                        <label for="sermons_videofile">Image</label>
-                        <input type="file" class="form-control"  name="sermons_videofile" id="sermons_file" placeholder="Sermon Video" required>
-                    </div>           
+                        <label for="sermons_videofile">Video</label>
+                        <input type="file" class="form-control"  name="sermons_videofile" id="sermons_videofile" placeholder="Sermon Video" required>
                     </div>-->
+                    
+                    <div class="form-group">
+                        <label for="sermons_urlfile">Video(Sermon Youtube URL)</label>
+                        <input type="file" class="form-control"  name="sermons_urlfile" id="sermons_urlfile" placeholder="Sermon Youtube URL" required>
+                    </div>  
+                    </div>
                     <!-- /.card-body -->
 
                     <div class="card-footer">
@@ -158,22 +163,29 @@
                     <div class="form-group">
                       <label for="sermons_filetype">Sermon File Type</label>
                       <select  class="form-control select2" id="sermons_filetype" name="sermons_filetype" required style="width: 100%;">
-                         <option value="{{ $sermonone['sermons_filetype'] }}">
-                           {{ $sermonone['sermons_filetype'] }}
-                         </option>
+                         <!--<option value="<?php //{{ $sermonone['sermons_filetype'] }} ?>">
+                           <?php // {{ $sermonone['sermons_filetype'] }} ?>
+                         </option>-->
                           <option value="remote">Remote</option>
-                          <option value="local">Local</option>
+                          <!--<option value="local">Local</option>-->
                       </select>
                     </div>
 
-                        <!--<div class="form-group">
-                            <label for="sermons_file">Image (Optional)</label>
-                            <input type="file" class="form-control"  name="sermons_file" id="sermons_file" placeholder="Sermon Image">
+                      <!--<div class="form-group">
+                            <label for="sermons_file">Video (Optional)</label>
+                            <input type="file" class="form-control"  name="sermons_videoile" id="sermons_videofile" placeholder="Sermon Video">
                         </div> 
                         <div class="form-group" style="display:none;">
-                            <label for="currentsermons_file">Current Image</label>
-                            <input type="text" class="form-control"  name="currentsermons_file" id="currentsermons_file" placeholder="Sermon Image" value="{{ $sermonone['sermons_file'] }}">
-                        </div>-->          
+                            <label for="currentsermons_file">Current Video</label>
+                            <input type="text" class="form-control"  name="currentsermons_file" id="currentsermons_file" placeholder="Sermon Video" value="{{ <?php //$sermonone['sermons_file'] }} ?>">
+                            
+                        </div>--> 
+                        
+                        <div class="form-group">
+                          <label for="sermons_urlfile">Video(Sermon Youtube URL)</label>
+                          <input type="file" class="form-control"  name="sermons_urlfile" id="sermons_urlfile" placeholder="Sermon Youtube URL" required 
+                          value="{{ $sermonone['sermons_file'] }}">
+                         </div>  
                     </div>
                     <!-- /.card-body -->
 
@@ -203,13 +215,9 @@
                   <tr>
                     <th>Category</th>
                     <th>Title</th>
-                    <th>Description</th>
-                    <th>Image</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
-                    <th>Venue</th>
-                    <th>Address</th>
-                    <th>Organizer</th>
+                    <th>File</th>
+                    <th>Location of Sermon</th>
+                    <th>Likes</th>
                     <th>Actions </th>
                   </tr>
                 <thead>
@@ -219,17 +227,14 @@
                   <tr>
                     <td>{{ ucwords($sermon->sermoncategories_name) }}</td>
                     <td>{{ ucwords($sermon->sermons_title) }}</td>
-                    <td>{{ $sermon->sermons_desc }}</td>
                     <td>
-                       <div id="div_img">
-                         <img src="{{ asset('admin/img/sermons/'.$sermon->sermons_file) }}" class="img-circle elevation-2" alt="Sermon Image">
-                       </div>
+                       <div id="div_video">
+                        <iframe width="200" height="300" src="{{ $sermon->sermons_file']) }}">
+                        </iframe>
+                      </div>
                     </td>
-                    <td>{{ ucwords($sermon->sermons_startdate) }}</td>
-                    <td>{{ ucwords($sermon->sermons_enddate) }}</td>
-                    <td>{{ ucwords($sermon->sermons_venue) }}</td>
-                    <td>{{ ucwords($sermon->sermons_address) }}</td>
-                    <td>{{ ucwords($sermon->sermons_organizer) }}</td>
+                    <td>{{ ucwords($sermon->sermons_location) }}</td>
+                    <td>{{ ucwords($sermon->sermons_likes) }}</td>
                     <td>                     
                       <a href="{{  url('admin/sermon/'.$sermon->sermons_id) }}" style="color:#3f6ed3;">
                         <i class="fas fa-edit"></i>
