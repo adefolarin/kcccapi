@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class EventReg extends Model
 {
     use HasFactory;
+
+    protected $table = "eventregs";
+    protected $primaryKey = "eventregs_id";
 }

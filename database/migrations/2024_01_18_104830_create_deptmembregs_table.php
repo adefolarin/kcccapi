@@ -14,10 +14,10 @@ return new class extends Migration
         if(!Schema::hasTable('deptmembregs')) {
         Schema::create('deptmembregs', function (Blueprint $table) {
             $table->bigInteger('deptmembregs_id')->autoIncrement();
-            $table->text('deptmembuser_name');
-            $table->text('deptmembuser_email');
-            $table->text('deptmembuser_pnum');
-            $table->text('deptmembuser_dept');
+            $table->text('deptmembregs_name');
+            $table->text('deptmembregs_email');
+            $table->text('deptmembregs_pnum');
+            $table->text('deptmembregs_dept');
             $table->date('deptmembregs_date');
             $table->timestamps();
         });

@@ -231,7 +231,7 @@
                        <div id="div_video">
                         <iframe width="200" height="300" src="{{ $sermon->sermons_file']) }}">
                         </iframe>
-                      </div>
+                       </div>
                     </td>
                     <td>{{ ucwords($sermon->sermons_location) }}</td>
                     <td>{{ ucwords($sermon->sermons_likes) }}</td>

@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class DeptMembReg extends Model
 {
     use HasFactory;
+
+    protected $table = "deptmembregs";
+    protected $primaryKey = "deptmembregs_id";
 }

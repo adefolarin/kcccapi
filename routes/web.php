@@ -174,6 +174,33 @@ Route::get('/', function () {
         Route::post('/admin/event-file-edit/{id?}', [EventController::class,'updateEventFile']);
         Route::get('/admin/delete-event/{id?}', [EventController::class,'destroy']);
 
+         // Event Gallery
+         Route::get('/admin/eventgallery/{id?}/{id?}', [EventGalleryController::class,'index']);
+         //Route::get('/admin/eventgallery-add{id?}', [EventGalleryController::class,'create']);
+         Route::post('/admin/eventgallery/{id?}', [EventGalleryController::class,'store']);
+         //Route::get('/admin/eventgallery-edit/{id?}/{id?}', [EventController::class,'edit']);
+         Route::post('/admin/eventgallery/{id?}/{id?}', [EventGalleryController::class,'update']);
+         Route::post('/admin/eventgallery-file-edit/{id?}/{id?}', [EventGalleryController::class,'updateEventGalleryFile']);
+         Route::get('/admin/delete-eventgallery/{id?}/{id?}', [EventGalleryController::class,'destroy']);
+
+        // Department Gallery
+        Route::get('/admin/departmentgallery/{id?}/{id?}', [DepartmentGalleryController::class,'index']);
+        //Route::get('/admin/departmentgallery-add{id?}', [DepartmentGalleryController::class,'create']);
+        Route::post('/admin/departmentgallery/{id?}', [DepartmentGalleryController::class,'store']);
+        //Route::get('/admin/departmentgallery-edit/{id?}/{id?}', [DepartmentGalleryController::class,'edit']);
+        Route::post('/admin/departmentgallery/{id?}/{id?}', [DepartmentGalleryController::class,'update']);
+        Route::post('/admin/departmentgallery-file-edit/{id?}/{id?}', [DepartmentGalleryController::class,'updateDepartmentGalleryFile']);
+        Route::get('/admin/delete-departmentgallery/{id?}/{id?}', [DepartmentGalleryController::class,'destroy']);
+
+          // Department Gallery
+        Route::get('/admin/foodbankgallery/{id?}/{id?}', [FoodBankGalleryController::class,'index']);
+        //Route::get('/admin/foodbankgallery-add{id?}', [FoodBankGalleryController::class,'create']);
+        Route::post('/admin/foodbankgallery/{id?}', [FoodBankGalleryController::class,'store']);
+        //Route::get('/admin/foodbankgallery-edit/{id?}/{id?}', [FoodBankGalleryController::class,'edit']);
+        Route::post('/admin/foodbankgallery/{id?}/{id?}', [FoodBankGalleryController::class,'update']);
+        Route::post('/admin/foodbankgallery-file-edit/{id?}/{id?}', [FoodBankGalleryController::class,'updateFoodBankGalleryFile']);
+        Route::get('/admin/delete-foodbankgallery/{id?}/{id?}', [FoodBankGalleryController::class,'destroy']);
+
 
         // Sermons
         Route::get('/admin/sermon/{id?}', [SermonController::class,'index']);
@@ -207,13 +234,13 @@ Route::get('/', function () {
 
 
         // Department Member Registration
-        Route::get('/admin/deptmemb', [DeptMembRegController::class,'index']);
-        //Route::get('/admin/deptmemb-add', [DeptMembRegController::class,'create']);
-        //Route::post('/admin/deptmemb-add', [DeptMembRegController::class,'store']);
-        //Route::get('/admin/deptmemb-edit/{id?}', [DeptMembRegController::class,'edit']);
-        //Route::post('/admin/deptmemb-edit/{id?}', [DeptMembRegController::class,'update']);
-        //Route::post('/admin/deptmemb-file-edit/{id?}', [DeptMembRegController::class,'updateDeptMembFile']);
-        Route::get('/admin/delete-deptmemb/{id?}', [DeptMembRegController::class,'destroy']);
+        Route::get('/admin/deptmembreg', [DeptMembRegController::class,'index']);
+        //Route::get('/admin/deptmembreg-add', [DeptMembRegController::class,'create']);
+        //Route::post('/admin/deptmembreg-add', [DeptMembRegController::class,'store']);
+        //Route::get('/admin/deptmembreg-edit/{id?}', [DeptMembRegController::class,'edit']);
+        //Route::post('/admin/deptmembreg-edit/{id?}', [DeptMembRegController::class,'update']);
+        //Route::post('/admin/deptmembreg-file-edit/{id?}', [DeptMembRegController::class,'updateDeptMembFile']);
+        Route::get('/admin/delete-deptmembreg/{id?}', [DeptMembRegController::class,'destroy']);
 
 
         // Device Token Registration
@@ -265,12 +292,12 @@ Route::get('/', function () {
 
 
         // Live CountDown
-        Route::get('/admin/countdown{id?}', [LiveCountDownController::class,'index']);
-        //Route::get('/admin/countdown-add', [LiveCountDownController::class,'create']);
-        Route::post('/admin/countdown', [LiveCountDownController::class,'store']);
-        //Route::get('/admin/countdown-edit/{id?}', [LiveCountDownController::class,'edit']);
-        Route::post('/admin/countdown/{id?}', [LiveCountDownController::class,'update']);
-        Route::get('/admin/delete-countdown/{id?}', [LiveCountDownController::class,'destroy']);
+        Route::get('/admin/livecountdown{id?}', [LiveCountDownController::class,'index']);
+        //Route::get('/admin/livecountdown-add', [LiveCountDownController::class,'create']);
+        Route::post('/admin/livecountdown', [LiveCountDownController::class,'store']);
+        //Route::get('/admin/livecountdown-edit/{id?}', [LiveCountDownController::class,'edit']);
+        Route::post('/admin/livecountdown/{id?}', [LiveCountDownController::class,'update']);
+        Route::get('/admin/delete-livecountdown/{id?}', [LiveCountDownController::class,'destroy']);
 
 
         // News

@@ -173,7 +173,8 @@
     $('#events_startdate').datetimepicker(
       { 
         format: 'Y-MM-DD HH:mm',
-        timePicker: true
+        timePicker: true,
+        icons: { time: 'far fa-clock' }
       }
     );
 
@@ -181,7 +182,23 @@
     $('#events_enddate').datetimepicker(
       { 
         format: 'Y-MM-DD HH:mm',
-        timePicker: true
+        timePicker: true,
+        icons: { time: 'far fa-clock' }
+      }
+    );
+
+    $('#livecountdowns_datetime').datetimepicker(
+      { 
+        format: 'Y-MM-DD HH:mm',
+        timePicker: true,
+        icons: { time: 'far fa-clock' }
+      }
+    );
+
+
+    $('#foodbanks_date').datetimepicker(
+      { 
+        format: 'Y-MM-DD',
       }
     );
 

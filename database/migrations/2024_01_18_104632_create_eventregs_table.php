@@ -14,11 +14,11 @@ return new class extends Migration
         if(!Schema::hasTable('eventregs')) {
         Schema::create('eventregs', function (Blueprint $table) {
             $table->bigInteger('eventregs_id')->autoIncrement();
-            $table->text('enventuser_name');
-            $table->text('enventuser_email');
-            $table->text('enventuser_pnum');
-            $table->text('enventuser_event');
-            $table->date('enventregs_date');
+            $table->text('eventregs_name');
+            $table->text('eventregs_email');
+            $table->text('eventregs_pnum');
+            $table->text('eventregs_event');
+            $table->date('eventregs_date');
             $table->timestamps();
         });
         }
