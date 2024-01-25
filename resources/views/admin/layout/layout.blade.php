@@ -202,6 +202,14 @@
       }
     );
 
+    $('#voldatetime').datetimepicker(
+      { 
+        format: 'Y-MM-DD HH:mm',
+        timePicker: true,
+        icons: { time: 'far fa-clock' }
+      }
+    );
+
 
 });
 
