@@ -10,5 +10,5 @@ class VolCategory extends Model
     use HasFactory;
 
     protected $table = "volcategories";
-    protected $primaryKey = "voleventcategories_id";
+    protected $primaryKey = "volcategories_id";
 }

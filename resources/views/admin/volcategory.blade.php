@@ -11,12 +11,12 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0">VOLUNTEER CATEGORIES</h1>
+          <h1 class="m-0">VOLUNTEER PROGRAMS</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">VOLUNTEER CATEGORIES</li>
+            <li class="breadcrumb-item active">VOLUNTEER PROGRAMS</li>
           </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
@@ -31,9 +31,9 @@
             <div class="card card-primary">
                 <div class="card-header">
                     @if(empty($volcategoryone['volcategories_id']))
-                     <h3 class="card-title">Add Volunteer Category</h3>
+                     <h3 class="card-title">Add Volunteer Programs</h3>
                     @else
-                     <h3 class="card-title">Edit Volunteer Category</h3>
+                     <h3 class="card-title">Edit Volunteer Programs</h3>
                     @endif
                 </div>
                 <!-- /.card-header -->
@@ -113,11 +113,11 @@
           <div class="col-8">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">VOLUNTEER CATEGORIES</h3>
+                <h3 class="card-title">VOLUNTEER PROGRAMS</h3>
                 @if(!empty($volcategoryone['volcategories_id']))
                 <a href="{{ url('admin/volcategory') }}" class="btn btn-primary" 
                   style="float:right;">
-                   Add Volunteer Categories
+                   Add Volunteer Programs
                 </a>
                 @endif
               </div>
@@ -137,6 +137,11 @@
                     <td>                     
                       <a href="{{  url('admin/volcategory/'.$volcategory['volcategories_id']) }}" style="color:#3f6ed3;">
                         <i class="fas fa-edit"></i>
+                      </a>
+                      &nbsp;&nbsp;
+                      <a href="{{  url('admin/volform/'.$volcategory['volcategories_id']) }}" style="color:#3f6ed3;">
+                         <!--Schedule Time-->
+                        <i class="fas fa-clock"></i>
                       </a>
                       &nbsp;&nbsp;
                       <a href= "javascript:void(0)" record="volcategory" 

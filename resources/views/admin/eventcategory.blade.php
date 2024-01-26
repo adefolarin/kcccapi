@@ -139,8 +139,20 @@
                         <i class="fas fa-edit"></i>
                       </a>
                       &nbsp;&nbsp;
+                      <?php 
+                         //App\Http\Controllers\Admin\EventCategoryController::class; 
+                         //$eventcat = EventCategoryController::showEventCatgoriesID($eventcategory//['eventcategories_id']);
+                      ?>
+
+                      
+                        @inject('eventcat', 'App\Http\Controllers\Admin\EventCategoryController')
+                  
+                        <input type="text" eventcategoriesid="{{ $eventcat->showEventCategoriesID($eventcategory['eventcategories_id']) }}" class="form-control" value="{{ $eventcat->showEventCategoriesID($eventcategory['eventcategories_id']) }}">
+
+              
+        
                       <a href= "javascript:void(0)" record="eventcategory" 
-                      recordid="{{ $eventcategory['eventcategories_id'] }}" <?php //"{{  url('admin/delete-cms-page/'.$page['id']) }}" ?> style="color:#ee4b2b;" class="confirmDelete" name="Event Category" title="Delete Event Category">
+                      recordid="{{ $eventcategory['eventcategories_id'] }}" <?php //"{{  url('admin/delete-cms-page/'.$page['id']) }}" ?> style="color:#ee4b2b;" class="confirmEventDelete" name="Event Category" title="Delete Event Category">
                         <i class="fas fa-trash"></i>
                       </a> 
                     </td>

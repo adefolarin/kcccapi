@@ -48,7 +48,7 @@ class VolCategoryController extends Controller
         //$title = "Banner";
         $volcategory = new VolCategory;
     
-        $message = "Vol Category added succesfully";
+        $message = "Volunteer Program added succesfully";
 
         if($request->isMethod('post')) {
             $data = $request->all();
@@ -60,7 +60,7 @@ class VolCategoryController extends Controller
                     'volcategories_name' => 'required',
                 ];
                 $customMessages = [
-                    'volcategories_name.required' => 'Name of Vol Category is required',
+                    'volcategories_name.required' => 'Name of Volunteer Program is required',
                 ];
                      
 
@@ -73,16 +73,22 @@ class VolCategoryController extends Controller
             ];
 
               //$volcategoryone = VolCategory::find($data['volcategories_name']);
-              $volcategoryone = $volcategory->where('volcategories_name', '=', $data['volcategories_name'])->first();                           
+
+             //$volcategoryone = $volcategory->where('volcategories_name', '=', $data['volcategories_name'])->first();                           
         
                //echo "<prev>"; print_r($volcategoryone['volcategories_name']); die;
 
-              if($volcategoryone['volcategories_name'] == $data['volcategories_name']) {
-                return redirect('admin/volcategory')->with('error_message', 'Vol Category Name Already Exists'); 
-              } else {
-                $volcategory->insert($store);
-                return redirect('admin/volcategory')->with('success_message', $message);
-              }
+              //if(($data['volcategories_name'] != null) && ($volcategoryone['volcategories_name'] == $data['volcategories_name'])) {
+                //return redirect('admin/volcategory')->with('error_message', 'Volunteer Program Name Already Exists'); 
+              //} else {
+                if ($volcategory->where('volcategories_name', $data['volcategories_name'])->exists()) {
+                    return redirect('admin/volcategory')->with('error_message', 'Volunteer Program Name Already Exists');
+                } else {
+                    $volcategory->insert($store);
+                    return redirect('admin/volcategory')->with('success_message', $message);
+                }
+              
+              //}
 
           }
     }
@@ -110,7 +116,7 @@ class VolCategoryController extends Controller
      */
     public function update(Request $request)
     {
-        $message = "Vol Category updated succesfully";
+        $message = "Volunteer Program updated succesfully";
 
         if($request->isMethod('post')) {
             $data = $request->all();
@@ -122,7 +128,7 @@ class VolCategoryController extends Controller
                 ];
             
             $customMessages = [
-                'volcategories_name.required' => 'Name of Vol Category is required',
+                'volcategories_name.required' => 'Name of Volunteer Program is required',
             ];
 
             $this->validate($request,$rules,$customMessages);
@@ -133,8 +139,13 @@ class VolCategoryController extends Controller
                
             ];
 
+            if (VolCategory::where('volcategories_name', $data['volcategories_name'])->exists()) {
+                return redirect('admin/volcategory/' . $data['volcategories_id'])->with('error_message', 'Volunteer Program Name Already Exists');
+            } 
+             else {
               VolCategory::where('volcategories_id',$data['volcategories_id'])->update($store);
               return redirect('admin/volcategory/'.$data['volcategories_id'])->with('success_message', $message);
+             }
 
           }   
     }
@@ -146,6 +157,6 @@ class VolCategoryController extends Controller
     public function destroy($evencategoriesid)
     {
         VolCategory::where('volcategories_id',$evencategoriesid)->delete();
-        return redirect('admin/volcategory')->with('success_message', 'Vol Category deleted successfully');
+        return redirect('admin/volcategory')->with('success_message', 'Volunteer Program deleted successfully');
     }
 }

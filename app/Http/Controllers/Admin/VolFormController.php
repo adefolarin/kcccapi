@@ -16,28 +16,35 @@ class VolFormController extends Controller
             /**
      * Display a listing of the resource.
      */
-    public function index($volformsid = null)
+    public function index($volcategoriesid,$volformsid = null)
     {
-        Session::put("page", "volforms");
+        Session::put("page", "volcategory");
 
         $volcategories = VolCategory::query()->get()->toArray();
 
-        $volforms = DB::table('volcategories')->orderByDesc('volforms_id')->join('volforms','volcategories.volcategories_id','=', 'volforms.volcategoriesid')->select('volforms.*','volcategories.volcategories_name')->get()->toArray();
+        $volcategoryone = VolCategory::where('volcategories_id', $volcategoriesid)->first();
+
+        $volforms = DB::table('volcategories')->where('volcategories_id',$volcategoriesid)->orderByDesc('volforms_id')->join('volforms','volcategories.volcategories_id','=', 'volforms.volcategoriesid')->select('volforms.*','volcategories.volcategories_name')->get()->toArray();
 
         if($volformsid == null) {
               
-           return view('admin.volform')->with(compact('volforms','volcategories'));
+           return view('admin.volform')->with(compact('volforms','volcategories','volcategoryone'));
            //dd($volforms); die;
            //echo "<prev>"; print_r($volforms); die;
 
         } else {
             $volform = new VolForm;
             $volcategory = new VolCategory;
+        
             $volformone = $volform->where('volforms_id', $volformsid)->first();
 
-            $volcategoryone = $volcategory->where('volcategories_id', $volformone['volcategoriesid'])->first(); 
+            //$volcategoryone = $volcategory->where('volcategories_id', $volformone['volcategoriesid'])->first(); 
             
-            //dd($volformcategoryone['volformcategories_name']); die;
+            //dd($volformone['volcategoriesid']); die;
+            //dd($volcategoryone['volcategories_name']); die;
+            //if(!empty($volformone['volcategoriesid'])) {
+              //echo "<prev>"; print_r($volformone['volcategoriesid']); die;
+            //}
             //$volforms = VolForm::query()->get()->toArray(); 
              return view('admin.volform')->with(compact('volforms','volformone','volcategoryone','volcategories'));
         }
@@ -90,7 +97,7 @@ class VolFormController extends Controller
             ];
 
                 $volform->insert($store);
-                return redirect('admin/volform')->with('success_message', $message);
+                return redirect('admin/volform/' . $data['volcategoriesid'])->with('success_message', $message);
               
 
           }
@@ -145,7 +152,7 @@ class VolFormController extends Controller
             ];
 
               VolForm::where('volforms_id',$data['volforms_id'])->update($store);
-              return redirect('admin/volform/'.$data['volforms_id'])->with('success_message', $message);
+              return redirect('admin/volform/'.$data['volcategoriesid'].'/'.$data['volforms_id'])->with('success_message', $message);
 
           }   
     }
@@ -154,10 +161,10 @@ class VolFormController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($volformsid)
+    public function destroy($volcategoriesid,$volformsid)
     {
         VolForm::where('volforms_id',$volformsid)->delete();
-        return redirect('admin/volform')->with('success_message', 'Volunteer Date and Time deleted successfully');
+        return redirect('admin/volform/' . $volcategoriesid)->with('success_message', 'Volunteer Date and Time deleted successfully');
     }
 
 }

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\EventCategory;
+use App\Models\Event;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -15,6 +17,8 @@ class EventCategoryController extends Controller
     public function index($eventcategoriesid = null)
     {
         Session::put("page", "eventcategory");
+   
+         //echo "<prev>"; print_r($events); die;
 
         if($eventcategoriesid == null) {
           $eventcategories = EventCategory::query()->get()->toArray(); 
@@ -30,6 +34,11 @@ class EventCategoryController extends Controller
          
         //dd($CmsPages);
 
+    }
+
+    public static function showEventCategoriesID($eventcategoriesid) {
+
+        return DB::table('eventcategories')->where('eventcategories_id',$eventcategoriesid)->orderByDesc('events_id')->join('events','eventcategories.eventcategories_id','=', 'events.eventcategoriesid')->select('events.*','eventcategories.eventcategories_name')->first();
     }
 
     /**
@@ -73,12 +82,13 @@ class EventCategoryController extends Controller
             ];
 
               //$eventcategoryone = EventCategory::find($data['eventcategories_name']);
-              $eventcategoryone = $eventcategory->where('eventcategories_name', '=', $data['eventcategories_name'])->first();                           
+              //$eventcategoryone = $eventcategory->where('eventcategories_name', '=', $data['eventcategories_name'])->first();                           
         
                //echo "<prev>"; print_r($eventcategoryone['eventcategories_name']); die;
 
-              if($eventcategoryone['eventcategories_name'] == $data['eventcategories_name']) {
-                return redirect('admin/eventcategory')->with('error_message', 'Event Category Name Already Exists'); 
+
+              if (EventCategory::where('eventcategories_name', $data['eventcategories_name'])->exists()) {
+                return redirect('admin/eventcategory')->with('error_message', 'Event Category Name Already Exists');
               } else {
                 $eventcategory->insert($store);
                 return redirect('admin/eventcategory')->with('success_message', $message);
@@ -133,8 +143,13 @@ class EventCategoryController extends Controller
                
             ];
 
+            if (EventCategory::where('eventcategories_name', $data['eventcategories_name'])->exists()) {
+                return redirect('admin/eventcategory/'.$data['eventcategories_id'])->with('error_message', 'Event Category Name Already Exists');
+            }
+            else {
               EventCategory::where('eventcategories_id',$data['eventcategories_id'])->update($store);
               return redirect('admin/eventcategory/'.$data['eventcategories_id'])->with('success_message', $message);
+            }
 
           }   
     }
@@ -143,9 +158,16 @@ class EventCategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($evencategoriesid)
+    public function destroy($eventcategoriesid)
     {
-        EventCategory::where('eventcategories_id',$evencategoriesid)->delete();
-        return redirect('admin/eventcategory')->with('success_message', 'Event Category deleted successfully');
+        $events = DB::table('eventcategories')->where('eventcategoriesid',$eventcategoriesid)->orderByDesc('events_id')->join('events','eventcategories.eventcategories_id','=', 'events.eventcategoriesid')->select('events.*','eventcategories.eventcategories_name')->first();
+
+        if($events->eventcategoriesid != $eventcategoriesid) {
+           EventCategory::where('eventcategories_id',$eventcategoriesid)->delete();
+           return redirect('admin/eventcategory')->with('success_message', 'Event Category deleted successfully');
+        }
+        else {
+            return redirect('admin/eventcategory')->with('error_message', "You cannot delete a category that has data connected to it"); 
+        }
     }
 }

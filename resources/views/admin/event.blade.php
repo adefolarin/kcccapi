@@ -23,6 +23,7 @@
   </div>
   <!-- /.content-header -->
 
+  @if(!empty($eventcategories))
   <section class="content">
       <div class="container-fluid">
         <div class="row">
@@ -109,8 +110,8 @@
                        <div class="input-group date" id="events_enddate" 
                        data-target-input="nearest">
                         <input type="text" class="form-control datetimepicker-input" data-target="#events_enddate" required name="events_enddate">
-                        <div class="input-group-append" data-target="#events_end
-                        date" data-toggle="datetimepicker">
+                        <div class="input-group-append" 
+                        data-target="#events_enddate" data-toggle="datetimepicker">
                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                         </div>
                        </div> 
@@ -293,6 +294,21 @@
       </div>
       <!-- /.container-fluid -->
     </section>
+@else
+<section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+          <div class="card card-primary">
+                <div class="card-header">
+                  <h4 class="text-center" style="text-transform:uppercase;">There must be at least one event category before you can proceed</h4>
+                </div>
+          </div>
+          </div>
+        </div>
+       </div>
+</section>
+@endif
 </div>
 <!-- /.content-wrapper -->
 

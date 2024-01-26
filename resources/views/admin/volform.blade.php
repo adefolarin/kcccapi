@@ -10,7 +10,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0">VOLUNTEER DATE AND TIME</h1>
+          <h5 class="m-0">Volunteer Date and Time ( {{ $volcategoryone['volcategories_name'] }} )</h5>
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
@@ -66,22 +66,19 @@
                 </div>
                 @endif
                 
-                @if(empty($eventone['events_id']))
-                <form method="post" action="{{ url('admin/volform') }}" enctype="multipart/form-data">@csrf
+                @if(empty($volformone['volforms_id']))
+                <form method="post" action="{{ url('admin/volform/' . $volcategoryone['volcategories_id']) }}" enctype="multipart/form-data">@csrf
                     <div class="card-body">
                     <div class="form-group" style="display:none;">
                         <label for="admin_id">Admin ID</label>
                         <input type="hidden"  class="form-control" id="admin_id" value="{{ Auth::guard('admin')->user()->id }}" readonly>
                     </div>
-                    <div class="form-group">
-                      <label for="volcategories_name">Volunteer Category Name</label>
+                    <div class="form-group" style="display:none;">
+                      <label for="volcategories_name">Volunteer Programm Name</label>
                       <select  class="form-control select2" id="volcategoriesid" name="volcategoriesid" required style="width: 100%;">
-                      @foreach($volcategories as $volcategory) 
-                          <option value="">Select Volunteer Category</option>
-                          <option value="{{ $volcategory['volcategories_id'] }}">
-                            {{ ucwords($volcategory['volcategories_name']) }}
+                          <option value="{{ $volcategoryone['volcategories_id'] }}">
+                            {{ ucwords($volcategoryone['volcategories_name']) }}
                           </option>
-                      @endforeach
                       </select>
                     </div>
                       
@@ -103,7 +100,7 @@
                     </div>
                 </form>
                 @else
-                <form method="post" action="{{ url('admin/volform/'. $volformone->volforms_id) }}" enctype="multipart/form-data">@csrf
+                <form method="post" action="{{ url('admin/volform/' . $volcategoryone['volcategories_id'] . '/' . $volformone['volforms_id']) }}" enctype="multipart/form-data">@csrf
                     <div class="card-body">
                     <div class="form-group" style="display:none;">
                         <label for="admin_id">Admin ID</label>
@@ -114,16 +111,11 @@
                         <input type="text" class="form-control"  name="volforms_id" id="volforms_id" value="{{ $volformone['volforms_id'] }}" required>
                     </div> 
                     <div class="form-group">
-                      <label for="volcategories_name">Volunteer Category Name</label>
+                      <label for="volcategories_name">Volunteer Programe Name</label>
                       <select  class="form-control select2" id="volcategoriesid" name="volcategoriesid" required style="width: 100%;">
                       <option value="{{ $volcategoryone['volcategories_id'] }}">
                         {{ $volcategoryone['volcategories_name'] }}
                       </option>
-                      @foreach($volcategories as $volcategory) 
-                          <option value="{{ $volcategory['volcategories_id'] }}">
-                            {{ ucwords($volcategory['volcategories_name']) }}
-                          </option>
-                      @endforeach
                       </select>
                     </div>
                     <div class="form-group">
@@ -149,9 +141,9 @@
           <div class="col-8">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Volunteer Date and Time</h3>
+                <h3 class="card-title">Volunteer Date and Time ( {{ $volcategoryone['volcategories_name'] }} )</h3>
                 @if(!empty($volformone['volforms_id']))
-                <a href="{{ url('admin/volform') }}" class="btn btn-primary" 
+                <a href="{{ url('admin/volform/' . $volcategoryone['volcategories_id']) }}" class="btn btn-primary" 
                   style="float:right;">
                    Add Volunteer Date and Time
                 </a>
@@ -163,7 +155,6 @@
                   
                 <thead>
                   <tr>
-                    <th>Category</th>
                     <th>Date and Time</th>
                     <th>Actions </th>
                   </tr>
@@ -172,15 +163,14 @@
                   <tbody> 
                     @foreach($volforms as $volform)           
                   <tr>
-                    <td>{{ ucwords($volform->volcategories_name) }}</td>
-                    <td>{{ ucwords($volform->datetime) }}</td>
+                    <td>{{ ucwords($volform->voldatetime) }}</td>
                     <td>                     
-                      <a href="{{  url('admin/volform/'.$volform->volforms_id) }}" style="color:#3f6ed3;">
+                      <a href="{{  url('admin/volform/'.$volform->volcategoriesid.'/'.$volform->volforms_id) }}" style="color:#3f6ed3;">
                         <i class="fas fa-edit"></i>
                       </a>
                       &nbsp;&nbsp;
                       <a href= "javascript:void(0)" record="volform" 
-                      recordid="{{ $volform->volforms_id }}" <?php //"{{  url('admin/delete-cms-page/'.$page['id']) }}" ?> style="color:#ee4b2b;" class="confirmDelete" name="Volunteer Form" title="Delete Volunteer Date and Time">
+                      recordid="{{ $volform->volcategoriesid . '/' .$volform->volforms_id }}" <?php //"{{  url('admin/delete-cms-page/'.$page['id']) }}" ?> style="color:#ee4b2b;" class="confirmDelete" name="Volunteer Form" title="Delete Volunteer Date and Time">
                         <i class="fas fa-trash"></i>
                       </a> 
                     </td>

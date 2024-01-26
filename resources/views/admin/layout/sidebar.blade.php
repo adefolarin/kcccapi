@@ -57,7 +57,7 @@
           @else
              @php $active = "" @endphp
           @endif
-          <li class="nav-item menu-open">
+          <li class="nav-item menu-close">
             <a href="#" class="nav-link {{  $active }}">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
@@ -122,12 +122,12 @@
 
           <?php //  CATEGORIES    ?>
 
-          @if(Session::get('page') == "categories-page" || Session::get('page') == "categories" ||  Session::get('page') == "eventcategory" || Session::get('page') == "sermoncategory" )
+          @if(Session::get('page') == "categories-page" || Session::get('page') == "categories" ||  Session::get('page') == "eventcategory" || Session::get('page') == "sermoncategory" || Session::get('page') == "productcategory" || Session::get('page') == "foodbankcategory" || Session::get('page') == "deptcategory" || Session::get('page') == "donationcategory")
              @php $active = "active" @endphp
           @else
              @php $active = "" @endphp
           @endif
-          <li class="nav-item menu-open">
+          <li class="nav-item menu-close">
             <a href="#" class="nav-link {{  $active }}">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
@@ -234,18 +234,6 @@
                 </a>
               </li>
 
-              @if(Session::get('page') == "volcategory")
-                @php $active = "active" @endphp
-              @else
-                @php $active = "" @endphp
-              @endif
-              <li class="nav-item">
-                <a href="{{ url('admin/volcategory') }}" class="nav-link {{  $active }}">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Volunteer Categories</p>
-                </a>
-              </li>
-
 
               @if(Session::get('page') == "foodbankcategory")
                 @php $active = "active" @endphp
@@ -274,6 +262,20 @@
               <i class="nav-icon fas fa-image"></i>
               <p>
                 Events
+              </p>
+            </a>
+          </li>
+
+          @if(Session::get('page') == "volcategory")
+             @php $active = "active" @endphp
+          @else
+             @php $active = "" @endphp
+          @endif
+          <li class="nav-item">
+            <a href="{{ url('admin/volcategory') }}" class="nav-link {{ $active }}">
+              <i class="nav-icon fas fa-cog"></i>
+              <p>
+                Volunteer Programs
               </p>
             </a>
           </li>

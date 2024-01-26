@@ -106,12 +106,53 @@ $(document).ready(function() {
           if (result.isConfirmed) {
             Swal.fire({
               title: "Deleted!",
-              text: "Your file has been deleted.",
+              text: "Deletion Successful.",
               icon: "success"
             }); 
             window.location.href = "/admin/delete-" + record + '/' + recordid;
           }
         });
+    });
+
+
+    $(document).on("click",".confirmEventDelete", function() {
+      let record = $(this).attr('record');
+      let recordid= $(this).attr('recordid');
+      let eventcategoriesid= $(this).attr('eventategoriesid');
+
+      if(recordid != eventcategoriesid) {
+      Swal.fire({
+          title: "Are you sure?",
+          text: "You won't be able to revert this!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+          if (result.isConfirmed) {
+            Swal.fire({
+              title: "Deleted!",
+              text: "Deletion Successful.",
+              icon: "success"
+            }); 
+            window.location.href = "/admin/delete-" + record + '/' + recordid;
+          }
+        });
+      } else {
+        Swal.fire({
+          title: "!!!OOPS?",
+          text: "This category is connected to some data. Therefore you cannot delete it!",
+          icon: "warning",
+          showCancelButton: true,
+          showConfirmButton: false,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          //confirmButtonText: "Yes, delete it!"
+        });
+      }
+
+
     });
       
     
