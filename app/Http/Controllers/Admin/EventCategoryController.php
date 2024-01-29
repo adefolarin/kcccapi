@@ -38,7 +38,7 @@ class EventCategoryController extends Controller
 
     public static function showEventCategoriesID($eventcategoriesid) {
 
-        return DB::table('eventcategories')->where('eventcategories_id',$eventcategoriesid)->orderByDesc('events_id')->join('events','eventcategories.eventcategories_id','=', 'events.eventcategoriesid')->select('events.*','eventcategories.eventcategories_name')->first();
+        return DB::table('eventcategories')->where('eventcategories_id',$eventcategoriesid)->join('events','eventcategories.eventcategories_id','=', 'events.eventcategoriesid')->select('events.*','eventcategories.eventcategories_name')->first();
     }
 
     /**
@@ -158,16 +158,20 @@ class EventCategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($eventcategoriesid)
+    public function destroy($eventcategories_id)
+    
     {
-        $events = DB::table('eventcategories')->where('eventcategoriesid',$eventcategoriesid)->orderByDesc('events_id')->join('events','eventcategories.eventcategories_id','=', 'events.eventcategoriesid')->select('events.*','eventcategories.eventcategories_name')->first();
 
-        if($events->eventcategoriesid != $eventcategoriesid) {
-           EventCategory::where('eventcategories_id',$eventcategoriesid)->delete();
-           return redirect('admin/eventcategory')->with('success_message', 'Event Category deleted successfully');
+        if(DB::table('events')->where('eventcategoriesid', $eventcategories_id)->doesntExist()) {
+
+            EventCategory::where('eventcategories_id',$eventcategories_id)->delete();
+            return redirect('admin/eventcategory')->with('success_message', 'Event Category deleted successfully');
         }
-        else {
+         
+        else if(DB::table('events')->where('eventcategoriesid', $eventcategories_id)->exists()) {
+
             return redirect('admin/eventcategory')->with('error_message', "You cannot delete a category that has data connected to it"); 
         }
+
     }
 }

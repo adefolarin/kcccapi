@@ -118,7 +118,14 @@ $(document).ready(function() {
     $(document).on("click",".confirmEventDelete", function() {
       let record = $(this).attr('record');
       let recordid= $(this).attr('recordid');
-      let eventcategoriesid= $(this).attr('eventategoriesid');
+
+      //let eventcategoriesid = $('#eventcategoriesid-' + recordid).val();
+
+      //let eventcategoriesid = document.getElementById("eventcategoriesid").value();
+
+      //let eventcategoriesid = $('#eventcategoriesid').val();
+
+      let eventcategoriesid = $(this).attr('eventcategoriesid');
 
       if(recordid != eventcategoriesid) {
       Swal.fire({

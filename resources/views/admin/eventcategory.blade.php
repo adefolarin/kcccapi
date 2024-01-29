@@ -144,17 +144,25 @@
                          //$eventcat = EventCategoryController::showEventCatgoriesID($eventcategory//['eventcategories_id']);
                       ?>
 
-                      
-                        @inject('eventcat', 'App\Http\Controllers\Admin\EventCategoryController')
-                  
-                        <input type="text" eventcategoriesid="{{ $eventcat->showEventCategoriesID($eventcategory['eventcategories_id']) }}" class="form-control" value="{{ $eventcat->showEventCategoriesID($eventcategory['eventcategories_id']) }}">
+                     @php
+                         $eventcat = App\Http\Controllers\Admin\EventCategoryController::showEventCategoriesID($eventcategory['eventcategories_id']);      
 
-              
+                      @endphp
+                      
+                    
         
-                      <a href= "javascript:void(0)" record="eventcategory" 
-                      recordid="{{ $eventcategory['eventcategories_id'] }}" <?php //"{{  url('admin/delete-cms-page/'.$page['id']) }}" ?> style="color:#ee4b2b;" class="confirmEventDelete" name="Event Category" title="Delete Event Category">
-                        <i class="fas fa-trash"></i>
-                      </a> 
+                      @if(!empty($eventcat->eventcategoriesid))
+                        <a href= "javascript:void(0)" record="eventcategory" 
+                        eventcategoriesid="{{ $eventcat->eventcategoriesid }}" 
+                        recordid="{{ $eventcategory['eventcategories_id'] }}" <?php //"{{  url('admin/delete-cms-page/'.$page['id']) }}" ?> style="color:#ee4b2b;" class="confirmEventDelete" name="Event Category" title="Delete Event Category">
+                          <i class="fas fa-trash"></i>
+                        </a> 
+                       @else
+                       <a href= "javascript:void(0)" record="eventcategory" eventcategoriesid="0" 
+                        recordid="{{ $eventcategory['eventcategories_id'] }}" <?php //"{{  url('admin/delete-cms-page/'.$page['id']) }}" ?> style="color:#ee4b2b;" class="confirmEventDelete" name="Event Category" title="Delete Event Category">
+                          <i class="fas fa-trash"></i>
+                        </a>
+                       @endif
                     </td>
                     </tr>   
                      @endforeach
