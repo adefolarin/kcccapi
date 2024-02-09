@@ -79,7 +79,7 @@
                     <label for="banner_id">Banner ID*</label>
                     <input type="text" class="form-control" id="banner_id" name="banner_id" required @if(!empty($banner['banner_id'])) value="{{ $banner['banner_id'] }}" @endif readonly>
                   </div>
-                <div class="form-group">
+                <div class="form-group" style="display:none;">
                     <label for="banner_type">Banner File Type*</label>
                     <select  class="form-control select2" id="banner_type" name="banner_type" required style="width: 100%;">
                         <option @if(!empty($banner['banner_type'])) value="{{ $banner['banner_type'] }}" @endif>@if(!empty($banner['banner_type'])) {{ ucwords($banner['banner_type']) }} @endif</option>
@@ -108,7 +108,7 @@
 
               <hr style="border-top:1px solid grey;">
 
-              <h5 class="text-center alert alert-primary">Change Banner Image / Video</h5>
+              <h5 class="text-center alert alert-primary">Change Banner Video</h5>
               <hr style="border-top:1px solid grey;">
               <div>
                     @if($banner['banner_type'] == 'image')
@@ -131,13 +131,13 @@
                     <label for="banner_id">Banner ID*</label>
                     <input type="text" class="form-control" id="banner_id" name="banner_id" required @if(!empty($banner['banner_id'])) value="{{ $banner['banner_id'] }}" @endif readonly>
                  </div>
-                 <div class="form-group">
+                 <div class="form-group" style="display:none;">
                     <label for="banner_type">Banner Type</label>
                     <input type="text" class="form-control" id="banner_type" name="banner_type" required @if(!empty($banner['banner_type'])) value="{{ $banner['banner_type'] }}" @endif readonly>
                  </div>
 
                  <div class="form-group">
-                    <label for="banner_file">Banner File(Image / Video)*</label>
+                    <label for="banner_file">Banner File(Video)*</label>
                     <input type="file" class="form-control" id="banner_file" name="banner_file">
                       </a>
                   </div>

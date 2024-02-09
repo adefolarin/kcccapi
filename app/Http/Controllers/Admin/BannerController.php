@@ -99,10 +99,10 @@ class BannerController extends Controller
              } else if($data['banner_type'] == 'video') {
                 if ($request->hasFile('banner_file')) {
                     $videoFile = $request->file('banner_file');
-                    $fileName = time() . '_' . $videoFile->getClientOriginalExtension();
+                    $fileName = time() . '.' . $videoFile->getClientOriginalExtension();
                     // Move the uploaded file to the storage directory
-                    //$videoFile->storeAs('public/admin/videos/banners', $fileName);
-                    $videoFile->storeAs('admin/videos/banners', $fileName);
+                    $videoFile->storeAs('public/admin/videos/banners', $fileName);
+                    //$videoFile->storeAs('admin/videos/banners', $fileName);
                     //$videoFile->store()
                  }
             }
@@ -235,10 +235,10 @@ class BannerController extends Controller
              } else if($data['banner_type'] == 'video') {
                 if ($request->hasFile('banner_file')) {
                     $videoFile = $request->file('banner_file');
-                    $fileName = time() . '_' . $videoFile->getClientOriginalExtension();
+                    $fileName = time() . '.' . $videoFile->getClientOriginalExtension();
                     // Move the uploaded file to the storage directory
-                    //$videoFile->storeAs('public/admin/videos/banners', $fileName);
-                    $videoFile->storeAs('admin/videos/banners', $fileName);
+                    $videoFile->storeAs('public/admin/videos/banners', $fileName);
+                    //$videoFile->storeAs('admin/videos/banners', $fileName);
                     //$videoFile->store()
                  }
             }

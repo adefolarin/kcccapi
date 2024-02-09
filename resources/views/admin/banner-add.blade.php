@@ -69,11 +69,11 @@
                     <label for="admin_id">Admin ID</label>
                     <input type="hidden"  class="form-control" id="admin_id" value="{{ Auth::guard('admin')->user()->id }}" readonly>
                   </div>
-                  <div class="form-group">
+                  <div class="form-group" style="display:none;">
                     <label for="banner_type">Banner File Type*</label>
                     <select  class="form-control select2" id="banner_type" name="banner_type" required style="width: 100%;">
-                        <option value="">Select Banner Type</option>
-                        <option value="image">Image</option>
+                        <!--<option value="">Select Banner Type</option>
+                        <option value="image">Image</option>-->
                         <option value="video">Video</option>
                     </select>
                   </div>
@@ -86,7 +86,7 @@
                     <textarea class="form-control" id="banner_desc" name="banner_desc" placeholder="Banner Description"></textarea>
                   </div>
                   <div class="form-group">
-                    <label for="banner_file">Banner File(Image / Video)*</label>
+                    <label for="banner_file">Banner File(Video)*</label>
                     <input type="file" class="form-control" id="banner_file" name="banner_file">
                       </a>
                   </div>

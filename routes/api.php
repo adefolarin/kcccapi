@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FrontEndApi\BannerController;
+use App\Http\Controllers\FrontEndApi\EventController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +19,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/banner', [BannerController::class,'index']);
+
+Route::get('/event/{id?}', [EventController::class,'index']);
+Route::get('/nextevent', [EventController::class,'getNextEvent']);
