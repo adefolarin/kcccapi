@@ -17,7 +17,7 @@ return new class extends Migration
             $table->text('eventregs_name');
             $table->text('eventregs_email');
             $table->text('eventregs_pnum');
-            $table->text('eventregs_event');
+            $table->bigInteger('eventregs_event');
             $table->date('eventregs_date');
             $table->timestamps();
         });

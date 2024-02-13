@@ -17,6 +17,7 @@ return new class extends Migration
                 $table->renameColumn('enventuser_email', 'eventregs_email');
                 $table->renameColumn('enventuser_pnum', 'eventregs_pnum');
                 $table->renameColumn('enventuser_event', 'eventregs_event');
+                $table->renameColumn('eventregs_date', 'eventregs_date');
             }
         });
     }

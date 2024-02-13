@@ -17,7 +17,7 @@ return new class extends Migration
             $table->text('deptmembregs_name');
             $table->text('deptmembregs_email');
             $table->text('deptmembregs_pnum');
-            $table->text('deptmembregs_dept');
+            $table->bigInteger('deptmembregs_dept');
             $table->date('deptmembregs_date');
             $table->timestamps();
         });

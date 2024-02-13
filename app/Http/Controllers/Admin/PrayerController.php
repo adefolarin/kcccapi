@@ -11,9 +11,24 @@ class PrayerController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($prayerid = null)
     {
-        //
+        Session::put("page", "prayer");
+
+        if($prayerid == null) {
+          $prayer = Prayer::query()->get()->toArray(); 
+          return view('admin.prayer')->with(compact('prayer'));
+        } else {
+            $prayerone = Prayer::find($prayerid);
+            //$banner = Banner::where('banner_id',$bannerid);
+            $prayer = Prayer::query()->get()->toArray(); 
+           return view('admin.prayer')->with(compact('prayer','prayerone'));
+    
+        }
+
+         
+        //dd($CmsPages);
+
     }
 
     /**
@@ -59,8 +74,9 @@ class PrayerController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Prayer $prayer)
+    public function destroy($prayerid)
     {
-        //
+        Prayer::where('prayer_id',$prayerid)->delete();
+        return redirect('admin/prayer')->with('success_message', 'Prayer Request deleted successfully');
     }
 }

@@ -28,8 +28,8 @@ use App\Http\Controllers\Admin\SermonController;
 use App\Http\Controllers\Admin\VolCategoryController;
 use App\Http\Controllers\Admin\VolFormController;
 use App\Http\Controllers\Admin\VolunteerController;
-use App\Models\FoodBank;
-use App\Models\Gallery;
+use App\Http\Controllers\Admin\DonationCategoryController;
+use App\Http\Controllers\Admin\GivingCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -162,8 +162,16 @@ Route::get('/', function () {
         //Route::get('/admin/donationcategory-add', [DonationCategoryController::class,'create']);
         Route::post('/admin/donationcategory', [DonationCategoryController::class,'store']);
         //Route::get('/admin/donationcategorycategory-edit/{id?}', [DonationCategoryController::class,'edit']);
-        Route::post('/admin/donationcategory/{id?}', [DonatioCategoryController::class,'update']);
+        Route::post('/admin/donationcategory/{id?}', [DonationCategoryController::class,'update']);
         Route::get('/admin/delete-donationcategory/{id?}', [DonationCategoryController::class,'destroy']);
+
+        // Giving Categories
+        Route::get('/admin/givingcategory/{id?}', [GivingCategoryController::class,'index']);
+        //Route::get('/admin/givingccategory-add', [GivingCategoryController::class,'create']);
+        Route::post('/admin/givingccategory', [GivingCategoryController::class,'store']);
+        //Route::get('/admin/givingccategorycategory-edit/{id?}', [GivingCategoryController::class,'edit']);
+        Route::post('/admin/givingccategory/{id?}', [GivingCategoryController::class,'update']);
+        Route::get('/admin/delete-givingccategory/{id?}', [GivingCategoryController::class,'destroy']);
 
         // Events
         Route::get('/admin/event/{id?}', [EventController::class,'index']);

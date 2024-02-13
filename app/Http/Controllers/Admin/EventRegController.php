@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\EventReg;
+use App\Models\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Mail;
+use App\Mail\SampleMail;
 
 class EventRegController extends Controller
 {
@@ -30,48 +33,6 @@ class EventRegController extends Controller
          
         //dd($CmsPages);
 
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-       
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Banner $banner)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($eventcategoriesid)
-    {
-        //$eventcategoryone = EventRegCategory::find($eventcategoriesid);
-        //$banner = Banner::where('banner_id',$bannerid);
-        //return view('admin.eventcategory')->with(compact('eventcategoryone'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request)
-    {
- 
     }
 
 

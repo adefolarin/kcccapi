@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('departments_content');
             $table->text('departments_file');
             $table->text('departments_status');
-            $table->text('departments_date');
+            $table->date('departments_date');
             $table->timestamps();
         });
         }

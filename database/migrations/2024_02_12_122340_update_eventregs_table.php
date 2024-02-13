@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        if(!Schema::hasTable('devicetokens')) {
-        Schema::create('devicetokens', function (Blueprint $table) {
-            $table->bigInteger('devicetokens_id')->autoIncrement();
-            $table->mediumText('tokens_id');
-            $table->timestamps();
+        Schema::table('eventregs', function (Blueprint $table) {
+            if (Schema::hasTable('eventregs')){
+                $table->renameColumn('enventregs_date', 'eventregs_date');
+            }
         });
-        }
     }
 
     /**
@@ -25,6 +23,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('devicetokens');
+        Schema::table('eventregs', function (Blueprint $table) {
+
+        });
     }
 };
