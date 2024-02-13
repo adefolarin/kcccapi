@@ -17,6 +17,7 @@ use App\Http\Controllers\FrontEndApi\DonationCategoryController;
 use App\Http\Controllers\FrontEndApi\LiveCountDownController;
 use App\Http\Controllers\FrontEndApi\ResourceController;
 use App\Http\Controllers\FrontEndApi\NewsController;
+use App\Http\Controllers\FrontEndApi\SermonController;
 
 /*
 |--------------------------------------------------------------------------

@@ -36,7 +36,7 @@ class SermonController extends Controller
    
                 $data [] = array(
                 'sermons_id' => $sermon->sermons_id,
-                'sermons_name' => $sermon->sermons_name,
+                'sermons_title' => $sermon->sermons_title,
                 'sermons_file' => $sermon->sermons_file,
                 );
             }
