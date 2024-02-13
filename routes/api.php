@@ -83,3 +83,11 @@ Route::get('/resource', [ResourceController::class,'index']);
 
 // News
 Route::get('/news', [NewsController::class,'index']);
+
+
+// Sermons
+Route::get('/sermon', [SermonController::class,'index']);
+
+Route::post('/sermonsearch', [SermonController::class,'sermonSearch']);
+
+Route::post('/sermonlikes', [SermonController::class,'sermonLikes']);
