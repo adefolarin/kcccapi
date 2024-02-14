@@ -23,6 +23,7 @@ use App\Http\Controllers\FrontEndApi\GivingController;
 use App\Http\Controllers\FrontEndApi\NewsLetterController;
 use App\Http\Controllers\FrontEndApi\VolunteerController;
 use App\Http\Controllers\FrontEndApi\ReviewController;
+use App\Http\Controllers\FrontEndApi\PodcastController;
 
 /*
 |--------------------------------------------------------------------------
@@ -114,3 +115,6 @@ Route::post('/volunteer', [VolunteerController::class,'store']);
 
 // Review
 Route::post('/reviewsearch', [ReviewController::class,'reviewSearch']);
+
+// Podcasts
+Route::get('/podcastsearch', [PodcastController::class,'podcastSearch']);
