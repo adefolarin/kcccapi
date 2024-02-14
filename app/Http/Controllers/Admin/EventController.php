@@ -79,6 +79,7 @@ class EventController extends Controller
                     'events_venue' => 'required',
                     'events_address' => 'required',
                     'events_organizer' => 'required',
+                    'events_preacher' => 'required',
                     
                 ];
                 $customMessages = [
@@ -93,6 +94,7 @@ class EventController extends Controller
                     'events_venue.required' => 'Name of Event Venue is required',
                     'events_address.required' => 'Name of Event Address is required',
                     'events_organizer.required' => 'Name of Event Organizer is required',
+                    'events_preacher.required' => 'Name of Event Preacher is required',
                 ];
                      
 
@@ -114,6 +116,9 @@ class EventController extends Controller
                 }
               } 
 
+              $timestamp = strtotime($data['events_startdate']);
+              $events_date = date("Y-m-d", $timestamp);
+
               $store = [
                 [
                 'eventcategoriesid' => $data['eventcategoriesid'],
@@ -125,7 +130,8 @@ class EventController extends Controller
                 'events_venue' => $data['events_venue'],
                 'events_address' => $data['events_address'],
                 'events_organizer' => $data['events_organizer'],
-                'events_date' => date("Y-m-d"),
+                'events_preacher' => $data['events_preacher'],
+                'events_date' => $events_date,
 
                ]
             ];
@@ -177,6 +183,7 @@ class EventController extends Controller
                 'events_venue' => 'required',
                 'events_address' => 'required',
                 'events_organizer' => 'required',
+                'events_preacher' => 'required',
             ];
             $customMessages = [
                 'eventcategoriesid.required' => 'Name of Event Category is required',
@@ -189,6 +196,7 @@ class EventController extends Controller
                 'events_venue.required' => 'Name of Event Venue is required',
                 'events_address.required' => 'Name of Event Address is required',
                 'events_organizer.required' => 'Name of Event Organizer is required',
+                'events_preacher.required' => 'Name of Event Preacher is required',
             ];
 
             $this->validate($request,$rules,$customMessages);
@@ -212,6 +220,8 @@ class EventController extends Controller
                 $fileName = $data['currentevents_file'];
             }
 
+              $timestamp = strtotime($data['events_startdate']);
+              $events_date = date("Y-m-d", $timestamp);
               $store = [
             
                 'eventcategoriesid' => $data['eventcategoriesid'],
@@ -223,7 +233,8 @@ class EventController extends Controller
                 'events_venue' => $data['events_venue'],
                 'events_address' => $data['events_address'],
                 'events_organizer' => $data['events_organizer'],
-                'events_date' => date("Y-m-d"),
+                'events_preacher' => $data['events_preacher'],
+                'events_date' => $events_date,
                
             ];
 

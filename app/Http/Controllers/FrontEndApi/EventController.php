@@ -26,12 +26,12 @@ class EventController extends Controller
 
         $now = date("Y-m-d H:i");
 
-        $eventsnumrw = DB::table('eventcategories')->orderBy('events_startdate')->join('events','eventcategories.eventcategories_id','=', 'events.eventcategoriesid')->select('events.*','eventcategories.eventcategories_name')->count();
+        $eventsnumrw = DB::table('eventcategories')->orderBy('events_startdate')->join('events','eventcategories.eventcategories_id','=', 'events.eventcategoriesid')->select('events.*','eventcategories.eventcategories_name')->where("events_enddate", ">", $now)->count();
 
         if($eventsid == null) {
            
           if($eventsnumrw > 0) {
-            $events = DB::table('eventcategories')->orderBy('events_startdate')->join('events','eventcategories.eventcategories_id','=', 'events.eventcategoriesid')->select('events.*','eventcategories.eventcategories_name')->get();
+            $events = DB::table('eventcategories')->orderBy('events_startdate')->join('events','eventcategories.eventcategories_id','=', 'events.eventcategoriesid')->select('events.*','eventcategories.eventcategories_name')->where("events_enddate", ">", $now)->get();
             foreach($events as $event) {
                
                 if($event->events_startdate <= $now && $event->events_enddate > $now) {
@@ -113,21 +113,8 @@ class EventController extends Controller
                   'eventgalleries_file' => ''
                );
            }
-
-            //$eventcategoryone = $eventcategory->where('eventcategories_id', $eventone['eventcategoriesid'])->first();
-
-           
-    
-            //date("F j, Y, g:i a", strtotime($page['created_at']))
-    
-
-    
-            //dd($event); die;
-            //echo "<prev>"; print_r($data); die;
-    
             return response()->json(['eventone'=>$data, 'eventgallery'=>$gallerydata]);
 
-            //return with(compact('events','eventone','eventcategoryone','eventcategories'));
             
              
         }

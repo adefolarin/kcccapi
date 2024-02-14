@@ -21,8 +21,8 @@ return new class extends Migration
             $table->date('sermons_date');
             $table->text('sermons_location')->nullable(true);
             $table->text('sermons_preacher')->nullable(true);
-            $table->text('sermons_likes')->nullable(true);
-            $table->text('sermons_shares')->nullable(true);
+            $table->bigInteger('sermons_likes')->nullable(true);
+            $table->bigInteger('sermons_shares')->nullable(true);
             $table->timestamps();
         });
       }

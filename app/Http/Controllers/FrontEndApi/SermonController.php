@@ -38,6 +38,9 @@ class SermonController extends Controller
                 'sermons_id' => $sermon->sermons_id,
                 'sermons_title' => $sermon->sermons_title,
                 'sermons_file' => $sermon->sermons_file,
+                'sermons_date' => $sermon->sermons_date,
+                'sermons_preacher' => $sermon->sermons_preacher,
+                'sermons_location' => $sermon->sermons_location,
                 );
             }
           } else {
@@ -60,7 +63,10 @@ class SermonController extends Controller
 
               $data = array(
                 'sermons_id' => $sermonone->sermons_id,
-                'sermons_name' => $sermonone->sermons_name,
+                'sermons_title' => $sermonone->sermons_title,
+                'sermons_date' => $sermon->sermons_date,
+                'sermons_preacher' => $sermon->sermons_preacher,
+                'sermons_location' => $sermon->sermons_location,
             );
             } else {
               $data = array(
@@ -74,6 +80,104 @@ class SermonController extends Controller
              
         }
 
+
+    }
+
+
+    public function sermonQuickSearch(Request $request) {
+      if($request->isMethod('post')) {
+        $data = $request->all();
+
+        $sermonsearch = $data['sermons_search'];
+ 
+        $sermonsnumrw = DB::table('sermoncategories')->join('sermons','sermoncategories.sermoncategories_id','=', 'sermons.sermoncategoriesid')->select('sermons.*','sermoncategories.sermoncategories_name')->where("sermons_title", '=', $sermonsearch)->orWhere("sermoncategories.sermoncategories_name", '=', $sermonsearch)->count();
+
+        if($sermonsnumrw > 0) {
+          $sermons = DB::table('sermoncategories')->join('sermons','sermoncategories.sermoncategories_id','=', 'sermons.sermoncategoriesid')->select('sermons.*','sermoncategories.sermoncategories_name')->where("sermons_title", 'LIKE', $sermonsearch)->orWhere("sermoncategories.sermoncategories_name", 'LIKE', $sermonsearch)->get();
+
+          foreach($sermons as $sermon) {
+   
+            $searchdata [] = array(
+            'sermons_id' => $sermon->sermons_id,
+            'sermons_title' => $sermon->sermons_title,
+            'sermons_file' => $sermon->sermons_file,
+            'sermons_date' => $sermon->sermons_date,
+            'sermons_preacher' => $sermon->sermons_preacher,
+            'sermons_location' => $sermon->sermons_location,
+            );
+          }
+        }  else {
+            $searchdata [] = array(
+            'search_result' => "Not Found"
+            );
+        }
+
+           return response()->json(['sermonsearch'=>$searchdata]);
+  
+      }
+    }
+
+    public function sermonSearch(Request $request) {
+      if($request->isMethod('post')) {
+        $data = $request->all();
+
+        $sermontitle = $data['sermons_title'];
+        $sermonpreacher = $data['sermons_preacher'];
+        $sermondate = $data['sermons_date'];
+ 
+        $sermonsnumrw = DB::table('sermoncategories')->join('sermons','sermoncategories.sermoncategories_id','=', 'sermons.sermoncategoriesid')->select('sermons.*','sermoncategories.sermoncategories_name')->where("sermons_title", '=', $sermontitle)->where("sermons_preacher", '=', $sermonpreacher)->where("sermons_date", '=', $sermondate)->count();
+
+        if($sermonsnumrw > 0) {
+          $sermons = DB::table('sermoncategories')->join('sermons','sermoncategories.sermoncategories_id','=', 'sermons.sermoncategoriesid')->select('sermons.*','sermoncategories.sermoncategories_name')->where("sermons_title", '=', $sermontitle)->where("sermons_preacher", '=', $sermonpreacher)->where("sermons_date", '=', $sermondate)->get();
+
+          foreach($sermons as $sermon) {
+   
+            $searchdata [] = array(
+            'sermons_id' => $sermon->sermons_id,
+            'sermons_title' => $sermon->sermons_title,
+            'sermons_file' => $sermon->sermons_file,
+            'sermons_date' => $sermon->sermons_date,
+            'sermons_preacher' => $sermon->sermons_preacher,
+            'sermons_location' => $sermon->sermons_location,
+            );
+          }
+        }  else {
+            $searchdata [] = array(
+            'search_result' => "Not Found"
+            );
+        }
+
+           return response()->json(['sermonsearch'=>$searchdata]);
+  
+      }
+    }
+
+
+    public function sermonLikes(Request $request) {
+
+      $message = "Liked";
+
+      if($request->isMethod('post')) {
+          $data = $request->all();
+
+          $sermons_id = $data['sermons_id'];
+
+          $countlikes = 1;
+
+          $sermonnumrw = Sermon::where('sermons_id', $sermons_id)->count();
+
+          $sermons = Sermon::where('sermons_id', $sermons_id)->first();
+
+          if($sermonnumrw < 0) {
+            $sermons_likes =  $countlikes;
+          } else {
+            $sermons_likes = $sermons->sermons_likes + $countlikes;
+          }
+
+          Sermon::where('sermons_id', $sermons_id)->update(['sermons_likes' => $sermons_likes]);
+
+          return response()->json(['status' => true, 'message' => $message], 201);
+      }
 
     }
 

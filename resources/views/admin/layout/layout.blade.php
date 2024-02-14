@@ -210,6 +210,12 @@
       }
     );
 
+    $('#sermons_date').datetimepicker(
+      { 
+        format: 'Y-MM-DD',
+      }
+    );
+
 
 });
 

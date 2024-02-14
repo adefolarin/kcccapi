@@ -129,6 +129,10 @@
                         <input type="text" class="form-control"  name="events_organizer" id="events_organizer" placeholder="Event Organizer" required>
                     </div> 
                     <div class="form-group">
+                        <label for="events_preacher">Preacher</label>
+                        <input type="text" class="form-control"  name="events_preacher" id="events_preacher" placeholder="Event Preacher" required>
+                    </div> 
+                    <div class="form-group">
                         <label for="events_file">Image</label>
                         <input type="file" class="form-control"  name="events_file" id="events_file" placeholder="Event Image" required>
                     </div>           
@@ -205,6 +209,10 @@
                         <input type="text" class="form-control"  name="events_organizer" id="events_organizer" placeholder="Event Organizer" required value="{{ $eventone['events_organizer'] }}">
                     </div> 
                     <div class="form-group">
+                        <label for="events_preacher">Preacher</label>
+                        <input type="text" class="form-control"  name="events_preacher" id="events_preacher" placeholder="Event Preacher" required value="{{ $eventone['events_preacher'] }}">
+                    </div> 
+                    <div class="form-group">
                         <label for="events_file">Image (Optional)</label>
                         <input type="file" class="form-control"  name="events_file" id="events_file" placeholder="Event Image">
                     </div> 
@@ -248,6 +256,7 @@
                     <th>Venue</th>
                     <th>Address</th>
                     <th>Organizer</th>
+                    <th>Preacher</th>
                     <th>Actions </th>
                   </tr>
                 <thead>
@@ -268,6 +277,7 @@
                     <td>{{ ucwords($event->events_venue) }}</td>
                     <td>{{ ucwords($event->events_address) }}</td>
                     <td>{{ ucwords($event->events_organizer) }}</td>
+                    <td>{{ ucwords($event->events_preacher) }}</td>
                     <td>                     
                       <a href="{{  url('admin/event/'.$event->events_id) }}" style="color:#3f6ed3;">
                         <i class="fas fa-edit"></i>

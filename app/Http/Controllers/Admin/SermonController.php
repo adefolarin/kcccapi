@@ -77,6 +77,7 @@ class SermonController extends Controller
                     'sermons_videofile' => 'required|mimes:mp4|max:500240',
                     'sermons_location' => 'required',
                     'sermons_preacher' => 'required',
+                    'sermons_date' => 'required',
                     
                 ];
                } else if($data['sermons_filetype'] == 'remote') {
@@ -87,6 +88,7 @@ class SermonController extends Controller
                         'sermons_urlfile' => 'required',
                         'sermons_location' => 'required',
                         'sermons_preacher' => 'required',
+                        'sermons_date' => 'required',
                         
                     ];
                }
@@ -100,6 +102,7 @@ class SermonController extends Controller
                     'sermons_urlfile' => "Sermon URL is required",
                     'sermons_location.required' => 'Location of Sermon is required',
                     'sermons_preacher.required' => 'Name of Preacher is required',
+                    'sermons_date.required' => 'Date when sermon was preached is required',
                 ];
                      
 
@@ -124,7 +127,9 @@ class SermonController extends Controller
                 'sermons_file' => $fileName,
                 'sermons_location' => $data['sermons_location'],
                 'sermons_preacher' => $data['sermons_preacher'],
-                'sermons_date' => date("Y-m-d"),
+                'sermons_likes' => 0,
+                'sermons_shares' => 0,
+                'sermons_date' => $data['sermons_date'],
 
                ]
             ];
@@ -173,6 +178,7 @@ class SermonController extends Controller
                     'sermons_videofile' => 'required|mimes:mp4|max:500240',
                     'sermons_location' => 'required',
                     'sermons_preacher' => 'required',
+                    'sermons_date' => 'required',
                     
                 ];
                } else if($data['sermons_filetype'] == 'remote') {
@@ -183,6 +189,7 @@ class SermonController extends Controller
                         'sermons_urlfile' => 'required',
                         'sermons_location' => 'required',
                         'sermons_preacher' => 'required',
+                        'sermons_date' => 'required',
                         
                     ];
                }
@@ -196,6 +203,7 @@ class SermonController extends Controller
                     'sermons_urlfile' => "Sermon URL is required",
                     'sermons_location.required' => 'Location of Sermon is required',
                     'sermons_preacher.required' => 'Name of Preacher is required',
+                    'sermons_date.required' => 'Date when sermon was preached is required',
                 ];
                      
 
@@ -225,7 +233,7 @@ class SermonController extends Controller
                 'sermons_file' => $fileName,
                 'sermons_location' => $data['sermons_location'],
                 'sermons_preacher' => $data['sermons_preacher'],
-                'sermons_date' => date("Y-m-d"),
+                'sermons_date' =>  $data['sermons_date'],
                
             ];
 

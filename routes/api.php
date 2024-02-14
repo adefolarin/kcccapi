@@ -18,6 +18,11 @@ use App\Http\Controllers\FrontEndApi\LiveCountDownController;
 use App\Http\Controllers\FrontEndApi\ResourceController;
 use App\Http\Controllers\FrontEndApi\NewsController;
 use App\Http\Controllers\FrontEndApi\SermonController;
+use App\Http\Controllers\FrontEndApi\DonationController;
+use App\Http\Controllers\FrontEndApi\GivingController;
+use App\Http\Controllers\FrontEndApi\NewsLetterController;
+use App\Http\Controllers\FrontEndApi\VolunteerController;
+use App\Http\Controllers\FrontEndApi\ReviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -89,6 +94,23 @@ Route::get('/news', [NewsController::class,'index']);
 // Sermons
 Route::get('/sermon', [SermonController::class,'index']);
 
+Route::post('/sermonquicksearch', [SermonController::class,'sermonQuickSearch']);
+
 Route::post('/sermonsearch', [SermonController::class,'sermonSearch']);
 
 Route::post('/sermonlikes', [SermonController::class,'sermonLikes']);
+
+// Donations
+Route::post('/donation', [DonationController::class,'store']);
+
+// Giving
+Route::post('/giving', [GivingController::class,'store']);
+
+// News Letter
+Route::post('/newsletter', [NewsLetterController::class,'store']);
+
+// Volunteers
+Route::post('/volunteer', [VolunteerController::class,'store']);
+
+// Review
+Route::post('/reviewsearch', [ReviewController::class,'reviewSearch']);

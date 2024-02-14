@@ -96,14 +96,25 @@
                     <div class="form-group">
                         <label for="sermons_preacher">Preacher</label>
                         <input type="text" class="form-control"  name="sermons_preacher" id="sermons_preacher" placeholder="Sermon Preacher" required>
-                    </div>  
-
+                    </div> 
+                    
                     <div class="form-group">
+                       <label>Date Sermon Was Preached</label>
+                       <div class="input-group date" id="sermons_date" 
+                       data-target-input="nearest">
+                        <input type="text" class="form-control datetimepicker-input" data-target="#sermons_date" required name="sermons_date">
+                        <div class="input-group-append" data-target="#sermons_date" data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                        </div>
+                       </div> 
+                    </div>
+
+                    <div class="form-group" style="display:none;">
                       <label for="sermons_filetype">Sermon File Type</label>
                       <select  class="form-control select2" id="sermons_filetype" name="sermons_filetype" required style="width: 100%;">
                           <!--<option value="">Select File Type</option>-->
-                          <option value="remotefile">Remote</option>
-                          <!--<option value="localfile">Local</option>-->
+                          <option value="remote">Remote</option>
+                          <!--<option value="local">Local</option>-->
                       </select>
                     </div>
 
@@ -159,8 +170,18 @@
                         <label for="sermons_preacher">Preacher</label>
                         <input type="text" class="form-control"  name="sermons_preacher" id="sermons_preacher" placeholder="Preacher" required value="{{ $sermonone['sermons_precher'] }}">
                     </div>  
-
                     <div class="form-group">
+                       <label>Date Sermon Was Preached</label>
+                       <div class="input-group date" id="sermons_date" 
+                       data-target-input="nearest">
+                        <input type="text" class="form-control datetimepicker-input" data-target="#sermons_date" required name="sermons_date" value="{{ $sermonone['sermons_date'] }}">
+                        <div class="input-group-append" data-target="#sermons_date" data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                        </div>
+                       </div> 
+                    </div>
+
+                    <div class="form-group" style="display:none;">
                       <label for="sermons_filetype">Sermon File Type</label>
                       <select  class="form-control select2" id="sermons_filetype" name="sermons_filetype" required style="width: 100%;">
                          <!--<option value="<?php //{{ $sermonone['sermons_filetype'] }} ?>">

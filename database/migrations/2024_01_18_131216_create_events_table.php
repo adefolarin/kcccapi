@@ -23,6 +23,7 @@ return new class extends Migration
             $table->text('events_venue');
             $table->text('events_address');
             $table->text('events_organizer');
+            $table->text('events_preacher');
             $table->date('events_date');
             $table->timestamps();
         });
