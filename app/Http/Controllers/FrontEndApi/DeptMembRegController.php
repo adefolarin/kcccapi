@@ -53,7 +53,7 @@ class DeptMembRegController extends Controller
 
         $deptmembreg = new DeptMembReg;
     
-        $message = "Registration Succesfully";
+        $message = "Registration Succesfull";
 
         if($request->isMethod('post')) {
             $data = $request->all();

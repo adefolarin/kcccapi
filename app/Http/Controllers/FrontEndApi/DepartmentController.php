@@ -29,12 +29,12 @@ class DepartmentController extends Controller
         if($deptsid == null) {
            
           if($departmentsnumrw > 0) {
-            $departments = DB::table('deptcategories')->join('departments','deptcategories.deptcategories_id','=', 'departments.deptcategoriesid')->select('departments.*','deptcategories.*')->get();
+            $departments = DB::table('deptcategories')->limit(3)->join('departments','deptcategories.deptcategories_id','=', 'departments.deptcategoriesid')->select('departments.*','deptcategories.*')->get();
             foreach($departments as $department) {
                 $data [] = array(
                 'departments_id' => $department->departments_id,
                 'deptcategories_id' => $department->deptcategories_id,
-                'deptcategoies_name' => $department->deptcategories_name,
+                'deptcategories_name' => $department->deptcategories_name,
                 'departments_content' => $department->departments_content,
                 'departments_file' => $department->departments_file,
                 'departments_status' => $department->departments_status,
@@ -63,7 +63,7 @@ class DepartmentController extends Controller
               $data = array(
                 'departments_id' => $departmentone->departments_id,
                 'deptcategories_id' => $departmentone->deptcategories_id,
-                'deptcategoies_name' => $departmentone->deptcategories_name,
+                'deptcategories_name' => $departmentone->deptcategories_name,
                 'departments_content' => $departmentone->departments_content,
                 'departments_file' => $departmentone->departments_file,
                 'departments_status' => $departmentone->departments_status,
@@ -114,6 +114,38 @@ class DepartmentController extends Controller
 
     }
 
-  
+
+
+    public function getAllDepartment()
+    {
+
+        //$deptcategories = DepartmentCategory::query()->get();
+
+        //$departments = Department::get();
+
+        $departmentsnumrw = DB::table('deptcategories')->join('departments','deptcategories.deptcategories_id','=', 'departments.deptcategoriesid')->select('departments.*','deptcategories.*')->count();
+           
+          if($departmentsnumrw > 0) {
+            $departments = DB::table('deptcategories')->join('departments','deptcategories.deptcategories_id','=', 'departments.deptcategoriesid')->select('departments.*','deptcategories.*')->get();
+            foreach($departments as $department) {
+                $data [] = array(
+                'departments_id' => $department->departments_id,
+                'deptcategories_id' => $department->deptcategories_id,
+                'deptcategories_name' => $department->deptcategories_name,
+                'departments_content' => $department->departments_content,
+                'departments_file' => $department->departments_file,
+                'departments_status' => $department->departments_status,
+                );
+            }
+          } else {
+            $data [] = array(
+                'departments_id' => ''
+            );
+          }
+              
+            return response()->json(['departments'=>$data]);
+
+        } 
+ 
 
 }

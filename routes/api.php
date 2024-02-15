@@ -44,6 +44,7 @@ Route::get('/banner', [BannerController::class,'index']);
 
 /// EVENTS
 Route::get('/event/{id?}', [EventController::class,'index']);
+Route::get('/eventall', [EventController::class,'getAllEvent']);
 Route::get('/nextevent', [EventController::class,'getNextEvent']);
 
 Route::post('/eventreg', [EventRegController::class,'store']);
@@ -51,6 +52,8 @@ Route::post('/eventreg', [EventRegController::class,'store']);
 
 // DEPARTMENTS
 Route::get('/department/{id?}', [DepartmentController::class,'index']);
+
+Route::get('/departmentall', [DepartmentController::class,'getAllDepartment']);
 
 Route::post('/deptmembreg', [DeptMembRegController::class,'store']);
 
@@ -89,7 +92,7 @@ Route::get('/livecountdown', [LiveCountDownController::class,'index']);
 Route::get('/resource', [ResourceController::class,'index']);
 
 // News
-Route::get('/news', [NewsController::class,'index']);
+Route::get('/news/{id?}', [NewsController::class,'index']);
 
 
 // Sermons
@@ -117,4 +120,4 @@ Route::post('/volunteer', [VolunteerController::class,'store']);
 Route::post('/reviewsearch', [ReviewController::class,'reviewSearch']);
 
 // Podcasts
-Route::get('/podcastsearch', [PodcastController::class,'podcastSearch']);
+Route::get('/podcast', [PodcastController::class,'podcastSearch']);

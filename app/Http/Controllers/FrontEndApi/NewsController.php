@@ -44,7 +44,7 @@ class NewsController extends Controller
             }
           } else {
             $data [] = array(
-                'news_id' => ''
+                'news_title' => ''
             );
           }
               
