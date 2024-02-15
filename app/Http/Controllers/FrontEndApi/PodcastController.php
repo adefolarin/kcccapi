@@ -67,11 +67,11 @@ class PodcastController extends Controller
 
         foreach ($json_data as $key1 => $value1) {
             $data[] = array(
-                'audio_img'   => $json_data[$key1]['artwork_url'],
-                'audio_id'   => $json_data[$key1]['id'],
-                'audio_url'   => $json_data[$key1]['audio_url'],
-                'audio_title'   => $json_data[$key1]['title'],
-                'audio_artist'   => $json_data[$key1]['artist'],
+                'podcasts_img'   => $json_data[$key1]['artwork_url'],
+                'podcast_id'   => $json_data[$key1]['id'],
+                'podcasts_file'   => $json_data[$key1]['audio_url'],
+                'podcasts_title'   => $json_data[$key1]['title'],
+                'podcasts_artist'   => $json_data[$key1]['artist'],
                 'published_at'   => $this->newdate($json_data[$key1]['published_at']),
                 'duration'   => $this->secToHR($json_data[$key1]['duration']),
             );
