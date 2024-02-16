@@ -26,25 +26,41 @@ class FoodBankController extends Controller
 
         $foodbanksnumrw = DB::table('foodbankcategories')->join('foodbanks','foodbankcategories.foodbankcategories_id','=', 'foodbanks.foodbankcategoriesid')->select('foodbanks.*','foodbankcategories.foodbankcategories_name')->count();
 
+        $foodbanks = DB::table('foodbankcategories')->join('foodbanks','foodbankcategories.foodbankcategories_id','=', 'foodbanks.foodbankcategoriesid')->select('foodbanks.*','foodbankcategories.foodbankcategories_name')->first();
+
         if($foodbanksid == null) {
            
           if($foodbanksnumrw > 0) {
-            $foodbanks = DB::table('foodbankcategories')->join('foodbanks','foodbankcategories.foodbankcategories_id','=', 'foodbanks.foodbankcategoriesid')->select('foodbanks.*','foodbankcategories.foodbankcategories_name')->get();
-            foreach($foodbanks as $foodbank) {
-                $data [] = array(
-                'foodbanks_id' => $foodbank->foodbanks_id,
-                'foodbanks_name' => $foodbank->foodbanks_name,
-                'foodbanks_videofile' => $foodbank->foodbanks_videofile,
-                'foodbanks_imagefile' => $foodbank->foodbanks_imagefile,
+                $data = array(
+                'foodbanks_id' => $foodbanks->foodbanks_id,
+                'foodbanks_name' => $foodbanks->foodbanks_name,
+                'foodbanks_videofile' => $foodbanks->foodbanks_videofile,
+                'foodbanks_imagefile' => $foodbanks->foodbanks_imagefile,
                 );
-            }
           } else {
-            $data [] = array(
+            $data = array(
                 'foodbanks_id' => ''
             );
           }
+
+          $foodbankgallerynumrw = DB::table('foodbankgalleries')->where("foodbanksid", $foodbanks->foodbanks_id)->orderBy("foodbanksid")->count();
+
+          if($foodbankgallerynumrw > 0) {
+          $foodbankgalleries = DB::table('foodbankgalleries')->where("foodbanksid", $foodbanks->foodbanks_id)->orderBy("foodbanksid")->get();
+
+          foreach($foodbankgalleries as $foodbankgallery) {
+              $gallerydata [] = array(
+              'foodbanksid' => $foodbankgallery->foodbanksid,
+              'foodbankgalleries_file' => $foodbankgallery->foodbankgalleries_file,
+              );
+          }
+         } else {
+             $gallerydata [] = array(
+                'foodbankgalleries_file' => ''
+             );
+         }
               
-            return response()->json(['foodbanks'=>$data]);
+            return response()->json(['foodbanks'=>$data,'foodbankgallery'=>$gallerydata]);
 
         } else {
 

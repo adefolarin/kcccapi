@@ -24,6 +24,7 @@ use App\Http\Controllers\FrontEndApi\NewsLetterController;
 use App\Http\Controllers\FrontEndApi\VolunteerController;
 use App\Http\Controllers\FrontEndApi\ReviewController;
 use App\Http\Controllers\FrontEndApi\PodcastController;
+use App\Http\Controllers\FrontEndApi\VolFormController;
 
 /*
 |--------------------------------------------------------------------------
@@ -98,6 +99,8 @@ Route::get('/news/{id?}', [NewsController::class,'index']);
 // Sermons
 Route::get('/sermon', [SermonController::class,'index']);
 
+Route::get('/sermonall', [SermonController::class,'getAllSermons']);
+
 Route::post('/sermonquicksearch', [SermonController::class,'sermonQuickSearch']);
 
 Route::post('/sermonsearch', [SermonController::class,'sermonSearch']);
@@ -121,3 +124,6 @@ Route::post('/reviewsearch', [ReviewController::class,'reviewSearch']);
 
 // Podcasts
 Route::get('/podcast', [PodcastController::class,'podcastSearch']);
+
+// volforms
+Route::get('/volform', [VolFormController::class,'index']);

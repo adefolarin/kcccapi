@@ -31,7 +31,7 @@ class SermonController extends Controller
         if($sermonsid == null) {
            
           if($sermonsnumrw > 0) {
-            $sermons = DB::table('sermoncategories')->join('sermons','sermoncategories.sermoncategories_id','=', 'sermons.sermoncategoriesid')->select('sermons.*','sermoncategories.sermoncategories_name')->get();
+            $sermons = DB::table('sermoncategories')->limit(3)->join('sermons','sermoncategories.sermoncategories_id','=', 'sermons.sermoncategoriesid')->select('sermons.*','sermoncategories.sermoncategories_name')->get();
             foreach($sermons as $sermon) {
    
                 $data [] = array(
@@ -79,6 +79,39 @@ class SermonController extends Controller
             
              
         }
+
+
+    }
+
+
+    public function getAllSermons()
+    {
+
+        $now = date("Y-m-d H:i");
+
+        $sermonsnumrw = DB::table('sermoncategories')->join('sermons','sermoncategories.sermoncategories_id','=', 'sermons.sermoncategoriesid')->select('sermons.*','sermoncategories.sermoncategories_name')->count();
+
+           
+          if($sermonsnumrw > 0) {
+            $sermons = DB::table('sermoncategories')->join('sermons','sermoncategories.sermoncategories_id','=', 'sermons.sermoncategoriesid')->select('sermons.*','sermoncategories.sermoncategories_name')->get();
+            foreach($sermons as $sermon) {
+   
+                $data [] = array(
+                'sermons_id' => $sermon->sermons_id,
+                'sermons_title' => $sermon->sermons_title,
+                'sermons_file' => $sermon->sermons_file,
+                'sermons_date' => $sermon->sermons_date,
+                'sermons_preacher' => $sermon->sermons_preacher,
+                'sermons_location' => $sermon->sermons_location,
+                );
+            }
+          } else {
+            $data [] = array(
+                'sermons_id' => ''
+            );
+          }
+              
+            return response()->json(['sermons'=>$data]);            
 
 
     }
