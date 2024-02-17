@@ -58,9 +58,9 @@ class VolunteerController extends Controller
 
             $bodylist = "";
 
-            foreach ($data['volunteers_time'] as $key => $value) {
+            foreach ($data['selecteditem'] as $value) {
             
-                $volunteers_time = $value['voltime'];
+                $volunteers_time = $value;
                 $bodylist .= $volunteers_time." | "; 
               
             }

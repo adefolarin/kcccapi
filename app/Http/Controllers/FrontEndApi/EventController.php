@@ -175,26 +175,33 @@ class EventController extends Controller
     public function getNextEvent() {
         $now = date("Y-m-d: h:i");
 
-        $eventnumrw = DB::table('events')->where("events_startdate", ">", $now)->orderBy("events_startdate")->count();
+        $eventnumrw = DB::table('events')
+        ->where("events_startdate", ">", $now)
+        ->orderBy("events_startdate")
+        ->limit(1)->count();
 
         if($eventnumrw > 0) {
-        $event = DB::table('events')->where("events_startdate", ">", $now)->orderBy("events_startdate")->first();
-
-        $event_startdatemonth =  date("M j", strtotime($event->events_startdate));
-        $event_starttime =  date("g:i a", strtotime($event->events_startdate));
-
-        $event_countdown = strtotime($event->events_startdate);
+        $event = DB::table('events')->where("events_startdate", ">", $now)
+        ->orderBy("events_startdate")
+        ->limit(1)->get();
 
         //date("F j, Y, g:i a", strtotime($page['created_at']))
+        foreach($event as $event) {
 
-        $data = array(
-            'events_title' => $event->events_title,
-            'events_startdatemonth' => $event_startdatemonth,
-            'events_starttime' => $event_starttime,
-            'events_countdown' => $event_countdown
-        );
+            $event_startdatemonth =  date("M j", strtotime($event->events_startdate));
+            $event_starttime =  date("g:i a", strtotime($event->events_startdate));
+
+            $event_countdown = strtotime($event->events_startdate);
+            $data [] = array(
+                'events_title' => $event->events_title,
+                'events_startdatemonth' => $event_startdatemonth,
+                'events_starttime' => $event_starttime,
+                'events_countdown' => $event_countdown
+            );
+
+        }
         } else {
-            $data = array(
+            $data [] = array(
                 'events_title' => ''
             );
         }

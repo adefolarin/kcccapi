@@ -33,7 +33,7 @@ class VolFormController extends Controller
             foreach($volforms as $volform) {
    
                 $data [] = array(
-                 'volforms_time' => $volform->voldatetime,
+                 'volforms_time' => date("F j, Y g:ia", strtotime($volform->voldatetime)),
                 );
             }
           } else {

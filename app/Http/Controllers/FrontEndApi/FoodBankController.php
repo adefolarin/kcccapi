@@ -24,21 +24,23 @@ class FoodBankController extends Controller
 
         //$foodbanks = FoodBank::get();
 
-        $foodbanksnumrw = DB::table('foodbankcategories')->join('foodbanks','foodbankcategories.foodbankcategories_id','=', 'foodbanks.foodbankcategoriesid')->select('foodbanks.*','foodbankcategories.foodbankcategories_name')->count();
+        $foodbanksnumrw = DB::table('foodbankcategories')->orderByDesc('foodbanks_id')->limit(1)->join('foodbanks','foodbankcategories.foodbankcategories_id','=', 'foodbanks.foodbankcategoriesid')->select('foodbanks.*','foodbankcategories.foodbankcategories_name')->count();
 
-        $foodbanks = DB::table('foodbankcategories')->join('foodbanks','foodbankcategories.foodbankcategories_id','=', 'foodbanks.foodbankcategoriesid')->select('foodbanks.*','foodbankcategories.foodbankcategories_name')->first();
+        $foodbanks = DB::table('foodbankcategories')->orderByDesc('foodbanks_id')->limit(1)->join('foodbanks','foodbankcategories.foodbankcategories_id','=', 'foodbanks.foodbankcategoriesid')->select('foodbanks.*','foodbankcategories.foodbankcategories_name')->get();
 
         if($foodbanksid == null) {
            
           if($foodbanksnumrw > 0) {
-                $data = array(
+            foreach($foodbanks as $foodbanks) {
+                $data [] = array(
                 'foodbanks_id' => $foodbanks->foodbanks_id,
                 'foodbanks_name' => $foodbanks->foodbanks_name,
                 'foodbanks_videofile' => $foodbanks->foodbanks_videofile,
                 'foodbanks_imagefile' => $foodbanks->foodbanks_imagefile,
                 );
+           }
           } else {
-            $data = array(
+            $data [] = array(
                 'foodbanks_id' => ''
             );
           }
