@@ -48,6 +48,11 @@ Route::get('/event/{id?}', [EventController::class,'index']);
 Route::get('/eventall', [EventController::class,'getAllEvent']);
 Route::get('/nextevent', [EventController::class,'getNextEvent']);
 
+Route::get('/eventcat', [EventController::class,'getEventCat']);
+
+Route::get('/eventlocation', [EventController::class,'getEventLocation']);
+Route::get('/eventpreacher', [EventController::class,'getEventPreacher']);
+
 Route::post('/eventreg', [EventRegController::class,'store']);
 
 
@@ -103,9 +108,13 @@ Route::get('/sermonall', [SermonController::class,'getAllSermons']);
 
 Route::post('/sermonquicksearch', [SermonController::class,'sermonQuickSearch']);
 
-Route::post('/sermonsearch', [SermonController::class,'sermonSearch']);
+Route::post('/sermondeepsearch', [SermonController::class,'sermonSearch']);
 
 Route::post('/sermonlikes', [SermonController::class,'sermonLikes']);
+
+Route::get('/sermontitle', [SermonController::class,'getSermonTitles']);
+
+Route::get('/sermonpreacher', [SermonController::class,'getSermonPreachers']);
 
 // Donations
 Route::post('/donation', [DonationController::class,'store']);

@@ -215,6 +215,102 @@ class EventController extends Controller
     }
 
 
+    public function getEventCat()
+    {
+
+        //$eventcategories = EventCategory::query()->get();
+
+        //$events = Event::get();
+
+        $now = date("Y-m-d H:i");
+
+        $eventcatnumrw = DB::table('eventcategories')->count();
+
+           
+          if($eventcatnumrw > 0) {
+              $eventcats = DB::table('eventcategories')->get();
+
+               foreach($eventcats as $eventcat) {
+            
+
+                $data [] = array(
+                'eventcategories_name' => $eventcat->eventcategories_name,
+                );
+            }
+          } else {
+            $data [] = array(
+                'eventcategories_name' => ''
+            );
+          }
+              
+            return response()->json(['eventcategories'=>$data]);
+
+  
+
+
+    }
+
+    public function getEventLocation()
+    {
+
+
+        $eventnumrw = DB::table('events')->count();
+
+           
+          if($eventnumrw > 0) {
+              $events = DB::table('events')->select('events_venue')->groupBy('events_venue')->get();
+
+               foreach($events as $event) {
+            
+
+                $data [] = array(
+                'events_venue' => $event->events_venue,
+                );
+            }
+          } else {
+            $data [] = array(
+                'events_venue' => ''
+            );
+          }
+              
+            return response()->json(['eventvenues'=>$data]);
+
+  
+
+
+    }
+
+    public function getEventPreacher()
+    {
+
+
+        $eventnumrw = DB::table('events')->count();
+
+           
+          if($eventnumrw > 0) {
+              $events = DB::table('events')->select('events_preacher')->groupBy('events_preacher')->get();
+
+               foreach($events as $event) {
+            
+
+                $data [] = array(
+                'events_preacher' => $event->events_preacher,
+                );
+            }
+          } else {
+            $data [] = array(
+                'events_preacher' => ''
+            );
+          }
+              
+            return response()->json(['eventpreachers'=>$data]);
+
+  
+
+
+    }
+
+
 
 
 

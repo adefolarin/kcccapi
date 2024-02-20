@@ -121,7 +121,7 @@ class SermonController extends Controller
       if($request->isMethod('post')) {
         $data = $request->all();
 
-        $sermonsearch = $data['sermons_search'];
+        $sermonsearch = $data['sermonsearch'];
  
         $sermonsnumrw = DB::table('sermoncategories')->join('sermons','sermoncategories.sermoncategories_id','=', 'sermons.sermoncategoriesid')->select('sermons.*','sermoncategories.sermoncategories_name')->where("sermons_title", '=', $sermonsearch)->orWhere("sermoncategories.sermoncategories_name", '=', $sermonsearch)->count();
 
@@ -137,15 +137,16 @@ class SermonController extends Controller
             'sermons_date' => $sermon->sermons_date,
             'sermons_preacher' => $sermon->sermons_preacher,
             'sermons_location' => $sermon->sermons_location,
+            'searchresult' => $sermonsnumrw,
             );
           }
         }  else {
             $searchdata [] = array(
-            'search_result' => "Not Found"
+            'sermonsearch_result' => "Not Found"
             );
         }
 
-           return response()->json(['sermonsearch'=>$searchdata]);
+           return response()->json(['sermonsearchdata'=>$searchdata]);
   
       }
     }
@@ -154,9 +155,9 @@ class SermonController extends Controller
       if($request->isMethod('post')) {
         $data = $request->all();
 
-        $sermontitle = $data['sermons_title'];
-        $sermonpreacher = $data['sermons_preacher'];
-        $sermondate = $data['sermons_date'];
+        $sermontitle = $data['sermontitle'];
+        $sermonpreacher = $data['sermonpreacher'];
+        $sermondate = $data['sermondate'];
  
         $sermonsnumrw = DB::table('sermoncategories')->join('sermons','sermoncategories.sermoncategories_id','=', 'sermons.sermoncategoriesid')->select('sermons.*','sermoncategories.sermoncategories_name')->where("sermons_title", '=', $sermontitle)->where("sermons_preacher", '=', $sermonpreacher)->where("sermons_date", '=', $sermondate)->count();
 
@@ -172,15 +173,16 @@ class SermonController extends Controller
             'sermons_date' => $sermon->sermons_date,
             'sermons_preacher' => $sermon->sermons_preacher,
             'sermons_location' => $sermon->sermons_location,
+            'searchresult' => $sermonsnumrw,
             );
           }
         }  else {
             $searchdata [] = array(
-            'search_result' => "Not Found"
+            'sermonsearch_result' => "Not Found"
             );
         }
 
-           return response()->json(['sermonsearch'=>$searchdata]);
+           return response()->json(['sermonsearchdata'=>$searchdata]);
   
       }
     }
@@ -211,6 +213,68 @@ class SermonController extends Controller
 
           return response()->json(['status' => true, 'message' => $message], 201);
       }
+
+    }
+
+
+    public function getSermonTitles()
+    {
+
+
+        $sermonnumrw = DB::table('sermons')->count();
+
+           
+          if($sermonnumrw > 0) {
+              $sermons = DB::table('sermons')->select('sermons_title')->groupBy('sermons_title')->get();
+
+               foreach($sermons as $sermon) {
+            
+
+                $data [] = array(
+                'sermons_title' => $sermon->sermons_title,
+                );
+            }
+          } else {
+            $data [] = array(
+                'sermons_title' => ''
+            );
+          }
+              
+            return response()->json(['sermontitles'=>$data]);
+
+  
+
+
+    }
+
+
+    public function getSermonPreachers()
+    {
+
+
+        $sermonnumrw = DB::table('sermons')->count();
+
+           
+          if($sermonnumrw > 0) {
+              $sermons = DB::table('sermons')->select('sermons_preacher')->groupBy('sermons_preacher')->get();
+
+               foreach($sermons as $sermon) {
+            
+
+                $data [] = array(
+                'sermons_preacher' => $sermon->sermons_preacher,
+                );
+            }
+          } else {
+            $data [] = array(
+                'sermons_preacher' => ''
+            );
+          }
+              
+            return response()->json(['sermonpreachers'=>$data]);
+
+  
+
 
     }
 
