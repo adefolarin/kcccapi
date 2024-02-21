@@ -62,13 +62,13 @@ class GivingController extends Controller
 
               $store = [
                 [
-                'givings_name' => $data['givings_name'],
-                'givings_email' => $data['givings_email'],
-                'givings_pnum' => $data['givings_pnum'],
-                'givings_type' => $data['givings_type'],
-                'givings_amount' => $data['givings_amount'],
-                'givings_reference' => $data['givings_reference'],
-                'givings_status' => $data['givings_status'],
+                'givings_name' => $data['givingsname'],
+                'givings_email' => $data['givingsemail'],
+                'givings_pnum' => $data['givingspnum'],
+                'givings_type' => $data['givingstype'],
+                'givings_amount' => $data['givingsamount'],
+                'givings_reference' => $data['givingsreference'],
+                'givings_status' => $data['givingsstatus'],
                 'givings_date' => date("Y-m-d"),
 
                ]

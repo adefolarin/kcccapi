@@ -193,6 +193,7 @@ class EventController extends Controller
 
             $event_countdown = strtotime($event->events_startdate);
             $data [] = array(
+                'events_id' => $event->events_id,
                 'events_title' => $event->events_title,
                 'events_startdatemonth' => $event_startdatemonth,
                 'events_starttime' => $event_starttime,

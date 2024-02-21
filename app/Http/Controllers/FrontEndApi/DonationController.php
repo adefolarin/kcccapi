@@ -62,13 +62,13 @@ class DonationController extends Controller
 
               $store = [
                 [
-                'donations_name' => $data['donations_name'],
-                'donations_email' => $data['donations_email'],
-                'donations_pnum' => $data['donations_pnum'],
-                'donations_type' => $data['donations_type'],
-                'donations_amount' => $data['donations_amount'],
-                'donations_reference' => $data['donations_reference'],
-                'donations_status' => $data['donations_status'],
+                'donations_name' => $data['donationsname'],
+                'donations_email' => $data['donationsemail'],
+                'donations_pnum' => $data['donationspnum'],
+                'donations_type' => $data['donationstype'],
+                'donations_amount' => $data['donationsamount'],
+                'donations_reference' => $data['donationsreference'],
+                'donations_status' => $data['donationsstatus'],
                 'donations_date' => date("Y-m-d"),
 
                ]
