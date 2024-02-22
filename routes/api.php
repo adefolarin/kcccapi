@@ -25,6 +25,8 @@ use App\Http\Controllers\FrontEndApi\VolunteerController;
 use App\Http\Controllers\FrontEndApi\ReviewController;
 use App\Http\Controllers\FrontEndApi\PodcastController;
 use App\Http\Controllers\FrontEndApi\VolFormController;
+use App\Http\Controllers\FrontEndApi\AAMUserController;
+use App\Http\Controllers\FrontEndApi\StoreUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +42,36 @@ use App\Http\Controllers\FrontEndApi\VolFormController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+//AAM USERS
+
+Route::match(['post'],'/aamuser/register',[AAMUserController::class, 'store']);
+Route::match(['post'],'/aamuser/login',[AAMUserController::class, 'login']);
+
+//Route::group(['middleware'=>['aamuser']], function() {
+   
+    Route::match(['post'],'/aamuser/update-password', [AAMUserController::class,'updatePassword']);
+    Route::post('/aamuser/check-current-password', [AAMUserController::class,'checkCurrentPassword']);
+    Route::match(['post'],'/aamuser/update-admin-details', [AAMUserController::class,'updateAdminDetails']);
+    Route::get('/aamuser/logout', [AAMuserController::class,'logout']);
+
+//});
+
+// STORE USERS
+
+Route::match(['post'],'/storeuser/register',[StoreUserController::class, 'store']);
+Route::match(['post'],'/storeuser/login',[StoreUserController::class, 'login']);
+
+//Route::group(['middleware'=>['aamuser']], function() {
+   
+    Route::match(['post'],'/storeuser/update-password', [StoreUserController::class,'updatePassword']);
+    Route::post('/storeuser/check-current-password', [StoreUserController::class,'checkCurrentPassword']);
+    Route::match(['post'],'/storeuser/update-admin-details', [StoreUserController::class,'updateAdminDetails']);
+    Route::get('/storeuser/logout', [StoreUserController::class,'logout']);
+
+//});
+
+// BANNERS
 
 Route::get('/banner', [BannerController::class,'index']);
 

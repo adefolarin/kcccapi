@@ -108,7 +108,7 @@ class AdminController extends Controller
         $customMessages = [
           'admin_name.required' => 'Name is required',
           'admin_name.regex' => 'Admin Name is not valid',
-          'admin_mobile.required' => 'Valid Mobile is r equired',
+          'admin_mobile.required' => 'Valid Mobile is required',
           'admin_mobile.numeric' => 'Valid Phone Number is required',
           'admin_mobile.max' => 'Valid Mobile is required',
           'admin_mobile.min' => 'Valid Mobile is required',

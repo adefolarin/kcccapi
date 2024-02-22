@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
 
-class Admin
+class AamUser
 {
     /**
      * Handle an incoming request.
@@ -16,9 +16,9 @@ class Admin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(!Auth::guard('admin')->check()) {
-            return redirect('/admin/login');
-        }
+       /* if(!Auth::guard('aamuser')->check()) {
+            return redirect('/aamuser/login');
+        }*/
         return $next($request);
     }
 }

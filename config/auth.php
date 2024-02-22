@@ -44,7 +44,13 @@ return [
         'admin' => [
             'driver' => 'session',
             'provider' => 'admins',
-        ]
+        ],
+
+        /*'aamuser' => [
+            'driver' => 'session',
+            'provider' => 'aamusers',
+        ],*/
+        
     ],
 
     /*
@@ -73,6 +79,10 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\Admin::class,
         ],
+        /*'aamusers' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\AAMUser::class,
+        ],*/
 
         // 'users' => [
         //     'driver' => 'database',
