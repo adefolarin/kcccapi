@@ -27,6 +27,13 @@ use App\Http\Controllers\FrontEndApi\PodcastController;
 use App\Http\Controllers\FrontEndApi\VolFormController;
 use App\Http\Controllers\FrontEndApi\AAMUserController;
 use App\Http\Controllers\FrontEndApi\StoreUserController;
+use App\Http\Controllers\FrontEndApi\RatingController;
+use App\Http\Controllers\FrontEndApi\ProductController;
+use App\Http\Controllers\FrontEndApi\ProductCategoryController;
+use App\Http\Controllers\FrontEndApi\ZipCodeController;
+use App\Http\Controllers\FrontEndApi\StoreOrderController;
+use App\Http\Controllers\FrontEndApi\StorePaymentController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -43,33 +50,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//AAM USERS
-
-Route::match(['post'],'/aamuser/register',[AAMUserController::class, 'store']);
-Route::match(['post'],'/aamuser/login',[AAMUserController::class, 'login']);
-
-//Route::group(['middleware'=>['aamuser']], function() {
-   
-    Route::match(['post'],'/aamuser/update-password', [AAMUserController::class,'updatePassword']);
-    Route::post('/aamuser/check-current-password', [AAMUserController::class,'checkCurrentPassword']);
-    Route::match(['post'],'/aamuser/update-admin-details', [AAMUserController::class,'updateAdminDetails']);
-    Route::get('/aamuser/logout', [AAMuserController::class,'logout']);
-
-//});
-
-// STORE USERS
-
-Route::match(['post'],'/storeuser/register',[StoreUserController::class, 'store']);
-Route::match(['post'],'/storeuser/login',[StoreUserController::class, 'login']);
-
-//Route::group(['middleware'=>['aamuser']], function() {
-   
-    Route::match(['post'],'/storeuser/update-password', [StoreUserController::class,'updatePassword']);
-    Route::post('/storeuser/check-current-password', [StoreUserController::class,'checkCurrentPassword']);
-    Route::match(['post'],'/storeuser/update-admin-details', [StoreUserController::class,'updateAdminDetails']);
-    Route::get('/storeuser/logout', [StoreUserController::class,'logout']);
-
-//});
 
 // BANNERS
 
@@ -168,3 +148,57 @@ Route::get('/podcast', [PodcastController::class,'podcastSearch']);
 
 // volforms
 Route::get('/volform', [VolFormController::class,'index']);
+
+
+//AAM USERS
+
+Route::match(['post'],'/aaamregister',[AAMUserController::class, 'store']);
+Route::match(['post'],'/aamlogin',[AAMUserController::class, 'login']);
+
+//Route::group(['middleware'=>['aamuser']], function() {
+   
+    Route::match(['post'],'/aamupdatepassword', [AAMUserController::class,'updatePassword']);
+    Route::post('/aamcheckcurrentpassword', [AAMUserController::class,'checkCurrentPassword']);
+    Route::match(['post'],'/aamupdateuser', [AAMUserController::class,'updateAdminDetails']);
+    Route::get('/aamlogout', [AAMuserController::class,'logout']);
+
+//});
+
+// STORE USERS
+
+Route::match(['post'],'/storeregister',[StoreUserController::class, 'store']);
+Route::match(['post'],'/storelogin',[StoreUserController::class, 'login']);
+
+Route::get('/storeuser/{id?}', [StoreUserController::class,'index']);
+
+//Route::group(['middleware'=>['aamuser']], function() {
+   
+    Route::match(['post'],'/storeupdatepassword', [StoreUserController::class,'updatePassword']);
+    Route::post('/storecheckcurrentpassword', [StoreUserController::class,'checkCurrentPassword']);
+    Route::post('/updatestoreuser', [StoreUserController::class,'updateStoreUserDetails']);
+    Route::get('/storeuser/logout', [StoreUserController::class,'logout']);
+
+    // Ratings
+    Route::get('/rating/{id?}', [RatingController::class,'index']);
+    Route::post('/rating', [RatingController::class,'store']);
+
+    // Product Category
+    Route::get('/productcategory/{id?}', [ProductCategoryController::class,'index']);
+
+    // Product
+    Route::get('/product/{id?}', [ProductController::class,'index']);
+    Route::get('/productbycat/{id?}', [ProductController::class,'getProductByCat']);
+    Route::post('/productlikes', [ProductController::class,'productLikes']);
+
+    // Zip Code
+    Route::get('/zipcode', [ZipCodeController::class,'index']);
+
+    // Store Order
+    Route::get('/storeorder/{id?}', [StoreOrderController::class,'index']);
+    Route::post('/storeorder/{id?}', [StoreOrderController::class,'store']);
+
+     // Store Payment
+    Route::get('/storepayment/{id?}', [StorePaymentController::class,'index']);
+    Route::post('/storepayment', [StorePaymentController::class,'store']);
+
+//});

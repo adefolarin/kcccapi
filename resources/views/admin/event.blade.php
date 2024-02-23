@@ -90,7 +90,7 @@
                         <input type="text" class="form-control"  name="events_title" id="events_title" placeholder="Event Title" required >
                     </div> 
                     <div class="form-group">
-                        <label for="events_title">Description</label>
+                        <label for="events_desc">Description</label>
                         <textarea class="form-control" id="events_desc" name="events_desc" placeholder="Event Description" required></textarea>
                     </div> 
                      
@@ -172,7 +172,7 @@
                         <input type="text" class="form-control"  name="events_title" id="events_title" placeholder="Event Title" required value="{{ $eventone['events_title'] }}">
                     </div> 
                     <div class="form-group">
-                        <label for="events_title">Description</label>
+                        <label for="events_desc">Description</label>
                         <textarea class="form-control" id="events_desc" name="events_desc" placeholder="Event Description" required>{{ $eventone['events_desc'] }}</textarea>
                     </div>  
                     <div class="form-group">

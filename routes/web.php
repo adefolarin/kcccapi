@@ -30,6 +30,8 @@ use App\Http\Controllers\Admin\VolFormController;
 use App\Http\Controllers\Admin\VolunteerController;
 use App\Http\Controllers\Admin\DonationCategoryController;
 use App\Http\Controllers\Admin\GivingCategoryController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ZipCodeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -344,6 +346,26 @@ Route::get('/', function () {
         //Route::get('/admin/vol-edit/{id?}', [VolunteerController::class,'edit']);
         //Route::post('/admin/vol-edit/{id?}', [VolunteerController::class,'update']);
         Route::get('/admin/delete-vol/{id?}', [VolunteerController::class,'destroy']);
+
+
+        // Product
+        Route::get('/admin/product/{id?}', [ProductController::class,'index']);
+        //Route::get('/admin/product-add', [ProductController::class,'create']);
+        Route::post('/admin/product', [ProductController::class,'store']);
+        //Route::get('/admin/event-edit/{id?}', [ProductController::class,'edit']);
+        Route::post('/admin/product/{id?}', [ProductController::class,'update']);
+        Route::post('/admin/product-file-edit/{id?}', [ProductController::class,'updateEventFile']);
+        Route::get('/admin/delete-product/{id?}', [ProductController::class,'destroy']);
+
+        // Zip Code
+        Route::get('/admin/zipcode/{id?}', [ZipCodeController::class,'index']);
+        //Route::get('/admin/zipcode-add', [ZipCodeController::class,'create']);
+        Route::post('/admin/zipcode', [ZipCodeController::class,'store']);
+        //Route::get('/admin/zipcode-edit/{id?}', [ZipCodeController::class,'edit']);
+        Route::post('/admin/zipcode/{id?}', [ZipCodeController::class,'update']);
+        Route::post('/admin/zipcode-file-edit/{id?}', [ZipCodeController::class,'updateEventFile']);
+        Route::get('/admin/delete-zipcode/{id?}', [ZipCodeController::class,'destroy']);
+        
 
 
      

@@ -16,7 +16,9 @@ class StoreUser extends Authenticatable
 
 
     protected $fillable = [
-        'storeusers_name',
+        'storeusers_fname',
+        'storeusers_lname',
+        'storeusers_gender',
         'storeusers_email',
         'storeusers_password',
     ];
