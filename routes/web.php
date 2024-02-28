@@ -32,6 +32,11 @@ use App\Http\Controllers\Admin\DonationCategoryController;
 use App\Http\Controllers\Admin\GivingCategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ZipCodeController;
+use App\Http\Controllers\Admin\ResourceController;
+use App\Http\Controllers\Admin\DepartmentGalleryController;
+use App\Http\Controllers\Admin\EventGalleryController;
+use App\Http\Controllers\Admin\FoodBankGalleryController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -139,11 +144,11 @@ Route::get('/', function () {
         //Route::get('/admin/deptcategory-add', [DeptCategoryController::class,'create']);
         Route::post('/admin/deptcategory', [DeptCategoryController::class,'store']);
         //Route::get('/admin/deptcategory-edit/{id?}', [DeptCategoryController::class,'edit']);
-        Route::post('/admin/deptcategory{id?}', [DeptCategoryController::class,'update']);
+        Route::post('/admin/deptcategory/{id?}', [DeptCategoryController::class,'update']);
         Route::get('/admin/delete-deptcategory/{id?}', [DeptCategoryController::class,'destroy']);
 
         // Resources Categories
-        Route::get('/admin/resourecategory/{id?}', [ResourceCategoryController::class,'index']);
+        Route::get('/admin/resourcecategory/{id?}', [ResourceCategoryController::class,'index']);
         //Route::get('/admin/resourcecategory-add', [ResourceCategoryController::class,'create']);
         Route::post('/admin/resourcecategory', [ResourceCategoryController::class,'store']);
         //Route::get('/admin/resourcecategory-edit/{id?}', [ResourceCategoryController::class,'edit']);
@@ -170,10 +175,10 @@ Route::get('/', function () {
         // Giving Categories
         Route::get('/admin/givingcategory/{id?}', [GivingCategoryController::class,'index']);
         //Route::get('/admin/givingccategory-add', [GivingCategoryController::class,'create']);
-        Route::post('/admin/givingccategory', [GivingCategoryController::class,'store']);
+        Route::post('/admin/givingcategory', [GivingCategoryController::class,'store']);
         //Route::get('/admin/givingccategorycategory-edit/{id?}', [GivingCategoryController::class,'edit']);
-        Route::post('/admin/givingccategory/{id?}', [GivingCategoryController::class,'update']);
-        Route::get('/admin/delete-givingccategory/{id?}', [GivingCategoryController::class,'destroy']);
+        Route::post('/admin/givingcategory/{id?}', [GivingCategoryController::class,'update']);
+        Route::get('/admin/delete-givingcategory/{id?}', [GivingCategoryController::class,'destroy']);
 
         // Events
         Route::get('/admin/event/{id?}', [EventController::class,'index']);
@@ -218,7 +223,7 @@ Route::get('/', function () {
         Route::post('/admin/sermon', [SermonController::class,'store']);
         //Route::get('/admin/sermon-edit/{id?}', [SermonController::class,'edit']);
         Route::post('/admin/sermon/{id?}', [SermonController::class,'update']);
-        Route::post('/admin/sermon/{id?}', [SermonController::class,'updateSermonFile']);
+        //Route::post('/admin/sermon/{id?}', [SermonController::class,'updateSermonFile']);
         Route::get('/admin/delete-sermon/{id?}', [SermonController::class,'destroy']);
 
 
@@ -234,13 +239,13 @@ Route::get('/', function () {
 
 
         // Department
-        Route::get('/admin/dept{id?}', [DepartmentController::class,'index']);
+       // Route::get('/admin/dept{id?}', [DepartmentController::class,'index']);
         //Route::get('/admin/dept-add', [DepartmentController::class,'create']);
-        Route::post('/admin/dept', [DepartmentController::class,'store']);
+       // Route::post('/admin/dept', [DepartmentController::class,'store']);
         //Route::get('/admin/dept-edit/{id?}', [DepartmentController::class,'edit']);
-        Route::post('/admin/dept/{id?}', [DepartmentController::class,'update']);
-        Route::post('/admin/dept/{id?}', [DepartmentController::class,'updateDeptFile']);
-        Route::get('/admin/delete-dept/{id?}', [DepartmentController::class,'destroy']);  
+       // Route::post('/admin/dept/{id?}', [DepartmentController::class,'update']);
+        //Route::post('/admin/dept/{id?}', [DepartmentController::class,'updateDeptFile']);
+        //Route::get('/admin/delete-dept/{id?}', [DepartmentController::class,'destroy']);  
 
 
         // Department Member Registration
@@ -282,9 +287,10 @@ Route::get('/', function () {
 
 
         // Food Bank
-        Route::get('/admin/foodbank', [FoodBankController::class,'index']);
+        Route::get('/admin/foodbank/{id?}', [FoodBankController::class,'index']);
+        Route::get('/admin/foodbank', [FoodBankController::class,'store']);
         //Route::get('/admin/foodbank-add', [FoodBankController::class,'create']);
-        //Route::post('/admin/foodbank-add', [FoodBankController::class,'store']);
+        Route::post('/admin/foodbank/{id?}', [FoodBankController::class,'update']);
         //Route::get('/admin/foodbank-edit/{id?}', [FoodBankController::class,'edit']);
         //Route::post('/admin/foodbank-edit/{id?}', [FoodBankController::class,'update']);
         Route::get('/admin/delete-foodbank/{id?}', [FoodBankController::class,'destroy']);
@@ -296,7 +302,7 @@ Route::get('/', function () {
         Route::post('/admin/gallery', [GalleryController::class,'store']);
         //Route::get('/admin/gallery-edit/{id?}', [GalleryController::class,'edit']);
         Route::post('/admin/gallery/{id?}', [GalleryController::class,'update']);
-        Route::post('/admin/gallery/{id?}', [GalleryController::class,'updateGalleryFile']);
+        //Route::post('/admin/gallery/{id?}', [GalleryController::class,'updateGalleryFile']);
         Route::get('/admin/delete-gallery/{id?}', [GalleryController::class,'destroy']);
 
 
@@ -316,7 +322,7 @@ Route::get('/', function () {
         Route::post('/admin/news', [NewsController::class,'store']);
         //Route::get('/admin/news-edit/{id?}', [NewsController::class,'edit']);
         Route::post('/admin/news/{id?}', [NewsController::class,'update']);
-        Route::post('/admin/news/{id?}', [NewsController::class,'updateNewsFile']);
+        //Route::post('/admin/news/{id?}', [NewsController::class,'updateNewsFile']);
         Route::get('/admin/delete-news/{id?}', [NewsController::class,'destroy']);
 
 
@@ -365,6 +371,23 @@ Route::get('/', function () {
         Route::post('/admin/zipcode/{id?}', [ZipCodeController::class,'update']);
         Route::post('/admin/zipcode-file-edit/{id?}', [ZipCodeController::class,'updateEventFile']);
         Route::get('/admin/delete-zipcode/{id?}', [ZipCodeController::class,'destroy']);
+
+        // Resources
+        Route::get('/admin/resource/{id?}', [ResourceController::class,'index']);
+        //Route::get('/admin/resource-add', [ResourceController::class,'create']);
+        Route::post('/admin/resource', [ResourceController::class,'store']);
+        //Route::get('/admin/resourcecategory-edit/{id?}', [ResourceController::class,'edit']);
+        Route::post('/admin/resource/{id?}', [ResourceController::class,'update']);
+        Route::get('/admin/delete-resource/{id?}', [ResourceController::class,'destroy']);
+
+        // Department
+        Route::get('/admin/department/{id?}', [DepartmentController::class,'index']);
+        //Route::get('/admin/department-add{id?}', [DepartmentController::class,'create']);
+        Route::post('/admin/department', [DepartmentController::class,'store']);
+        //Route::get('/admin/department-edit/{id?}/{idd?}', [DepartmentController::class,'edit']);
+        Route::post('/admin/department/{id?}', [DepartmentController::class,'update']);
+        Route::post('/admin/department-file-edit/{id?}', [DepartmentController::class,'updateDepartmentFile']);
+        Route::get('/admin/delete-department/{id?}', [DepartmentController::class,'destroy']);
         
 
 

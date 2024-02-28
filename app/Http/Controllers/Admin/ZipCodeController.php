@@ -77,13 +77,13 @@ class ZipCodeController extends Controller
             ];
 
               //$zipcodeone = ZipCode::find($data['zipcodes_name']);
-              $zipcodeone = $zipcode->where('zipcodes_name', '=', $data['zipcodes_name'])->first();                           
+              //$zipcodeone = $zipcode->where('zipcodes_name', '=', $data['zipcodes_name'])->first();                           
         
                //echo "<prev>"; print_r($zipcodeone['zipcodes_name']); die;
 
-              if($zipcodeone['zipcodes_name'] == $data['zipcodes_name']) {
-                return redirect('admin/zipcode')->with('error_message', 'Zip Code Already Exists'); 
-              } else {
+               if (ZipCode::where('zipcodes_name', $data['zipcodes_name'])->exists()) {
+                return redirect('admin/zipcode')->with('error_message', 'Zip Code Already Exists');
+               }  else {
                 $zipcode->insert($store);
                 return redirect('admin/zipcode')->with('success_message', $message);
               }
@@ -141,8 +141,12 @@ class ZipCodeController extends Controller
                
             ];
 
+            if (ZipCode::where('zipcodes_name', $data['zipcodes_name'])->exists()) {
+                return redirect('admin/zipcode/'.$data['zipcodes_id'])->with('error_message', 'Zip Code Already Exists');
+            }  else {
               ZipCode::where('zipcodes_id',$data['zipcodes_id'])->update($store);
               return redirect('admin/zipcode/'.$data['zipcodes_id'])->with('success_message', $message);
+              }
 
           }   
     }

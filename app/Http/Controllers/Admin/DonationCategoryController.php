@@ -73,13 +73,13 @@ class DonationCategoryController extends Controller
             ];
 
               //$donationcategoryone = DonationCategory::find($data['donationcategories_name']);
-              $donationcategoryone = $donationcategory->where('donationcategories_name', '=', $data['donationcategories_name'])->first();                           
+              //$donationcategoryone = $donationcategory->where('donationcategories_name', '=', $data['donationcategories_name'])->first();                           
         
                //echo "<prev>"; print_r($donationcategoryone['donationcategories_name']); die;
 
-              if($donationcategoryone['donationcategories_name'] == $data['donationcategories_name']) {
-                return redirect('admin/donationcategory')->with('error_message', 'Donation Category Name Already Exists'); 
-              } else {
+              if (DonationCategory::where('donationcategories_name', $data['donationcategories_name'])->exists()) {
+                return redirect('admin/donationcategory')->with('error_message', 'Donation Category Already Exists');
+              }  else {
                 $donationcategory->insert($store);
                 return redirect('admin/donationcategory')->with('success_message', $message);
               }
@@ -132,9 +132,13 @@ class DonationCategoryController extends Controller
                 'donationcategories_name' => $data['donationcategories_name'],
                
             ];
+              if (DonationCategory::where('donationcategories_name', $data['donationcategories_name'])->exists()) {
+                return redirect('admin/donationcategory/'.$data['donationcategories_id'])->with('error_message', 'Donation Category Already Exists');
+              } else {
 
               DonationCategory::where('donationcategories_id',$data['donationcategories_id'])->update($store);
               return redirect('admin/donationcategory/'.$data['donationcategories_id'])->with('success_message', $message);
+              }
 
           }   
     }

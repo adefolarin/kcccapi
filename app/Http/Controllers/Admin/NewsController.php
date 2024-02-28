@@ -31,9 +31,9 @@ class NewsController extends Controller
            //echo "<prev>"; print_r($news); die;
 
         } else {
-            $news = new News;
+            $newss = new News;
             $newscategory = new NewsCategory;
-            $newsone = $news->where('news_id', $newsid)->first();
+            $newsone = $newss->where('news_id', $newsid)->first();
 
             $newscategoryone = $newscategory->where('newscategories_id', $newsone['newscategoriesid'])->first(); 
             
@@ -193,7 +193,7 @@ class NewsController extends Controller
             
                 'newscategoriesid' => $data['newscategoriesid'],
                 'news_title' => $data['news_title'],
-                'news_content' => $data['news_cotent'],
+                'news_content' => $data['news_content'],
                 'news_file' => $fileName,
                 'news_date' => date("Y-m-d"),
                

@@ -73,7 +73,7 @@ class ResourceController extends Controller
                 $rules = [
                     'resourcecategoriesid' => 'required',
                     'resources_name' => 'required',
-                    'resources_file' => 'required|mimes:pdf|max:100240',
+                    'resources_file' => 'required|max:50240',
                     
                 ];
              
@@ -81,8 +81,8 @@ class ResourceController extends Controller
                     'resourcecategoriesid.required' => 'Name of Resource Category is required',
                     'resources_name.required' => 'Resource Title is required',
                     'resources_file.required' => 'The Resource File is required',
-                    'resources_file.mimes' => "The File format is not allowed",
-                    'resources_max' => "Video upload size can't exceed 100MB",
+                    //'resources_file.mimes' => "The File format is not allowed",
+                    'resources_max' => "Upload size can't exceed 50MB",
                 ];
                      
 
@@ -90,10 +90,10 @@ class ResourceController extends Controller
 
                 if ($request->hasFile('resources_file')) {
                     $docFile = $request->file('resources_file');
-                    $fileName = time() . '_' . $docFile->getClientOriginalExtension();
+                    $fileName = time() . '.' . $docFile->getClientOriginalExtension();
                     // Move the uploaded file to the storage directory
                     //$videoFile->storeAs('public/admin/videos/banners', $fileName);
-                    $docFile->storeAs('admin/docs/resources', $fileName);
+                    $docFile->storeAs('public/admin/docs/resources', $fileName);
                     //$videoFile->store()
                  }
               
@@ -148,16 +148,16 @@ class ResourceController extends Controller
                 $rules = [
                     'resourcecategoriesid' => 'required',
                     'resources_name' => 'required',
-                    'resources_file' => 'required|mimes:pdf|max:100240',
+                    'resources_file' => 'max:50240',
                     
                 ];
                
                 $customMessages = [
                     'resourcecategoriesid.required' => 'Name of Resource Category is required',
                     'resources_name.required' => 'Resource Title is required',
-                    'resources_file.required' => 'The Resource File is required',
-                    'resources_file.mimes' => "The File format is not allowed",
-                    'resources_max' => "Video upload size can't exceed 100MB",
+                    //'resources_file.required' => 'The Resource File is required',
+                    //'resources_file.mimes' => "The File format is not allowed",
+                    'resources_max' => "Upload size can't exceed 50MB",
                 ];
                      
 
@@ -167,10 +167,10 @@ class ResourceController extends Controller
                 if($request->hasFile('resources_file') && !empty($request->file('resources_file'))) {
 
                     $docFile = $request->file('resources_file');
-                    $fileName = time() . '_' . $docFile->getClientOriginalExtension();
+                    $fileName = time() . '.' . $docFile->getClientOriginalExtension();
                     // Move the uploaded file to the storage directory
                     //$videoFile->storeAs('public/admin/videos/banners', $fileName);
-                    $docFile->storeAs('admin/docs/resources', $fileName);
+                    $docFile->storeAs('public/admin/docs/resources', $fileName);
                     //$videoFile->store()
                 } else {
                     $fileName = $data['currentresources_file'];

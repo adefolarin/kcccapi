@@ -73,12 +73,12 @@ class GivingCategoryController extends Controller
             ];
 
               //$givingcategoryone = GivingCategory::find($data['givingcategories_name']);
-              $givingcategoryone = $givingcategory->where('givingcategories_name', '=', $data['givingcategories_name'])->first();                           
+              //$givingcategoryone = $givingcategory->where('givingcategories_name', '=', $data['givingcategories_name'])->first();                           
         
                //echo "<prev>"; print_r($givingcategoryone['givingcategories_name']); die;
 
-              if($givingcategoryone['givingcategories_name'] == $data['givingcategories_name']) {
-                return redirect('admin/givingcategory')->with('error_message', 'Giving Category Name Already Exists'); 
+               if (GivingCategory::where('givingcategories_name', $data['givingcategories_name'])->exists()) {
+                return redirect('admin/givingcategory')->with('error_message', 'Giving Category Already Exists');
               } else {
                 $givingcategory->insert($store);
                 return redirect('admin/givingcategory')->with('success_message', $message);
@@ -133,8 +133,12 @@ class GivingCategoryController extends Controller
                
             ];
 
+              if (GivingCategory::where('givingcategories_name', $data['givingcategories_name'])->exists()) {
+                return redirect('admin/givingcategory/'.$data['givingcategories_id'])->with('error_message', 'Giving Category Already Exists');
+              } else {
               GivingCategory::where('givingcategories_id',$data['givingcategories_id'])->update($store);
               return redirect('admin/givingcategory/'.$data['givingcategories_id'])->with('success_message', $message);
+              }
 
           }   
     }

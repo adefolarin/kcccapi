@@ -18,15 +18,15 @@ class DepartmentController extends Controller
      */
     public function index($departmentsid = null)
     {
-        Session::put("page", "department");
+        Session::put("page", "departments");
 
         $deptcategories = DeptCategory::query()->get()->toArray();
 
-        $departments = DB::table('deptcategories')->orderByDesc('departments_id')->join('department','deptcategories.deptcategories_id','=', 'department.deptcategoriesid')->select('department.*','deptcategories.deptcategories_name')->get()->toArray();
+        $departments = DB::table('deptcategories')->orderByDesc('departments_id')->join('departments','deptcategories.deptcategories_id','=', 'departments.deptcategoriesid')->select('departments.*','deptcategories.deptcategories_name')->get()->toArray();
 
         if($departmentsid == null) {
               
-           return view('admin.department')->with(compact('department','deptcategories'));
+           return view('admin.department')->with(compact('departments','deptcategories'));
            //dd($department); die;
            //echo "<prev>"; print_r($department); die;
 
@@ -185,7 +185,6 @@ class DepartmentController extends Controller
               $store = [
             
                 'deptcategoriesid' => $data['deptcategoriesid'],
-                'departments_title' => $data['departments_title'],
                 'departments_content' => $data['departments_content'],
                 'departments_file' => $fileName,
                 'departments_status' => 1,

@@ -76,8 +76,8 @@
                     <div class="form-group">
                       <label for="deptcategories_name">Department Name</label>
                       <select  class="form-control select2" id="deptcategoriesid" name="deptcategoriesid" required style="width: 100%;">
-                      @foreach($deptcategories as $deptcategory) 
-                          <option value="">Select Department</option>
+                      <option value="">Select Department</option>
+                      @foreach($deptcategories as $deptcategory)                      
                           <option value="{{ $deptcategory['deptcategories_id'] }}">
                             {{ ucwords($deptcategory['deptcategories_name']) }}
                           </option>
@@ -165,14 +165,8 @@
                 <thead>
                   <tr>
                     <th>Category</th>
-                    <th>Title</th>
                     <th>Description</th>
                     <th>Image</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
-                    <th>Venue</th>
-                    <th>Address</th>
-                    <th>Organizer</th>
                     <th>Actions </th>
                   </tr>
                 <thead>
@@ -181,18 +175,12 @@
                     @foreach($departments as $department)           
                   <tr>
                     <td>{{ ucwords($department->deptcategories_name) }}</td>
-                    <td>{{ ucwords($department->departments_title) }}</td>
-                    <td>{{ $department->departments_desc }}</td>
+                    <td>{{ $department->departments_content }}</td>
                     <td>
                        <div id="div_img">
                          <img src="{{ asset('admin/img/departments/'.$department->departments_file) }}" class="img-circle elevation-2" alt="Department Image">
                        </div>
                     </td>
-                    <td>{{ ucwords($department->departments_startdate) }}</td>
-                    <td>{{ ucwords($department->departments_enddate) }}</td>
-                    <td>{{ ucwords($department->departments_venue) }}</td>
-                    <td>{{ ucwords($department->departments_address) }}</td>
-                    <td>{{ ucwords($department->departments_organizer) }}</td>
                     <td>                     
                       <a href="{{  url('admin/department/'.$department->departments_id) }}" style="color:#3f6ed3;">
                         <i class="fas fa-edit"></i>

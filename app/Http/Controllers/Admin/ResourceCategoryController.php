@@ -73,13 +73,13 @@ class ResourceCategoryController extends Controller
             ];
 
               //$resourcecategoryone = ResourceCategory::find($data['resourcecategories_name']);
-              $resourcecategoryone = $resourcecategory->where('resourcecategories_name', '=', $data['resourcecategories_name'])->first();                           
+              //$resourcecategoryone = $resourcecategory->where('resourcecategories_name', '=', $data['resourcecategories_name'])->first();                           
         
                //echo "<prev>"; print_r($resourcecategoryone['resourcecategories_name']); die;
 
-              if($resourcecategoryone['resourcecategories_name'] == $data['resourcecategories_name']) {
-                return redirect('admin/resourcecategory')->with('error_message', 'Resource Category Name Already Exists'); 
-              } else {
+               if (ResourceCategory::where('resourcecategories_name', $data['resourcecategories_name'])->exists()) {
+                return redirect('admin/resourcecategory')->with('error_message', 'Resource Category Already Exists');
+               } else {
                 $resourcecategory->insert($store);
                 return redirect('admin/resourcecategory')->with('success_message', $message);
               }
@@ -133,8 +133,12 @@ class ResourceCategoryController extends Controller
                
             ];
 
+            if (ResourceCategory::where('resourcecategories_name', $data['resourcecategories_name'])->exists()) {
+                return redirect('admin/resourcecategory/'.$data['resourcecategories_id'])->with('error_message', 'Resource Category Already Exists');
+            } else { 
               ResourceCategory::where('resourcecategories_id',$data['resourcecategories_id'])->update($store);
               return redirect('admin/resourcecategory/'.$data['resourcecategories_id'])->with('success_message', $message);
+            }
 
           }   
     }

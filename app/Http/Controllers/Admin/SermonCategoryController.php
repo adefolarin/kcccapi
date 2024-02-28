@@ -77,9 +77,9 @@ class SermonCategoryController extends Controller
         
                //echo "<prev>"; print_r($sermoncategoryone['sermoncategories_name']); die;
 
-              if($sermoncategoryone['sermoncategories_name'] == $data['sermoncategories_name']) {
-                return redirect('admin/sermoncategory')->with('error_message', 'Sermon Category Name Already Exists'); 
-              } else {
+               if (SermonCategory::where('sermoncategories_name', $data['sermoncategories_name'])->exists()) {
+                return redirect('admin/sermoncategory')->with('error_message', 'Sermon Category Already Exists');
+               }else {
                 $sermoncategory->insert($store);
                 return redirect('admin/sermoncategory')->with('success_message', $message);
               }
@@ -133,8 +133,13 @@ class SermonCategoryController extends Controller
                
             ];
 
+            if (SermonCategory::where('sermoncategories_name', $data['sermoncategories_name'])->exists()) {
+                return redirect('admin/sermoncategory/'.$data['sermoncategories_id'])->with('error_message', 'Sermon Category Already Exists');
+            }
+            else {
               SermonCategory::where('sermoncategories_id',$data['sermoncategories_id'])->update($store);
               return redirect('admin/sermoncategory/'.$data['sermoncategories_id'])->with('success_message', $message);
+            }
 
           }   
     }

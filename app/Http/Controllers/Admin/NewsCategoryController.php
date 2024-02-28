@@ -73,12 +73,12 @@ class NewsCategoryController extends Controller
             ];
 
               //$newscategoryone = NewsCategory::find($data['newscategories_name']);
-              $newscategoryone = $newscategory->where('newscategories_name', '=', $data['newscategories_name'])->first();                           
+              //$newscategoryone = $newscategory->where('newscategories_name', '=', $data['newscategories_name'])->first();                           
         
                //echo "<prev>"; print_r($newscategoryone['newscategories_name']); die;
 
-              if($newscategoryone['newscategories_name'] == $data['newscategories_name']) {
-                return redirect('admin/newscategory')->with('error_message', 'News Category Name Already Exists'); 
+               if (NewsCategory::where('newscategories_name', $data['newscategories_name'])->exists()) {
+                return redirect('admin/newscategory')->with('error_message', 'News Category Already Exists');
               } else {
                 $newscategory->insert($store);
                 return redirect('admin/newscategory')->with('success_message', $message);
@@ -133,8 +133,12 @@ class NewsCategoryController extends Controller
                
             ];
 
+            if (NewsCategory::where('newscategories_name', $data['newscategories_name'])->exists()) {
+                return redirect('admin/newscategory/'.$data['newscategories_id'])->with('error_message', 'News Category Already Exists');
+            } else { 
               NewsCategory::where('newscategories_id',$data['newscategories_id'])->update($store);
               return redirect('admin/newscategory/'.$data['newscategories_id'])->with('success_message', $message);
+            }
 
           }   
     }

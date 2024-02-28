@@ -73,13 +73,13 @@ class ProductCategoryController extends Controller
             ];
 
               //$productcategoryone = ProductCategory::find($data['productcategories_name']);
-              $productcategoryone = $productcategory->where('productcategories_name', '=', $data['productcategories_name'])->first();                           
+              //$productcategoryone = $productcategory->where('productcategories_name', '=', $data['productcategories_name'])->first();                           
         
                //echo "<prev>"; print_r($productcategoryone['productcategories_name']); die;
 
-              if($productcategoryone['productcategories_name'] == $data['productcategories_name']) {
-                return redirect('admin/productcategory')->with('error_message', 'Product Category Name Already Exists'); 
-              } else {
+            if(ProductCategory::where('productcategories_name', $data['productcategories_name'])->exists()) {
+                return redirect('admin/productcategory')->with('error_message', 'Product Category Already Exists');
+            }  else {
                 $productcategory->insert($store);
                 return redirect('admin/productcategory')->with('success_message', $message);
               }
@@ -133,8 +133,12 @@ class ProductCategoryController extends Controller
                
             ];
 
+            if(ProductCategory::where('productcategories_name', $data['productcategories_name'])->exists()) {
+                return redirect('admin/productcategory/'.$data['productcategories_id'])->with('error_message', 'Product Category Already Exists');
+            } else {
               ProductCategory::where('productcategories_id',$data['productcategories_id'])->update($store);
               return redirect('admin/productcategory/'.$data['productcategories_id'])->with('success_message', $message);
+            }
 
           }   
     }

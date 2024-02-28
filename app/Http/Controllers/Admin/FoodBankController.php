@@ -72,8 +72,8 @@ class FoodBankController extends Controller
                 $rules = [
                     'foodbankcategoriesid' => 'required',
                     'foodbanks_name' => 'required',
-                    'foodbanks_videofile' => 'image|mimes:jpeg,png,jpg,gif,svg|max:100240',
-                    'foodbanks_imagefile' => 'mimes:mp4|max:5240',
+                    'foodbanks_imagefile' => 'image|mimes:jpeg,png,jpg,gif,svg|max:5240',
+                    'foodbanks_videofile' => 'mimes:mp4|max:20240',
                     'foodbanks_date' => 'required',
                 ];
                 $customMessages = [
@@ -107,8 +107,8 @@ class FoodBankController extends Controller
 
               if ($request->hasFile('foodbanks_videofile')) {
                 $videoFile = $request->file('foodbanks_videofile');
-                $fileVideoName = time() . '_' . $videoFile->getClientOriginalExtension();
-                $videoFile->storeAs('admin/videos/foodbanks', $fileVideoName);
+                $fileVideoName = time() . '.' . $videoFile->getClientOriginalExtension();
+                $videoFile->storeAs('public/admin/videos/foodbanks', $fileVideoName);
              }
 
               $store = [
@@ -162,8 +162,8 @@ class FoodBankController extends Controller
             $rules = [
                 'foodbankcategoriesid' => 'required',
                 'foodbanks_name' => 'required',
-                'foodbanks_videofile' => 'image|mimes:jpeg,png,jpg,gif,svg|max:100240',
-                'foodbanks_imagefile' => 'mimes:mp4|max:5240',
+                'foodbanks_imagefile' => 'image|mimes:jpeg,png,jpg,gif,svg|max:5240',
+                'foodbanks_videofile' => 'mimes:mp4|max:20240',
                 'foodbanks_date' => 'required',
             ];
             $customMessages = [
@@ -199,9 +199,9 @@ class FoodBankController extends Controller
 
 
             if($request->hasFile('foodbanks_videofile') && !empty($request->file('foodbanks_videofile'))) {
-                $videoFile = $request->file('sermons_videofile');
-                $fileVideoName = time() . '_' . $videoFile->getClientOriginalExtension();
-                $videoFile->storeAs('admin/videos/foodbanks', $fileVideoName);
+                $videoFile = $request->file('foodbanks_videofile');
+                $fileVideoName = time() . '.' . $videoFile->getClientOriginalExtension();
+                $videoFile->storeAs('public/admin/videos/foodbanks', $fileVideoName);
                 } else {
                     $fileVideoName = $data['currentfoodbanks_videofile'];
                 }

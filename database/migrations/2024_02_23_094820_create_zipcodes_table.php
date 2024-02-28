@@ -15,7 +15,7 @@ return new class extends Migration
             Schema::create('zipcodes', function (Blueprint $table) {
                 $table->bigInteger('zipcodes_id')->autoIncrement();
                 $table->string('zipcodes_name');
-                $table->string('zipcodes_price');
+                $table->decimal('zipcodes_price',10,2);
                 $table->date('zipcodes_date');
                 $table->timestamps();
             });

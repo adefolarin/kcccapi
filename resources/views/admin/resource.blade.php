@@ -86,7 +86,7 @@
                     </div>
                     <div class="form-group">
                         <label for="resources_title">File Name</label>
-                        <input type="text" class="form-control"  name="resources_title" id="resources_name" placeholder="Resource Name" required >
+                        <input type="text" class="form-control"  name="resources_name" id="resources_name" placeholder="Resource Name" required >
                     </div> 
 
                     <div class="form-group">
@@ -178,7 +178,7 @@
                     <td>{{ ucwords($resource->resources_name) }}</td>
                     <td>
                        <div id="div_img">
-                         <a  href="{{ url('admin/resource/'.$resource->resources_file) }}">
+                         <a  href="{{ url('storage/admin/docs/resources/'.$resource->resources_file) }}" target="_blank">
                            {{ ucwords($resource->resources_name) }}
                          </a>
                        </div>

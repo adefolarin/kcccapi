@@ -73,13 +73,13 @@ class FoodBankCategoryController extends Controller
             ];
 
               //$foodbankcategoryone = FoodBankCategory::find($data['foodbankcategories_name']);
-              $foodbankcategoryone = $foodbankcategory->where('foodbankcategories_name', '=', $data['foodbankcategories_name'])->first();                           
+              //$foodbankcategoryone = $foodbankcategory->where('foodbankcategories_name', '=', $data['foodbankcategories_name'])->first();                           
         
                //echo "<prev>"; print_r($foodbankcategoryone['foodbankcategories_name']); die;
 
-              if($foodbankcategoryone['foodbankcategories_name'] == $data['foodbankcategories_name']) {
-                return redirect('admin/foodbankcategory')->with('error_message', 'FoodBank Category Name Already Exists'); 
-              } else {
+               if (FoodBankCategory::where('foodbankcategories_name', $data['foodbankcategories_name'])->exists()) {
+                return redirect('admin/foodbankcategory')->with('error_message', 'Food Bank Category Already Exists');
+              }  else {
                 $foodbankcategory->insert($store);
                 return redirect('admin/foodbankcategory')->with('success_message', $message);
               }
@@ -133,8 +133,12 @@ class FoodBankCategoryController extends Controller
                
             ];
 
+             if (FoodBankCategory::where('foodbankcategories_name', $data['foodbankcategories_name'])->exists()) {
+                return redirect('admin/foodbankcategory/'.$data['foodbankcategories_id'])->with('error_message', 'Food Bank Category Already Exists');
+              } else {
               FoodBankCategory::where('foodbankcategories_id',$data['foodbankcategories_id'])->update($store);
               return redirect('admin/foodbankcategory/'.$data['foodbankcategories_id'])->with('success_message', $message);
+              }
 
           }   
     }

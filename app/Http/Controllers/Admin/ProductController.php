@@ -160,7 +160,7 @@ class ProductController extends Controller
                 'productcategoriesid' => 'required',
                 'products_name' => 'required',
                 'products_description' => 'required',
-                'products_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5240',
+                'products_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:5240',
                 'products_price' => 'required',
                 
             ];
@@ -168,7 +168,6 @@ class ProductController extends Controller
                 'productcategoriesid.required' => 'Name of Product Category is required',
                 'products_name.required' => 'Name of Product is required',
                 'products_description.required' => 'Product Description is required',
-                'products_image.required' => 'Product Image is required',
                 'products_image.mimes' => "The Image format is not allowed",
                 'products_image.max' => "Image upload size can't exceed 5MB",
                 'products_price.required' => 'Product Price is required',

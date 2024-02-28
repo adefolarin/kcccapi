@@ -154,7 +154,7 @@
                         </div>
                        </div> 
                     </div>
-              ]
+              
                     <div class="form-group">
                         <label for="foodbanks_imagefile">Image (Optional)</label>
                         <input type="file" class="form-control"  name="foodbanks_imagefile" id="foodbanks_imagefile" placeholder="Food Bank Image">
@@ -224,10 +224,12 @@
                     </td>
                     <td>
                        @if(!empty($foodbank->foodbanks_videofile))
-                        <div id="div_video">
-                            <iframe width="200" height="300" src="{{ $foodbankas->foodbanks_videofile']) }}">
-                            </iframe>
-                        </div>
+                       <div id="div_video">
+                        <video class="embed-responsive-item" controls>
+                              <source src="{{ asset('storage/admin/videos/foodbanks/'.$foodbank->foodbanks_videofile) }}" type="video/mp4">
+                              Your browser does not support the video tag.
+                         </video>
+                      </div>
                        @else
                          Not Available
                        @endif

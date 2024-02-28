@@ -73,16 +73,16 @@ class DeptCategoryController extends Controller
             ];
 
               //$deptcategoryone = DeptCategory::find($data['deptcategories_name']);
-              $deptcategoryone = $deptcategory->where('deptcategories_name', '=', $data['deptcategories_name'])->first();                           
+              //$deptcategoryone = $deptcategory->where('deptcategories_name', '=', $data['deptcategories_name'])->first();                           
         
                //echo "<prev>"; print_r($deptcategoryone['deptcategories_name']); die;
 
-              if($deptcategoryone['deptcategories_name'] == $data['deptcategories_name']) {
-                return redirect('admin/deptcategory')->with('error_message', 'Dept Category Name Already Exists'); 
-              } else {
+            if (DeptCategory::where('deptcategories_name', $data['deptcategories_name'])->exists()) {
+                return redirect('admin/deptcategory')->with('error_message', 'Department Category Already Exists');
+            } else {
                 $deptcategory->insert($store);
                 return redirect('admin/deptcategory')->with('success_message', $message);
-              }
+            }
 
           }
     }
@@ -133,8 +133,13 @@ class DeptCategoryController extends Controller
                
             ];
 
+            if (DeptCategory::where('deptcategories_name', $data['deptcategories_name'])->exists()) {
+                return redirect('admin/deptcategory/'.$data['deptcategories_id'])->with('error_message', 'Department Category Already Exists');
+            } else {
+
               DeptCategory::where('deptcategories_id',$data['deptcategories_id'])->update($store);
               return redirect('admin/deptcategory/'.$data['deptcategories_id'])->with('success_message', $message);
+            }
 
           }   
     }

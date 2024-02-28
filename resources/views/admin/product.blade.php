@@ -140,7 +140,11 @@
                     <div class="form-group">
                         <label for="products_description">Description</label>
                         <textarea class="form-control" id="products_description" name="products_description" placeholder="Product Description" required>{{ $productone['products_description'] }}</textarea>
-                    </div>   
+                    </div>
+                    <div class="form-group">
+                        <label for="products_price">Price</label>
+                        <textarea class="form-control" id="products_price" name="products_price" placeholder="Product Price" required>{{ $productone['products_description'] }}</textarea>
+                    </div>      
                     <div class="form-group">
                         <label for="products_image">Image (Optional)</label>
                         <input type="file" class="form-control"  name="products_image" id="products_image" placeholder="Product Image">
@@ -178,7 +182,6 @@
                   <tr>
                     <th>Category</th>
                     <th>Image</th>
-                    <th>Category</th>
                     <th>Name</th>
                     <th>Description</th>
                     <th>Price</th>
@@ -192,8 +195,8 @@
                   <tr>
                     <td>{{ ucwords($product->productcategories_name) }}</td>
                     <td>
-                       <div id="div_img">
-                         <img src="{{ asset('admin/img/products/'.$product->products_image) }}" class="img-circle elevation-2" alt="Product Image">
+                       <div id="div_img" style="width:100px;margin:auto;">
+                         <img src="{{ asset('admin/img/products/'.$product->products_image) }}" class="img-circle elevation-2" alt="Product Image" style="width:100%">
                        </div>
                     </td>
                     <td>{{ ucwords($product->products_name) }}</td>

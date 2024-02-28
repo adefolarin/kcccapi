@@ -17,7 +17,7 @@ return new class extends Migration
                 $table->bigInteger('productcategoriesid');
                 $table->string('products_name');
                 $table->string('products_description');
-                $table->string('products_price');
+                $table->decimal('products_price',10,2);
                 $table->string('products_image');
                 $table->bigInteger('products_likes')->nullable(true);
                 $table->date('products_date');

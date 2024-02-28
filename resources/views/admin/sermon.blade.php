@@ -125,7 +125,7 @@
                     
                     <div class="form-group">
                         <label for="sermons_urlfile">Video(Sermon Youtube URL)</label>
-                        <input type="file" class="form-control"  name="sermons_urlfile" id="sermons_urlfile" placeholder="Sermon Youtube URL" required>
+                        <input type="text" class="form-control"  name="sermons_urlfile" id="sermons_urlfile" placeholder="Sermon Youtube URL" required>
                     </div>  
                     </div>
                     <!-- /.card-body -->
@@ -168,7 +168,7 @@
                     </div>  
                     <div class="form-group">
                         <label for="sermons_preacher">Preacher</label>
-                        <input type="text" class="form-control"  name="sermons_preacher" id="sermons_preacher" placeholder="Preacher" required value="{{ $sermonone['sermons_precher'] }}">
+                        <input type="text" class="form-control"  name="sermons_preacher" id="sermons_preacher" placeholder="Preacher" required value="{{ $sermonone['sermons_preacher'] }}">
                     </div>  
                     <div class="form-group">
                        <label>Date Sermon Was Preached</label>
@@ -204,7 +204,7 @@
                         
                         <div class="form-group">
                           <label for="sermons_urlfile">Video(Sermon Youtube URL)</label>
-                          <input type="file" class="form-control"  name="sermons_urlfile" id="sermons_urlfile" placeholder="Sermon Youtube URL" required 
+                          <input type="text" class="form-control"  name="sermons_urlfile" id="sermons_urlfile" placeholder="Sermon Youtube URL" required 
                           value="{{ $sermonone['sermons_file'] }}">
                          </div>  
                     </div>
@@ -250,7 +250,7 @@
                     <td>{{ ucwords($sermon->sermons_title) }}</td>
                     <td>
                        <div id="div_video">
-                        <iframe width="200" height="300" src="{{ $sermon->sermons_file']) }}">
+                        <iframe width="200" height="100" src="{{ $sermon->sermons_file }}">
                         </iframe>
                        </div>
                     </td>
@@ -262,7 +262,8 @@
                       </a>
                       &nbsp;&nbsp;
                       <a href= "javascript:void(0)" record="sermon" 
-                      recordid="{{ $sermon->sermons_id }}" <?php //"{{  url('admin/delete-cms-page/'.$page['id']) }}" ?> style="color:#ee4b2b;" class="confirmDelete" name="Sermon" title="Delete Sermon">
+                      recordid="{{ $sermon->sermons_id }}" 
+                      style="color:#ee4b2b;" class="confirmDelete" name="Sermon" title="Delete Sermon">
                         <i class="fas fa-trash"></i>
                       </a> 
                     </td>
