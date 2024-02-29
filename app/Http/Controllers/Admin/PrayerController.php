@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Prayer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
 
 class PrayerController extends Controller
 {
@@ -13,16 +15,16 @@ class PrayerController extends Controller
      */
     public function index($prayerid = null)
     {
-        Session::put("page", "prayer");
+        Session::put("page", "prayers");
 
         if($prayerid == null) {
-          $prayer = Prayer::query()->get()->toArray(); 
-          return view('admin.prayer')->with(compact('prayer'));
+          $prayers = Prayer::query()->get()->toArray(); 
+          return view('admin.prayer')->with(compact('prayers'));
         } else {
             $prayerone = Prayer::find($prayerid);
             //$banner = Banner::where('banner_id',$bannerid);
             $prayer = Prayer::query()->get()->toArray(); 
-           return view('admin.prayer')->with(compact('prayer','prayerone'));
+           return view('admin.prayer')->with(compact('prayers','prayerone'));
     
         }
 
@@ -76,7 +78,7 @@ class PrayerController extends Controller
      */
     public function destroy($prayerid)
     {
-        Prayer::where('prayer_id',$prayerid)->delete();
+        Prayer::where('prayers_id',$prayerid)->delete();
         return redirect('admin/prayer')->with('success_message', 'Prayer Request deleted successfully');
     }
 }

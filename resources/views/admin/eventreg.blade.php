@@ -11,12 +11,12 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0">REGISTERED EVENT MEMBERS</h1>
+          <h1 class="m-0">REGISTERED EVENT MEMBERS </h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">REGISTERED EVENT MEMBERS</li>
+            <li class="breadcrumb-item active">{{ $eventone['events_title'] }}</li>
           </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
@@ -57,7 +57,7 @@
                     </button>
                 </div>
                 @endif
-                <h3 class="card-title">REGISTERED EVENT MEMBERS</h3>
+                <h3 class="card-title">{{ $eventone['events_title'] }}</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -67,7 +67,6 @@
                     <th>Name</th>
                     <th>Email</th>
                     <th>Phone Numeber</th>
-                    <th>Event</th>
                     <th>Date Registered</th>
                     <th>Actions </th>
                   </tr>
@@ -78,11 +77,12 @@
                     <td>{{ ucwords($eventreg['eventregs_name']) }}</td>
                     <td>{{ ucwords($eventreg['eventregs_email']) }}</td>
                     <td>{{ ucwords($eventreg['eventregs_pnum']) }}</td>
-                    <td>{{ ucwords($eventreg['eventregs_dept']) }}</td>
                     <td>{{ ucwords($eventreg['eventregs_date']) }}</td>
                     <td>                     
                       <a href= "javascript:void(0)" record="eventreg" 
-                      recordid="{{ $eventreg['eventregs_id'] }}" <?php //"{{  url('admin/delete-cms-page/'.$page['id']) }}" ?> style="color:#ee4b2b;" class="confirmDelete" name="Registered Member" title="Delete The Registered Member">
+                      recordid="{{ $eventreg['eventregs_id'] }}" 
+                      eventregs_event="{{ $eventreg['eventregs_event'] }}"   
+                      style="color:#ee4b2b;" class="confirmEventRegDelete" name="Registered Member" title="Delete The Registered Member">
                         <i class="fas fa-trash"></i>
                       </a> 
                     </td>

@@ -197,16 +197,17 @@
               <div class="card-body table-responsive" style="overflow-y:scroll">
                 <table id="tablepages" class="table table-bordered table-striped" >
                   
-                <thead>
+               
                   <tr>
                     <th>Category</th>
                     <th>Name</th>
                     <th>Image</th>
                     <th>Video</th>
+                    <th>Gallery</th>
                     <th>Date</th>
                     <th>Actions </th>
                   </tr>
-                <thead>
+             
                   
                   <tbody> 
                     @foreach($foodbanks as $foodbank)           
@@ -233,6 +234,11 @@
                        @else
                          Not Available
                        @endif
+                    </td>
+                    <td>
+                      <a href="{{  url('admin/foodbankgallery/'.$foodbank->foodbanks_id) }}" style="color:#3f6ed3;">
+                        View / Add
+                       </a>
                     </td>
                     <td>{{ ucwords($foodbank->foodbanks_date) }}</td>
                     <td>                     

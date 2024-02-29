@@ -24,22 +24,33 @@ class EventGalleryController extends Controller
 
         //$eventgalleries = EventGallery::query()->get()->toArray();
 
-        $eventgalleries = DB::table('eventgalleries')->where($eventsid)->orderByDesc('eventgalleries_id')->get()->toArray();
+        $eventgalleriesnumrw = DB::table('eventgalleries')->where('eventsid',$eventsid)->orderByDesc('eventgalleries_id')->count();
 
         if($eventgalleriesid == null) {
-              
-           return view('admin.eventgallery/' . $eventsid)->with(compact('eventone','eventgalleries'));
-           //dd($events); die;
-           //echo "<prev>"; print_r($events); die;
 
+            $eventgalleries = DB::table('eventgalleries')->where('eventsid',$eventsid)->orderByDesc('eventgalleries_id')->get()->toArray();
+
+            if($eventgalleriesnumrw > 0) {
+                
+            return view('admin.eventgallery')->with(compact('eventone','eventgalleries'));
+            //dd($events); die;
+            //echo "<prev>"; print_r($events); die;
+
+            } else {
+             return view('admin.eventgallery')->with(compact('eventone','eventgalleries'));
+            }
         } else {
             $eventgallerieswan = new EventGallery;
-            $eventgalleriesone = $eventgallerieswan->where('eventgalleries_id', $eventgalleriesid)->first();
+            $eventgalleriesnumrwone = $eventgallerieswan->where('eventgalleries_id', $eventgalleriesid)->count();
 
-            
-            //dd($eventcategoryone['eventcategories_name']); die;
-            //$events = EventGallery::query()->get()->toArray(); 
-             return view('admin.eventgallery/' . $eventsid)->with(compact('eventone','eventgalleriesone','eventgalleries'));
+            $eventgalleries = DB::table('eventgalleries')->where('eventsid',$eventsid)->orderByDesc('eventgalleries_id')->get()->toArray();
+
+            if($eventgalleriesnumrwone > 0) {
+                $eventgalleriesone = $eventgallerieswan->where('eventgalleries_id', $eventgalleriesid)->first();
+
+                return view('admin.eventgallery')->with(compact('eventone','eventgalleriesone','eventgalleries'));
+            }
+
         }
 
 
@@ -163,7 +174,7 @@ class EventGalleryController extends Controller
                 //$image = $image->resize(60,60);
     
                 //$storePath = 'admin/img/events/';
-                $storePath = public_path('admin/img/galleries/');
+                $storePath = public_path('admin/img/eventgalleries/');
                 //$image->toJpeg(80)->save($storePath . $imageName);
                 $image->save($storePath . $fileName);
                             
@@ -179,7 +190,7 @@ class EventGalleryController extends Controller
             ];
 
               EventGallery::where('eventgalleries_id',$data['eventgalleries_id'])->update($store);
-              return redirect('admin/eventgallery/'. $data['events_id'] . '/' . $data['eventgalleries_id'])->with('success_message', $message);
+              return redirect('admin/eventgallery/'. $data['eventsid'] . '/' . $data['eventgalleries_id'])->with('success_message', $message);
 
           }   
     }

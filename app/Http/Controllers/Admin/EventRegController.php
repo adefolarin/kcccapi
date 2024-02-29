@@ -15,23 +15,17 @@ class EventRegController extends Controller
         /**
      * Display a listing of the resource.
      */
-    public function index($eventregsid = null)
+    public function index($eventregs_event)
     {
         Session::put("page", "eventregs");
 
-        if($eventregsid == null) {
-          $eventregs = EventReg::query()->get()->toArray(); 
-          return view('admin.eventreg')->with(compact('eventregs'));
-        } else {
-            $eventregsone = EventReg::find($eventregsid);
-            //$banner = Banner::where('banner_id',$bannerid);
-            $eventregs = EventReg::query()->get()->toArray(); 
-           return view('admin.eventregs')->with(compact('eventregs','eventregsone'));
-    
-        }
+          $eventregsnumrw = EventReg::query()->count(); 
+          if($eventregsnumrw > 0) {
+            $eventone = Event::find($eventregs_event);
+            $eventregs = EventReg::query()->where('eventregs_event',$eventregs_event)->get()->toArray(); 
+            return view('admin.eventreg')->with(compact('eventregs','eventone'));
+          }
 
-         
-        //dd($CmsPages);
 
     }
 
@@ -39,9 +33,9 @@ class EventRegController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($eventregsid)
+    public function destroy($eventregsid,$eventregs_event)
     {
         EventReg::where('eventregs_id',$eventregsid)->delete();
-        return redirect('admin/eventreg')->with('success_message', 'Event Participant deleted successfully');
+        return redirect('admin/eventreg/' . $eventregs_event)->with('success_message', 'Event Participant deleted successfully');
     }
 }

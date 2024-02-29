@@ -22,7 +22,7 @@ class DepartmentController extends Controller
 
         $deptcategories = DeptCategory::query()->get()->toArray();
 
-        $departments = DB::table('deptcategories')->orderByDesc('departments_id')->join('departments','deptcategories.deptcategories_id','=', 'departments.deptcategoriesid')->select('departments.*','deptcategories.deptcategories_name')->get()->toArray();
+        $departments = DB::table('deptcategories')->orderByDesc('departments_id')->join('departments','deptcategories.deptcategories_id','=', 'departments.deptcategoriesid')->select('departments.*','deptcategories.*')->get()->toArray();
 
         if($departmentsid == null) {
               

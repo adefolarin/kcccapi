@@ -51,7 +51,7 @@ class EventRegController extends Controller
 
         $eventreg = new EventReg;
     
-        $message = "Registration Succesfully";
+        $message = "Registration Succesfull";
 
         if($request->isMethod('post')) {
             $data = $request->all();
@@ -79,11 +79,11 @@ class EventRegController extends Controller
 
                $event = new Event;
                //$eventcategory = new EventCategory;
-               $eventonenumrw = $event->where('events_id', $data['eventregs_event'])->count();
+               //$eventonenumrw = $event->where('events_id', $data['eventregs_event'])->count();
    
-               if($eventonenumrw > 0) {
+               //if($eventonenumrw > 0) {
                  $eventone = $event->where('events_id', $data['eventregs_event'])->first();
-               }
+               //}
             
 
               $store = [
@@ -99,7 +99,7 @@ class EventRegController extends Controller
 
                $mailData = [
                 'title' => 'Mail from ' . $data['eventregs_name'],
-                'eventname' => $eventone->eventregs_name,
+                'eventname' => $eventone->events_title,
                 'body' => 'The above person has registered for the event.'
                ];
 
@@ -144,9 +144,9 @@ class EventRegController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($eventregsid)
+    public function destroy($eventregsid,$eventregs_event)
     {
         EventReg::where('eventregs_id',$eventregsid)->delete();
-        return redirect('admin/eventreg')->with('success_message', 'Event Participant deleted successfully');
+        return redirect('admin/eventreg/' . $eventregs_event)->with('success_message', 'Event Participant deleted successfully');
     }
 }

@@ -108,7 +108,7 @@ class DepartmentGalleryController extends Controller
 
               $store = [
                 [
-                'departments_id' => $data['departments_id'],
+                'depts_id' => $data['depts_id'],
                 'departmentgalleries_file' => $fileName,
 
                ]
@@ -186,8 +186,8 @@ class DepartmentGalleryController extends Controller
                
             ];
 
-              DepartmentGallery::where('departmentgalleries_id',$data['departmentgalleries_id'])->update($store);
-              return redirect('admin/departmentgallery/'. $data['departments_id'] . '/' . $data['departmentgalleries_id'])->with('success_message', $message);
+              DepartmentGallery::where('deptgalleries_id',$data['deptgalleries_id'])->update($store);
+              return redirect('admin/departmentgallery/'. $data['depts_id'] . '/' . $data['deptgalleries_id'])->with('success_message', $message);
 
           }   
     }

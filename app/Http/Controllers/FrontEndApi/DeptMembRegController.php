@@ -17,23 +17,9 @@ class DeptMembRegController extends Controller
         /**
      * Display a listing of the resource.
      */
-    public function index($deptmembregsid = null)
+    public function index($deptmembregs_dept)
     {
-        Session::put("page", "deptmembregs");
 
-        if($deptmembregsid == null) {
-          $deptmembregs = DeptMembReg::query()->get()->toArray(); 
-          return view('admin.deptmembreg')->with(compact('deptmembregs'));
-        } else {
-            $deptmembregsone = DeptMembReg::find($deptmembregsid);
-            //$banner = Banner::where('banner_id',$bannerid);
-            $deptmembregs = DeptMembReg::query()->get()->toArray(); 
-           return view('admin.deptmembregs')->with(compact('deptmembregs','deptmembregsone'));
-    
-        }
-
-         
-        //dd($CmsPages);
 
     }
 
@@ -81,11 +67,11 @@ class DeptMembRegController extends Controller
 
                //$department = new Department;
                $deptcategory = new DeptCategory;
-               $deptcategoryonenumrw = $deptcategory->where('deptcategories_id', $data['deptmembregs_dept'])->count();
+               //$deptcategoryonenumrw = $deptcategory->where('deptcategories_id', $data['deptmembregs_dept'])->count();
    
-               if($deptcategoryonenumrw > 0) {
+               //if($deptcategoryonenumrw > 0) {
                  $deptcategoryone = $deptcategory->where('deptcategories_id', $data['deptmembregs_dept'])->first();
-               }
+               //}
             
 
               $store = [

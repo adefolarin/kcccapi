@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\DeptMembReg;
+use App\Models\DeptCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -12,23 +13,17 @@ class DeptMembRegController extends Controller
         /**
      * Display a listing of the resource.
      */
-    public function index($deptmembregsid = null)
+    public function index($deptmembregs_dept)
     {
         Session::put("page", "deptmembregs");
 
-        if($deptmembregsid == null) {
-          $deptmembregs = DeptMembReg::query()->get()->toArray(); 
-          return view('admin.deptmembreg')->with(compact('deptmembregs'));
-        } else {
-            $deptmembregsone = DeptMembReg::find($deptmembregsid);
-            //$banner = Banner::where('banner_id',$bannerid);
-            $deptmembregs = DeptMembReg::query()->get()->toArray(); 
-           return view('admin.deptmembreg')->with(compact('deptmembregs','deptmembregsone'));
-    
-        }
+          $deptmembregsnumrw = DeptMembReg::query()->count(); 
+          if($deptmembregsnumrw > 0) {
+            $deptcategoryone = DeptCategory::find($deptmembregs_dept);
+            $deptmembregs = DeptMembReg::query()->where('deptmembregs_dept',$deptmembregs_dept)->get()->toArray(); 
+            return view('admin.deptmembreg')->with(compact('deptmembregs','deptcategoryone'));
+          }
 
-         
-        //dd($CmsPages);
 
     }
 
@@ -78,9 +73,9 @@ class DeptMembRegController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($deptmembregsid)
+    public function destroy($deptmembregsid,$deptmembregs_dept)
     {
         DeptMembReg::where('deptmembregs_id',$deptmembregsid)->delete();
-        return redirect('admin/deptmembreg')->with('success_message', 'Member deleted successfully');
+        return redirect('admin/deptmembreg/' . $deptmembregs_dept)->with('success_message', 'Member deleted successfully');
     }
 }

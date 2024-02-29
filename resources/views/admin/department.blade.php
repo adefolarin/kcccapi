@@ -26,7 +26,7 @@
   <section class="content">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-4">
+          <div class="col-3">
             <div class="card card-primary">
                 <div class="card-header">
                     @if(empty($departmentone['departments_id']))
@@ -147,7 +147,7 @@
                 @endif
                 </div>
             </div>
-          <div class="col-8">
+          <div class="col-9">
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">DEPARTMENTS</h3>
@@ -160,13 +160,15 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive" style="overflow-y:scroll">
-                <table id="tablepages" class="table table-bordered table-striped" >
+                <table id="tablepages" class="table table-bordered table-striped text-center" >
                   
                 <thead>
                   <tr>
                     <th>Category</th>
                     <th>Description</th>
                     <th>Image</th>
+                    <th>Gallery</th>
+                    <th>Registered Members</th>
                     <th>Actions </th>
                   </tr>
                 <thead>
@@ -180,6 +182,16 @@
                        <div id="div_img">
                          <img src="{{ asset('admin/img/departments/'.$department->departments_file) }}" class="img-circle elevation-2" alt="Department Image">
                        </div>
+                    </td>
+                    <td>
+                    <a href="{{  url('admin/departmentgallery/'.$department->departments_id) }}" style="color:#3f6ed3;">
+                        Add & View
+                      </a>
+                    </td>
+                    <td>
+                    <a href="{{  url('admin/deptmembreg/'.$department->deptcategories_id) }}" style="color:#3f6ed3;">
+                        View
+                      </a>
                     </td>
                     <td>                     
                       <a href="{{  url('admin/department/'.$department->departments_id) }}" style="color:#3f6ed3;">

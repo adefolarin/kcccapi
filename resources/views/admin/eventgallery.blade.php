@@ -34,6 +34,7 @@
                     @else
                      <h3 class="card-title">Edit Event Picture</h3>
                     @endif
+                   
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
@@ -65,17 +66,17 @@
                     </button>
                 </div>
                 @endif
-                
-                @if(empty($eventone['events_id']))
+
+                @if(empty($eventgalleriesone['eventgalleries_id']))
                 <form method="post" action="{{ url('admin/eventgallery/' . $eventone['events_id']) }}" enctype="multipart/form-data">@csrf
                     <div class="card-body">
                     <div class="form-group" style="display:none;">
                         <label for="admin_id">Admin ID</label>
-                        <input type="hidden"  class="form-control" id="admin_id" value="{{ Auth::guard('admin')->user()->id }}" readonly>
+                        <input type="text"  class="form-control" id="admin_id" value="{{ Auth::guard('admin')->user()->id }}" readonly>
                     </div>
                     <div class="form-group" style="display:none;">
                         <label for="events_id">Events ID</label>
-                        <input type="hidden"  class="form-control" id="eventsid" value="{{ $eventone['events_id'] }}" readonly name="eventsid">
+                        <input type="text"  class="form-control" id="events_id" value="{{ $eventone['events_id'] }}" readonly name="events_id">
                     </div>       
 
                     <div class="form-group">
@@ -91,28 +92,31 @@
                 </form>
                 @else
                 <form method="post" 
-                action="{{ url('admin/eventgallery/'. $eventone['events_id'] . '/' . $eventgalleriesone->eventgalleries_id ) }}" enctype="multipart/form-data">@csrf
+                action="{{ url('admin/eventgallery/'. $eventone['events_id'] . '/' . $eventgalleriesone['eventgalleries_id'] ) }}" enctype="multipart/form-data">@csrf
                     <div class="card-body">
                     <div class="form-group" style="display:none;">
                         <label for="admin_id">Admin ID</label>
-                        <input type="hidden"  class="form-control" id="admin_id" value="{{ Auth::guard('admin')->user()->id }}" readonly>
+                        <input type="text"  class="form-control" id="admin_id" value="{{ Auth::guard('admin')->user()->id }}" readonly>
                     </div>
                     <div class="form-group" style="display:none;">
                         <label for="eventsid">Event ID</label>
-                        <input type="text" class="form-control"  name="events_id" id="events_id" value="{{ $eventgalleriesone['eventsid'] }}" required>
+                        <input type="text" class="form-control"  name="eventsid" id="eventsid" value="{{ $eventgalleriesone['eventsid'] }}" required>
                     </div> 
                     <div class="form-group" style="display:none;">
                         <label for="eventgalleries_id">Event Gallery ID</label>
                         <input type="text" class="form-control"  name="eventgalleries_id" id="eventgalleries_id" value="{{ $eventgalleriesone['eventgalleries_id'] }}" required>
                     </div> 
                     <div class="form-group">
-                        <label for="eventgalleries_file">Image (Optional)</label>
+                        <label for="eventgalleries_file">Image*</label>
                         <input type="file" class="form-control"  name="eventgalleries_file" id="eventgalleries_file" placeholder="Event Image">
                     </div> 
                     <div class="form-group" style="display:none;">
                         <label for="currenteventgalleries_file">Current Image</label>
                         <input type="text" class="form-control"  name="currenteventgalleries_file" id="currenteventgalleries_file" placeholder="Event Gallery Image" value="{{ $eventgalleriesone['eventgalleries_file'] }}">
-                    </div>           
+                    </div>  
+                     <div id="div_img">
+                         <img src="{{ asset('admin/img/eventgalleries/'.$eventgalleriesone['eventgalleries_file']) }}" class="img-circle elevation-2" alt="Event Image">
+                       </div>         
                     </div>
                     <!-- /.card-body -->
 
@@ -121,6 +125,7 @@
                     </div>
                 </form>
                 @endif
+                
                 </div>
             </div>
           <div class="col-8">

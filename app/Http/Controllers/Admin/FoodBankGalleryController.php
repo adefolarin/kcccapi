@@ -24,22 +24,37 @@ class FoodBankGalleryController extends Controller
 
         //$foodbankgalleries = FoodBankGallery::query()->get()->toArray();
 
-        $foodbankgalleries = DB::table('foodbankgalleries')->where($foodbanksid)->orderByDesc('foodbankgalleries_id')->get()->toArray();
+        $foodbankgalleriesnumrw = DB::table('foodbankgalleries')->where('foodbanksid',$foodbanksid)->orderByDesc('foodbankgalleries_id')->count();
 
         if($foodbankgalleriesid == null) {
-              
-           return view('admin.foodbankgallery/' . $foodbanksid)->with(compact('foodbankone','foodbankgalleries'));
-           //dd($foodbanks); die;
-           //echo "<prev>"; print_r($foodbanks); die;
 
+            $foodbankgalleries = DB::table('foodbankgalleries')->where('foodbanksid',$foodbanksid)->orderByDesc('foodbankgalleries_id')->get()->toArray();
+
+            if($foodbankgalleriesnumrw > 0) {
+           
+            return view('admin.foodbankgallery')->with(compact('foodbankone','foodbankgalleries'));
+
+            } else {
+                return view('admin.foodbankgallery')->with(compact('foodbankone','foodbankgalleries'));
+            }
         } else {
             $foodbankgallerieswan = new FoodBankGallery;
-            $foodbankgalleriesone = $foodbankgallerieswan->where('foodbankgalleries_id', $foodbankgalleriesid)->first();
+            $foodbankgalleriesnumrwone = $foodbankgallerieswan
+            ->where('foodbankgalleries_id', $foodbankgalleriesid)->count();
 
-            
-            //dd($foodbankcategoryone['foodbankcategories_name']); die;
-            //$foodbanks = FoodBankGallery::query()->get()->toArray(); 
-             return view('admin.foodbankgallery/' . $foodbanksid)->with(compact('foodbankone','foodbankgalleriesone','foodbankgalleries'));
+            $foodbankgalleries = DB::table('foodbankgalleries')
+            ->where('foodbanksid',$foodbanksid)->orderByDesc('foodbankgalleries_id')->get()->toArray();
+
+            $foodbankgalleriesone = $foodbankgallerieswan
+            ->where('foodbankgalleries_id', $foodbankgalleriesid)->first();
+
+            if($foodbankgalleriesnumrwone > 0) {
+
+                return view('admin.foodbankgallery')->with(compact('foodbankone','foodbankgalleriesone','foodbankgalleries'));
+            } else {
+                return view('admin.foodbankgallery')->with(compact('foodbankone','foodbankgalleriesone','foodbankgalleries'));
+            }
+
         }
 
 
@@ -100,14 +115,14 @@ class FoodBankGalleryController extends Controller
 
               $store = [
                 [
-                'foodbanks_id' => $data['foodbanks_id'],
+                'foodbanksid' => $data['foodbanks_id'],
                 'foodbankgalleries_file' => $fileName,
 
                ]
             ];
 
                 $foodbankgalleries->insert($store);
-                return redirect('admin/foodbankgallery/' . $data['foodbanksid'])->with('success_message', $message);
+                return redirect('admin/foodbankgallery/' . $data['foodbanks_id'])->with('success_message', $message);
               
 
           }
@@ -179,7 +194,7 @@ class FoodBankGalleryController extends Controller
             ];
 
               FoodBankGallery::where('foodbankgalleries_id',$data['foodbankgalleries_id'])->update($store);
-              return redirect('admin/foodbankgallery/'. $data['foodbanks_id'] . '/' . $data['foodbankgalleries_id'])->with('success_message', $message);
+              return redirect('admin/foodbankgallery/'. $data['foodbanksid'] . '/' . $data['foodbankgalleries_id'])->with('success_message', $message);
 
           }   
     }

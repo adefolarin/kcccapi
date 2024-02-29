@@ -242,9 +242,9 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive" style="overflow-y:scroll">
-                <table id="tablepages" class="table table-bordered table-striped" >
+                <table id="tablepages" class="table table-bordered table-striped text-center" >
                   
-                <thead>
+            
                   <tr>
                     <th>Category</th>
                     <th>Title</th>
@@ -256,9 +256,12 @@
                     <th>Address</th>
                     <th>Organizer</th>
                     <th>Preacher</th>
+                    <th>Gallery</th>
+                    <th>Registered Members</th>
                     <th>Actions </th>
                   </tr>
-                <thead>
+                
+         
                   
                   <tbody> 
                     @foreach($events as $event)           
@@ -277,13 +280,23 @@
                     <td>{{ ucwords($event->events_address) }}</td>
                     <td>{{ ucwords($event->events_organizer) }}</td>
                     <td>{{ ucwords($event->events_preacher) }}</td>
+                    <td>
+                      <a href="{{  url('admin/eventgallery/'.$event->events_id) }}" style="color:#3f6ed3;">
+                        Add & View
+                      </a>
+                    </td>
+                    <td>
+                      <a href="{{  url('admin/eventreg/'.$event->events_id) }}" style="color:#3f6ed3;">
+                        View
+                      </a>
+                    </td>
                     <td>                     
                       <a href="{{  url('admin/event/'.$event->events_id) }}" style="color:#3f6ed3;">
                         <i class="fas fa-edit"></i>
                       </a>
                       &nbsp;&nbsp;
                       <a href= "javascript:void(0)" record="event" 
-                      recordid="{{ $event->events_id }}" <?php //"{{  url('admin/delete-cms-page/'.$page['id']) }}" ?> style="color:#ee4b2b;" class="confirmDelete" name="Event" title="Delete Event">
+                      recordid="{{ $event->events_id }}"  style="color:#ee4b2b;" class="confirmDelete" name="Event" title="Delete Event">
                         <i class="fas fa-trash"></i>
                       </a> 
                     </td>

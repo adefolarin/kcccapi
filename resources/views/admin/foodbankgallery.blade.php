@@ -30,9 +30,9 @@
             <div class="card card-primary">
                 <div class="card-header">
                     @if(empty($foodbankgalleriesone['foodbankgalleries_id']))
-                     <h3 class="card-title">Add Event Picture</h3>
+                     <h3 class="card-title">Add Food Bank Gallery Picture</h3>
                     @else
-                     <h3 class="card-title">Edit Event Picture</h3>
+                     <h3 class="card-title">Edit Food Bank Gallery Picture</h3>
                     @endif
                 </div>
                 <!-- /.card-header -->
@@ -66,7 +66,7 @@
                 </div>
                 @endif
                 
-                @if(empty($foodbankone['foodbanks_id']))
+                @if(empty($foodbankgalleriesone['foodbankgalleries_id']))
                 <form method="post" action="{{ url('admin/foodbankgallery/' . $foodbankone['foodbanks_id']) }}" enctype="multipart/form-data">@csrf
                     <div class="card-body">
                     <div class="form-group" style="display:none;">
@@ -74,13 +74,13 @@
                         <input type="hidden"  class="form-control" id="admin_id" value="{{ Auth::guard('admin')->user()->id }}" readonly>
                     </div>
                     <div class="form-group" style="display:none;">
-                        <label for="foodbanks_id">Events ID</label>
-                        <input type="hidden"  class="form-control" id="foodbanksid" value="{{ $foodbankone['foodbanks_id'] }}" readonly name="foodbanksid">
+                        <label for="foodbanks_id">Food Bank Gallerys ID</label>
+                        <input type="text"  class="form-control" id="foodbanks_id" value="{{ $foodbankone['foodbanks_id'] }}" readonly name="foodbanks_id">
                     </div>       
 
                     <div class="form-group">
                         <label for="foodbanks_file">Image</label>
-                        <input type="file" class="form-control"  name="foodbankgalleries_file" id="foodbankgalleries_file" placeholder="Event Gallery Image" required>
+                        <input type="file" class="form-control"  name="foodbankgalleries_file" id="foodbankgalleries_file" placeholder="Food Bank Gallery Gallery Image" required>
                     </div>           
                     </div>
                     <!-- /.card-body -->
@@ -91,28 +91,31 @@
                 </form>
                 @else
                 <form method="post" 
-                action="{{ url('admin/foodbankgallery/'. $foodbankone['foodbanks_id'] . '/' . $foodbankgalleriesone->foodbankgalleries_id ) }}" enctype="multipart/form-data">@csrf
+                  action="{{ url('admin/foodbankgallery/'. $foodbankone['foodbanks_id'] . '/' . $foodbankgalleriesone['foodbankgalleries_id'] ) }}" enctype="multipart/form-data">@csrf
                     <div class="card-body">
                     <div class="form-group" style="display:none;">
                         <label for="admin_id">Admin ID</label>
                         <input type="hidden"  class="form-control" id="admin_id" value="{{ Auth::guard('admin')->user()->id }}" readonly>
                     </div>
                     <div class="form-group" style="display:none;">
-                        <label for="foodbanksid">Event ID</label>
-                        <input type="text" class="form-control"  name="foodbanks_id" id="foodbanks_id" value="{{ $foodbankgalleriesone['foodbanksid'] }}" required>
+                        <label for="foodbanksid">Food Bank Gallery ID</label>
+                        <input type="text" class="form-control"  name="foodbanksid" id="foodbanksid" value="{{ $foodbankgalleriesone['foodbanksid'] }}" required>
                     </div> 
                     <div class="form-group" style="display:none;">
-                        <label for="foodbankgalleries_id">Event Gallery ID</label>
+                        <label for="foodbankgalleries_id">Food Bank Gallery Gallery ID</label>
                         <input type="text" class="form-control"  name="foodbankgalleries_id" id="foodbankgalleries_id" value="{{ $foodbankgalleriesone['foodbankgalleries_id'] }}" required>
                     </div> 
                     <div class="form-group">
                         <label for="foodbankgalleries_file">Image (Optional)</label>
-                        <input type="file" class="form-control"  name="foodbankgalleries_file" id="foodbankgalleries_file" placeholder="Event Image">
+                        <input type="file" class="form-control"  name="foodbankgalleries_file" id="foodbankgalleries_file" placeholder="Food Bank Gallery Image">
                     </div> 
                     <div class="form-group" style="display:none;">
                         <label for="currentfoodbankgalleries_file">Current Image</label>
-                        <input type="text" class="form-control"  name="currentfoodbankgalleries_file" id="currentfoodbankgalleries_file" placeholder="Event Gallery Image" value="{{ $foodbankgalleriesone['foodbankgalleries_file'] }}">
-                    </div>           
+                        <input type="text" class="form-control"  name="currentfoodbankgalleries_file" id="currentfoodbankgalleries_file" placeholder="Food Bank Gallery Gallery Image" value="{{ $foodbankgalleriesone['foodbankgalleries_file'] }}">
+                    </div>   
+                    <div id="div_img">
+                        <img src="{{ asset('admin/img/foodbankgalleries/'.$foodbankgalleriesone['foodbankgalleries_file']) }}" class="img-circle elevation-2" alt="Food Bank Gallery Image">
+                     </div>         
                     </div>
                     <!-- /.card-body -->
 
@@ -130,7 +133,7 @@
                 @if(!empty($foodbankgalleriesone['foodbankgalleries_id']))
                 <a href="{{ url('admin/foodbankgallery/' . $foodbankone['foodbanks_id']) }}" class="btn btn-primary" 
                   style="float:right;">
-                   Add Event Pictures
+                   Add Food Bank Gallery Pictures
                 </a>
                 @endif
               </div>
@@ -150,7 +153,7 @@
                   <tr>
                     <td>
                        <div id="div_img">
-                         <img src="{{ asset('admin/img/foodbankgalleries/'.$foodbankgallery->foodbankgalleries_file) }}" class="img-circle elevation-2" alt="Event Image">
+                         <img src="{{ asset('admin/img/foodbankgalleries/'.$foodbankgallery->foodbankgalleries_file) }}" class="img-circle elevation-2" alt="Food Bank Gallery Image">
                        </div>
                     </td>
                     <td>                     
@@ -159,7 +162,7 @@
                       </a>
                       &nbsp;&nbsp;
                       <a href= "javascript:void(0)" record="foodbankgallery" 
-                      recordid="{{ $foodbankgallery->foodbanksid . '/' . $foodbankgallery->foodbankgalleries_id }}" <?php //"{{  url('admin/delete-cms-page/'.$page['id']) }}" ?> style="color:#ee4b2b;" class="confirmDelete" name="Event Picture" title="Delete Event Picture">
+                      recordid="{{ $foodbankgallery->foodbanksid . '/' . $foodbankgallery->foodbankgalleries_id }}" <?php //"{{  url('admin/delete-cms-page/'.$page['id']) }}" ?> style="color:#ee4b2b;" class="confirmDelete" name="Food Bank Gallery Picture" title="Delete Food Bank Gallery Picture">
                         <i class="fas fa-trash"></i>
                       </a> 
                     </td>

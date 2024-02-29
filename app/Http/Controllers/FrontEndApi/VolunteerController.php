@@ -14,9 +14,9 @@ class VolunteerController extends Controller
         /**
      * Display a listing of the resource.
      */
-    public function index($eventregsid = null)
+    public function index($volunteersid = null)
     {
-        Session::put("page", "eventregs");
+        Session::put("page", "volunteers");
 
         /*if($eventregsid == null) {
           $eventregs = Volunteer::query()->get()->toArray(); 

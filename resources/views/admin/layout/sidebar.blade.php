@@ -105,6 +105,21 @@
             </a>
           </li>-->
 
+          @if(Session::get('page') == "membregs")
+             @php $active = "active" @endphp
+          @else
+             @php $active = "" @endphp
+          @endif
+          <li class="nav-item">
+            <a href="{{ url('admin/membreg') }}" class="nav-link {{ $active }}">
+              <i class="nav-icon fas fa-user"></i>
+              <p>
+                Members
+              </p>
+            </a>
+          </li>
+
+
           @if(Session::get('page') == "banner")
              @php $active = "active" @endphp
           @else
@@ -342,6 +357,67 @@
               </p>
             </a>
           </li>
+
+          <?php
+          /*
+          @if(Session::get('page') == "donations")
+             @php $active = "active" @endphp
+          @else
+             @php $active = "" @endphp
+          @endif
+          <li class="nav-item">
+            <a href="{{ url('admin/donation') }}" class="nav-link {{ $active }}">
+              <i class="nav-icon fas fa-money"></i>
+              <p>
+                Donations
+              </p>
+            </a>
+          </li>
+
+          @if(Session::get('page') == "givings")
+             @php $active = "active" @endphp
+          @else
+             @php $active = "" @endphp
+          @endif
+          <li class="nav-item">
+            <a href="{{ url('admin/giving') }}" class="nav-link {{ $active }}">
+              <i class="nav-icon fas fa-money"></i>
+              <p>
+                Giving
+              </p>
+            </a>
+          </li>
+
+          @if(Session::get('page') == "volunteers")
+             @php $active = "active" @endphp
+          @else
+             @php $active = "" @endphp
+          @endif
+          <li class="nav-item">
+            <a href="{{ url('admin/volunteer') }}" class="nav-link {{ $active }}">
+              <i class="nav-icon fas fa-user"></i>
+              <p>
+                Volunteers
+              </p>
+            </a>
+          </li>
+
+
+          @if(Session::get('page') == "prayers")
+             @php $active = "active" @endphp
+          @else
+             @php $active = "" @endphp
+          @endif
+          <li class="nav-item">
+            <a href="{{ url('admin/prayer') }}" class="nav-link {{ $active }}">
+              <i class="nav-icon fas fa-folder"></i>
+              <p>
+                Prayer Requests
+              </p>
+            </a>
+          </li>
+          */
+          ?>
 
           @if(Session::get('page') == "foodbanks")
              @php $active = "active" @endphp

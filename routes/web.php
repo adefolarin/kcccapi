@@ -36,6 +36,9 @@ use App\Http\Controllers\Admin\ResourceController;
 use App\Http\Controllers\Admin\DepartmentGalleryController;
 use App\Http\Controllers\Admin\EventGalleryController;
 use App\Http\Controllers\Admin\FoodBankGalleryController;
+use App\Http\Controllers\Admin\MembRegController;
+use App\Http\Controllers\Admin\GivingController;
+use App\Http\Controllers\Admin\DeptGalleryController;
 
 
 /*
@@ -50,7 +53,7 @@ use App\Http\Controllers\Admin\FoodBankGalleryController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('notfound');
 });
 
 //Route::prefix('/admin')->group(function(){
@@ -195,25 +198,22 @@ Route::get('/', function () {
          Route::post('/admin/eventgallery/{id?}', [EventGalleryController::class,'store']);
          //Route::get('/admin/eventgallery-edit/{id?}/{idd?}', [EventController::class,'edit']);
          Route::post('/admin/eventgallery/{id?}/{idd?}', [EventGalleryController::class,'update']);
-         Route::post('/admin/eventgallery-file-edit/{id?}/{idd?}', [EventGalleryController::class,'updateEventGalleryFile']);
          Route::get('/admin/delete-eventgallery/{id?}/{idd?}', [EventGalleryController::class,'destroy']);
 
         // Department Gallery
-        Route::get('/admin/departmentgallery/{id?}/{idd?}', [DepartmentGalleryController::class,'index']);
-        //Route::get('/admin/departmentgallery-add{id?}', [DepartmentGalleryController::class,'create']);
-        Route::post('/admin/departmentgallery/{id?}', [DepartmentGalleryController::class,'store']);
-        //Route::get('/admin/departmentgallery-edit/{id?}/{idd?}', [DepartmentGalleryController::class,'edit']);
-        Route::post('/admin/departmentgallery/{id?}/{idd?}', [DepartmentGalleryController::class,'update']);
-        Route::post('/admin/departmentgallery-file-edit/{id?}/{idd?}', [DepartmentGalleryController::class,'updateDepartmentGalleryFile']);
-        Route::get('/admin/delete-departmentgallery/{id?}/{idd?}', [DepartmentGalleryController::class,'destroy']);
+        Route::get('/admin/departmentgallery/{id?}/{idd?}', [DeptGalleryController::class,'index']);
+        //Route::get('/admin/departmentgallery-add{id?}', [DeptmentGalleryController::class,'create']);
+        Route::post('/admin/departmentgallery/{id?}', [DeptGalleryController::class,'store']);
+        //Route::get('/admin/departmentgallery-edit/{id?}/{idd?}', [DeptmentGalleryController::class,'edit']);
+        Route::post('/admin/departmentgallery/{id?}/{idd?}', [DeptGalleryController::class,'update']);
+        Route::get('/admin/delete-departmentgallery/{id?}/{idd?}', [DeptGalleryController::class,'destroy']);
 
-          // Department Gallery
+        // FoodBank Gallery
         Route::get('/admin/foodbankgallery/{id?}/{idd?}', [FoodBankGalleryController::class,'index']);
         //Route::get('/admin/foodbankgallery-add{id?}', [FoodBankGalleryController::class,'create']);
         Route::post('/admin/foodbankgallery/{id?}', [FoodBankGalleryController::class,'store']);
         //Route::get('/admin/foodbankgallery-edit/{id?}/{idd?}', [FoodBankGalleryController::class,'edit']);
         Route::post('/admin/foodbankgallery/{id?}/{idd?}', [FoodBankGalleryController::class,'update']);
-        Route::post('/admin/foodbankgallery-file-edit/{id?}/{idd?}', [FoodBankGalleryController::class,'updateFoodBankGalleryFile']);
         Route::get('/admin/delete-foodbankgallery/{id?}/{idd?}', [FoodBankGalleryController::class,'destroy']);
 
 
@@ -249,13 +249,38 @@ Route::get('/', function () {
 
 
         // Department Member Registration
-        Route::get('/admin/deptmembreg', [DeptMembRegController::class,'index']);
+        Route::get('/admin/deptmembreg/{id?}', [DeptMembRegController::class,'index']);
         //Route::get('/admin/deptmembreg-add', [DeptMembRegController::class,'create']);
         //Route::post('/admin/deptmembreg-add', [DeptMembRegController::class,'store']);
         //Route::get('/admin/deptmembreg-edit/{id?}', [DeptMembRegController::class,'edit']);
         //Route::post('/admin/deptmembreg-edit/{id?}', [DeptMembRegController::class,'update']);
         //Route::post('/admin/deptmembreg-file-edit/{id?}', [DeptMembRegController::class,'updateDeptMembFile']);
-        Route::get('/admin/delete-deptmembreg/{id?}', [DeptMembRegController::class,'destroy']);
+        Route::get('/admin/delete-deptmembreg/{id?}/{idd?}', [DeptMembRegController::class,'destroy']);
+
+
+        // Member Registration
+        Route::get('/admin/membreg', [MembRegController::class,'index']);
+        //Route::get('/admin/membreg-add', [MembRegController::class,'create']);
+        //Route::post('/admin/membreg-add', [MembRegController::class,'store']);
+        //Route::get('/admin/membreg-edit/{id?}', [MembRegController::class,'edit']);
+        //Route::post('/admin/membreg-edit/{id?}', [MembRegController::class,'update']);
+        //Route::post('/admin/membreg-file-edit/{id?}', [MembRegController::class,'updateDeptMembFile']);
+        Route::get('/admin/delete-membreg/{id?}', [MembRegController::class,'destroy']);
+
+        // Volunteer Registration
+        Route::get('/admin/volunteer', [VolunteerController::class,'index']);
+        //Route::get('/admin/volunteer-add', [VolunteerController::class,'create']);
+        //Route::post('/admin/volunteer-add', [VolunteerController::class,'store']);
+        //Route::get('/admin/volunteer-edit/{id?}', [VolunteerController::class,'edit']);
+        //Route::post('/admin/volunteer-edit/{id?}', [VolunteerController::class,'update']);
+        //Route::post('/admin/volunteer-file-edit/{id?}', [VolunteerController::class,'updateDeptMembFile']);
+        Route::get('/admin/delete-volunteer/{id?}', [VolunteerController::class,'destroy']);
+
+    
+
+        // Giving
+        Route::get('/admin/giving', [GivingController::class,'index']);
+        Route::get('/admin/delete-giving/{id?}', [GivingController::class,'destroy']);
 
 
         // Device Token Registration
@@ -278,12 +303,12 @@ Route::get('/', function () {
 
 
         // Event Member Reg
-        Route::get('/admin/eventreg', [EventRegController::class,'index']);
+        Route::get('/admin/eventreg/{id?}', [EventRegController::class,'index']);
         //Route::get('/admin/eventreg-add', [EventRegController::class,'create']);
         //Route::post('/admin/eventreg-add', [EventRegController::class,'store']);
         //Route::get('/admin/eventreg-edit/{id?}', [EventRegController::class,'edit']);
         //Route::post('/admin/eventreg-edit/{id?}', [EventRegController::class,'update']);
-        Route::get('/admin/delete-eventreg/{id?}', [EventRegController::class,'destroy']);
+        Route::get('/admin/delete-eventreg/{id?}/{idd?}', [EventRegController::class,'destroy']);
 
 
         // Food Bank

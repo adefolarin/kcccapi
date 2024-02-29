@@ -11,12 +11,12 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0">REGISTERED DEPARTMEMT MEMBERS</h1>
+          <h1 class="m-0">Members Of {{ $deptcategoryone['deptcategories_name'] }}</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">REGISTERED DEPARTMEMT MEMBERS</li>
+            <li class="breadcrumb-item active">DEPARTMEMT MEMBERS</li>
           </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
@@ -57,17 +57,16 @@
                     </button>
                 </div>
                 @endif
-                <h3 class="card-title">REGISTERED DEPARTMEMT MEMBERS</h3>
+                <h3 class="card-title">{{ $deptcategoryone['deptcategories_name'] }}</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <table id="tablepages" class="table table-bordered table-striped">
+                <table id="tablepages" class="table table-bordered table-striped text-center">
                   <thead>
                   <tr>
                     <th>Name</th>
                     <th>Email</th>
                     <th>Phone Numeber</th>
-                    <th>Department</th>
                     <th>Date Registered</th>
                     <th>Actions </th>
                   </tr>
@@ -78,11 +77,10 @@
                     <td>{{ ucwords($deptmembreg['deptmembregs_name']) }}</td>
                     <td>{{ ucwords($deptmembreg['deptmembregs_email']) }}</td>
                     <td>{{ ucwords($deptmembreg['deptmembregs_pnum']) }}</td>
-                    <td>{{ ucwords($deptmembreg['deptmembregs_dept']) }}</td>
                     <td>{{ ucwords($deptmembreg['deptmembregs_date']) }}</td>
                     <td>                     
                       <a href= "javascript:void(0)" record="deptmembreg" 
-                      recordid="{{ $deptmembreg['deptmembregs_id'] }}" <?php //"{{  url('admin/delete-cms-page/'.$page['id']) }}" ?> style="color:#ee4b2b;" class="confirmDelete" name="Registered Member" title="Delete The Registered Member">
+                      recordid="{{ $deptmembreg['deptmembregs_id'] }}" deptmembregs_dept="{{ $deptmembreg['deptmembregs_dept'] }}"   style="color:#ee4b2b;" class="confirmDeptMembDelete" name="Registered Member" title="Delete The Registered Member">
                         <i class="fas fa-trash"></i>
                       </a> 
                     </td>
