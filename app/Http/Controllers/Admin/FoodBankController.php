@@ -109,7 +109,7 @@ class FoodBankController extends Controller
                 $videoFile = $request->file('foodbanks_videofile');
                 $fileVideoName = time() . '.' . $videoFile->getClientOriginalExtension();
                 $videoFile->storeAs('public/admin/videos/foodbanks', $fileVideoName);
-             }
+              }
 
               $store = [
                 [

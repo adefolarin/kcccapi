@@ -106,7 +106,7 @@ class ReviewController extends Controller
       }
     }
 
-    public function reviewSearch(Request $request) {
+    public function reviewSearchOld(Request $request) {
       if($request->isMethod('post')) {
         $data = $request->all();
 
@@ -190,6 +190,37 @@ class ReviewController extends Controller
           }
 
            return response()->json(['eventsearch' => $eventsearchdata ,'sermonsearch'=>$sermonsearchdata, 'eventgallerysearch' => $eventgallerydata]);
+  
+      }
+    }
+
+    public function reviewSearch(Request $request) {
+
+      if($request->isMethod('post')) {
+        $data = $request->all();
+
+        $reviewyear = $data['reviewyear'];
+
+        $reviewnumrw = DB::table('reviews')->where('reviews_year',$reviewyear)->count();
+
+        if($reviewnumrw > 0) { 
+            $reviews = DB::table('reviews')->where('reviews_year',$reviewyear)->get()->toArray();
+            foreach($reviews as $review) {
+   
+              $reviewsearchdata [] = array(
+              'reviews_id' => $review->reviews_id,
+              'reviews_year' => $review->reviews_year,
+              'reviews_file' => $review->reviews_file,
+              );
+            }
+        } else {
+            $reviewsearchdata  = array(
+            'reviews_year' => "Not Found",
+            'reviews_result' => "Not Found",
+            );
+        }
+            return response()->json(['reviews'=>$reviewsearchdata]);
+
   
       }
     }

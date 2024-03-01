@@ -39,6 +39,7 @@ use App\Http\Controllers\Admin\FoodBankGalleryController;
 use App\Http\Controllers\Admin\MembRegController;
 use App\Http\Controllers\Admin\GivingController;
 use App\Http\Controllers\Admin\DeptGalleryController;
+use App\Http\Controllers\Admin\ReviewController;
 
 
 /*
@@ -413,6 +414,12 @@ Route::get('/', function () {
         Route::post('/admin/department/{id?}', [DepartmentController::class,'update']);
         Route::post('/admin/department-file-edit/{id?}', [DepartmentController::class,'updateDepartmentFile']);
         Route::get('/admin/delete-department/{id?}', [DepartmentController::class,'destroy']);
+
+        // Review
+        Route::get('/admin/review/{id?}', [ReviewController::class,'index']);
+        Route::post('/admin/review', [ReviewController::class,'store']);
+        Route::post('/admin/review/{id?}', [ReviewController::class,'update']);
+        Route::get('/admin/delete-review/{id?}', [ReviewController::class,'destroy']);
         
 
 

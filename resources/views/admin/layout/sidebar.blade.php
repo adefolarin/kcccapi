@@ -476,6 +476,21 @@
             </a>
           </li>
 
+          @if(Session::get('page') == "reviews")
+             @php $active = "active" @endphp
+          @else
+             @php $active = "" @endphp
+          @endif
+          <li class="nav-item">
+            <a href="{{ url('admin/review') }}" class="nav-link {{ $active }}">
+              <i class="nav-icon fas fa-calendar"></i>
+              <p>
+                 Year In Review
+              </p>
+            </a>
+          </li>
+
+
           @if(Session::get('page') == "volcategory")
              @php $active = "active" @endphp
           @else

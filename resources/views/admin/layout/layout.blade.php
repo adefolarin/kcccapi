@@ -216,6 +216,12 @@
       }
     );
 
+    $('#reviews_year').datetimepicker(
+      { 
+        format: 'Y',
+      }
+    );
+
 
 });
 
