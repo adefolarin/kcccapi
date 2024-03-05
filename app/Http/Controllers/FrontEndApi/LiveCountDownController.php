@@ -22,25 +22,31 @@ class LiveCountDownController extends Controller
 
         $now = date("Y-m-d H:i");
 
-        $livecountdownsnumrw = DB::table('livecountdowns')->count();
+        $livecountdownsnumrw  = DB::table('livecountdowns')
+        ->where("livecountdowns_datetime", ">", $now)
+        ->orderBy("livecountdowns_datetime")
+        ->limit(1)->count();
 
         if($livecountdownsid == null) {
            
           if($livecountdownsnumrw > 0) {
-            $livecountdowns = DB::table('livecountdowns')->get();
+            $livecountdowns = DB::table('livecountdowns')
+            ->where("livecountdowns_datetime", ">", $now)
+            ->orderBy("livecountdowns_datetime")
+            ->limit(1)->get();
             foreach($livecountdowns as $livecountdown) {
                
                 $livecountdown_countdown = strtotime($livecountdown->livecountdowns_datetime);
 
                 $data [] = array(
                 'livecountdowns_id' => $livecountdown->livecountdowns_id,
-                'livecountdowns_datetime' => $livecountdown_countdown,
-       
+                'livecountdowns_datetime' => $livecountdown_countdown, 
+                'livecountdowns_status' => "true",    
                 );
             }
           } else {
             $data [] = array(
-                'livecountdowns_id' => ''
+                'livecountdowns_status' => "false",
             );
           }
               
