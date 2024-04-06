@@ -82,7 +82,7 @@ class ResourceController extends Controller
                     'resources_name.required' => 'Resource Title is required',
                     'resources_file.required' => 'The Resource File is required',
                     //'resources_file.mimes' => "The File format is not allowed",
-                    'resources_max' => "Upload size can't exceed 50MB",
+                    'resources_file.max' => "Upload size can't exceed 50MB",
                 ];
                      
 
@@ -157,7 +157,7 @@ class ResourceController extends Controller
                     'resources_name.required' => 'Resource Title is required',
                     //'resources_file.required' => 'The Resource File is required',
                     //'resources_file.mimes' => "The File format is not allowed",
-                    'resources_max' => "Upload size can't exceed 50MB",
+                    'resources_file.max' => "Upload size can't exceed 50MB",
                 ];
                      
 

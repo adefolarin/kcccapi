@@ -152,14 +152,18 @@ Route::get('/volform', [VolFormController::class,'index']);
 
 //AAM USERS
 
-Route::match(['post'],'/aaamregister',[AAMUserController::class, 'store']);
+Route::match(['post'],'/aamregister',[AAMUserController::class, 'store']);
 Route::match(['post'],'/aamlogin',[AAMUserController::class, 'login']);
+
+Route::match(['get'],'/aamusers/{id?}',[AAMUserController::class, 'index']);
 
 //Route::group(['middleware'=>['aamuser']], function() {
    
     Route::match(['post'],'/aamupdatepassword', [AAMUserController::class,'updatePassword']);
+    Route::match(['post'],'/aamupdateemail', [AAMUserController::class,'updateEmail']);
+    Route::match(['post'],'/aamupdatepnum', [AAMUserController::class,'updatePnum']);
     Route::post('/aamcheckcurrentpassword', [AAMUserController::class,'checkCurrentPassword']);
-    Route::match(['post'],'/aamupdateuser', [AAMUserController::class,'updateAdminDetails']);
+    Route::match(['post'],'/aamupdateuser', [AAMUserController::class,'updateAamUser']);
     Route::get('/aamlogout', [AAMuserController::class,'logout']);
 
 //});

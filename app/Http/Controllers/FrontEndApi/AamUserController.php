@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Validator;
 use Hash;
-use App\Models\AAMUser;
+use App\Models\AamUser;
 use Dotenv\Validator as DotenvValidator;
 use Intervention\Image;
 use Illuminate\Support\Facades\Storage;
@@ -24,6 +24,43 @@ class AamUserController extends Controller
         //echo "<prev>"; print_r(Auth::guard('aamusers')->user()); die;
         return view('aamuser.dashboard');
 
+    }
+
+    public function index($aamuserid)
+    {
+  
+      $aamusernumrw = DB::table('aamusers')->where('aamusers_id',$aamuserid)->count();
+  
+      if ($aamuserid != null) {
+  
+
+  
+        $aamusernumrw = DB::table('aamusers')->where('aamusers_id',$aamuserid)->count();
+  
+        if ($aamusernumrw > 0) {
+  
+          $aamusers = DB::table('aamusers')->where('aamusers_id',$aamuserid)->first();
+    
+            $aamuserdata = array(
+              'aamusers_id' => $aamusers->aamusers_id,
+              'aamusers_name' => $aamusers->aamusers_name,
+              'aamusers_email' => $aamusers->aamusers_email,
+              'aamusers_pnum' => $aamusers->aamusers_pnum,
+              'aamusers_address' => $aamusers->aamusers_address,
+              'aamusers_state' => $aamusers->aamusers_state,
+              'aamusers_country' => $aamusers->aamusers_country,
+              'aamusers_city' => $aamusers->aamusers_city,
+            );
+          
+        } else {
+            $aamuserdata[] = array(
+            'aamusers_name' => ''
+          );
+        }
+  
+          return response()->json(['aamusers' => $aamuserdata]);
+  
+      } 
     }
 
     public function store(Request $request) {
@@ -68,6 +105,9 @@ class AamUserController extends Controller
             else if($data['aamusers_name'] == "" || $data['aamusers_email'] == "" || $data['aamusers_password'] == "") {
                 return response()->json(['status' => false, 'message' => 'All Fields Are Required']);
             }
+            elseif (DB::table("aamusers")->where('aamusers_email', $data['aamusers_email'])->exists()) {
+              return response()->json(['status' => false, 'message' => 'Email Already Exists']);
+            } 
             else {
 
                 DB::table("aamusers")->insert($store);
@@ -108,17 +148,26 @@ class AamUserController extends Controller
 
             if($usercount > 0) {
             $userdetails = DB::table("aamusers")->where("aamusers_email",$data['aamusers_email'])->first();
-            if(password_verify($data['aamusers_password'],$userdetails->aamusers_password)) {
-              //Session::regenerate();
-              return response()->json(['status' => true, 'message' => 'Login Successful'], 201);
+              if(password_verify($data['aamusers_password'],$userdetails->aamusers_password)) {
+                //Session::regenerate();
+                $data = array (
+                  'userid' => $userdetails->aamusers_id,
+                  'name' => $userdetails->aamusers_name,
+                  'email' => $userdetails->aamusers_email,
+                );
+                
+
+                return response()->json(['status' => true, 'message' => 'Login Successful', 'users' => $data], 201);
+              } 
+              
+              else {
+                return response()->json(['status' => false, 'message' => 'Invalid Email or Password']);
+              }
             } else {
-              return response()->json(['status' => false, 'error_message' => 'Invalid Email or Password']);
-            }
-            } else {
-              return response()->json(['status' => false, 'error_message' => 'Invalid Email']);
+              return response()->json(['status' => false, 'message' => 'Invalid Email']);
             }
         }
-        return view('aamuser.login');
+        return response()->json(['status' => false, 'message' => 'Something went wrong']);
     }
 
     public function logout() {
@@ -129,8 +178,8 @@ class AamUserController extends Controller
       return response()->json(['status' => true, 'message' => 'You have logged out successfully']);
     }
 
-    public function updatePassword(Request $request) {
-      Session::put('page', 'update-aamuser-password');
+    /*public function updatePassword(Request $request) {
+      //Session::put('page', 'update-aamuser-password');
       if($request->isMethod('post')) {
         $data = $request->all();
         // check if current aamusers_password is correct
@@ -138,7 +187,7 @@ class AamUserController extends Controller
           // Check if new aamusers_password and confirm aamusers_password match
           if($data['new_pwd'] == $data['confirm_pwd']) {
             // Update New Password
-            AAMUser::where('aamusers_id',Auth::guard('aamuser')->user()->id)->update(['aamusers_password' => bcrypt($data['new_pwd'])]);
+            AamUser::where('aamusers_id',Auth::guard('aamuser')->user()->id)->update(['aamusers_password' => bcrypt($data['new_pwd'])]);
             return response()->json(['status' => true, 'message' => 'Password Updated Succesfully']);
           } else {
             return response()->json(['status' => false, 'message' => 'New Password and Confirm Password Do Not Match']);
@@ -147,6 +196,59 @@ class AamUserController extends Controller
         } else {
            return response()->json(['status' => false, 'message' => 'Your current aamusers_password is Incorrect!']);
         }
+      }
+
+    }*/
+
+    public function updatePassword(Request $request) {
+      //Session::put('page', 'update-aamuser-password');
+      if($request->isMethod('post')) {
+        $data = $request->all();
+        // check if current aamusers_password is correct
+            // Update New Password
+            AamUser::where('aamusers_id',$data['aamusers_id'])->update(['aamusers_password' => bcrypt($data['aamusers_password'])]);
+            return response()->json(['status' => true, 'message' => 'Password Updated Succesfully']);
+          
+
+        
+      }
+
+    }
+
+    public function updateEmail(Request $request) {
+      //Session::put('page', 'update-aamuser-password');
+      if($request->isMethod('post')) {
+        $data = $request->all();
+
+        $aamuser = DB::table("aamusers")->where('aamusers_id',$data['aamusers_id'])->first();
+        // check if current aamusers_password is correct
+            // Update New Password
+          if($data['aamusers_email'] != $aamuser->aamusers_email) {
+            AamUser::where('aamusers_id',$data['aamusers_id'])->update(['aamusers_email' => $data['aamusers_email']]);
+            return response()->json(['status' => true, 'message' => 'Email Updated Succesfully']);
+          } else {
+            return response()->json(['status' => false, 'message' => 'Email already exists']);
+          }
+        
+      }
+
+    }
+
+    public function updatePnum(Request $request) {
+      //Session::put('page', 'update-aamuser-password');
+      if($request->isMethod('post')) {
+        $data = $request->all();
+
+        $aamuser = AamUser::where('aamusers_id',$data['aamusers_id'])->first();
+        // check if current aamusers_password is correct
+            // Update New Password
+          if($data['aamusers_pnum'] != $aamuser->aamusers_pnum) {
+            AamUser::where('aamusers_id',$data['aamusers_id'])->update(['aamusers_pnum' => $data['aamusers_pnum']]);
+            return response()->json(['status' => true, 'message' => 'Phone Number Updated Succesfully']);
+          } else {
+            return response()->json(['status' => false, 'message' => 'Phone Number already exists']);
+          }
+        
       }
 
     }
@@ -160,38 +262,46 @@ class AamUserController extends Controller
         }
     }
 
-    public function updateAAMUserDetails(Request $request) {
-      Session::put('page', 'update-aamusers-details');
+    public function updateAamUser(Request $request) {
+      //Session::put('page', 'update-aamusers-details');
 
       if($request->isMethod('post')) {
         $data = $request->all();
         //echo "<prev>"; print_r($data); die;
 
-        $rules = [
+        /*$rules = [
           'aamusers_name' => 'required|regex:/^[\pL\s\-]+$/u|max:255',
-          'aamusers_mobile' => 'required|numeric|min:10',
+          'aamusers_pnum' => 'required|numeric|min:10',
         ];
 
         $customMessages = [
           'aamusers_name.required' => 'Name is required',
-          'aamusers_name.regex' => 'AAMUser Name is not valid',
+          'aamusers_name.regex' => 'AamUser Name is not valid',
           'aamusers_mobile.required' => 'Valid Mobile is r equired',
           'aamusers_mobile.numeric' => 'Valid Phone Number is required',
           'aamusers_mobile.max' => 'Valid Mobile is required',
           'aamusers_mobile.min' => 'Valid Mobile is required',
         ];
 
-        $this->validate($request,$rules,$customMessages);
+        $this->validate($request,$rules,$customMessages);*/
 
 
-        // Update AAMUser Details
+        // Update AamUser Details
 
-        AAMUser::where('aamusers_email',Auth::guard('aamusers')->user()->aamusers_email)->update(['aamusers_name' => $data['aamusers_name'], 'mobile' => $data['aamusers_mobile']]);
+        AamUser::where('aamusers_id',$data['aamusers_id'])->update(
+          [
+          'aamusers_name' => $data['aamusers_name'], 
+          'aamusers_address' => $data['aamusers_address'],
+          'aamusers_country' => $data['aamusers_country'],
+          'aamusers_state' => $data['aamusers_state'],
+          'aamusers_city' => $data['aamusers_city'],
+          ]
+        );
 
-        return redirect()->back()->with('success_message', 'AAMUser Details Updated Succesfully');
+        return response()->json(['status' => true, 'message' => 'Profile Updated Succesfully']);
     }
 
-      return view('aamuser.update-aamusers-details');
+
     }
 
   

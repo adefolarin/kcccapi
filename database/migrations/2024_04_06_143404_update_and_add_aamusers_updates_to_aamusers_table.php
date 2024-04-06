@@ -11,22 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        if(!Schema::hasTable('aamusers')) {
-            Schema::create('aamusers', function (Blueprint $table) {
-                $table->bigInteger('aamusers_id')->autoIncrement();
-                $table->text('aamusers_name');
-                $table->text('aamusers_email')->unique();
+        Schema::table('aamusers', function (Blueprint $table) {
+            if (Schema::hasTable('aamusers')){
                 $table->text('aamusers_pnum')->nullable();
                 $table->text('aamusers_address')->nullable();
                 $table->text('aamusers_country')->nullable();
                 $table->text('aamusers_state')->nullable();
                 $table->text('aamusers_city')->nullable();
-                $table->timestamp('email_verified_at')->nullable();
-                $table->string('aamusers_password');
-                $table->rememberToken();
-                $table->timestamps();
-            });
-        }
+            }
+        });
     }
 
     /**
@@ -34,6 +27,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('aamusers');
+        Schema::table('aamusers', function (Blueprint $table) {
+            //
+        });
     }
 };
