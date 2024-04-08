@@ -98,6 +98,59 @@ class VolunteerController extends Controller
           }
     }
 
+    public function mobilestore(Request $request)
+    {
+    
+        $message = "You have successfully volunteered for the above program";
+
+        if($request->isMethod('post')) {
+            $data = $request->all();
+            //echo "<prev>"; print_r($data); die;
+
+            //dd($data);
+
+            $bodylist = "";
+
+            foreach ($data['selecteditem'] as $value) {
+            
+                $volunteers_time = $value['voldate'] . " " . $value['voltime'];
+                $bodylist .= $volunteers_time." | "; 
+              
+            }
+
+              $store = [
+                [
+                'volunteers_type' => $data['volunteers_type'],
+                'volunteers_name' => $data['volunteers_name'],
+                'volunteers_email' => $data['volunteers_email'],
+                'volunteers_pnum' => $data['volunteers_pnum'],
+                'volunteers_time' => $bodylist,
+                'volunteers_date' => date("Y-m-d"),
+
+               ]
+            ];
+
+               $mailData = [
+                'title' => 'Mail from ' . $data['volunteers_name'],
+                'volunteers_type' => $data['volunteers_type'],
+                'volunteers_name' => $data['volunteers_name'],
+                'volunteers_email' => $data['volunteers_email'],
+                'volunteers_pnum' => $data['volunteers_pnum'],
+                'volunteers_time' => $bodylist,
+                'volunteers_date' => date("Y-m-d"),
+               ];
+
+              
+                if(Mail::to('adefolarin2017@gmail.com')->send(new VolunteerMail($mailData))) {
+                  Volunteer::insert($store);
+                  return response()->json(['status' => true, 'message' => $message], 201);
+                }
+                //return redirect('admin/event')->with('success_message', $message);
+              
+
+          }
+    }
+
     /**
      * Display the specified resource.
      */

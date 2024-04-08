@@ -15,6 +15,8 @@ use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
+use Mail;
+use App\Mail\AamUserMail;
 
 class AamUserController extends Controller
 { 
@@ -301,6 +303,66 @@ class AamUserController extends Controller
         return response()->json(['status' => true, 'message' => 'Profile Updated Succesfully']);
     }
 
+
+    }
+
+
+
+    public function sendPasswordCode(Request $request) {
+      //Session::put('page', 'update-aamuser-password');
+      if($request->isMethod('post')) {
+        $data = $request->all();
+
+        $code = rand(100000,999999);
+
+        $resetdate = date('Y-m-d H:i:s');
+
+        $mailData = [
+          'title' => 'Verification Code',
+          'code' => $code,
+          'body' => 'Do not share the code with anyone'
+         ];
+
+        $aamuser = DB::table("aamusers")->where('aamusers_email',$data['aamusers_email'])->first();
+        // check if current aamusers_password is correct
+            // Update New Password
+          if($data['aamusers_email'] == $aamuser->aamusers_email) {
+            if(Mail::to($aamuser->aamusers_email)->send(new AamUserMail($mailData))) {
+            AamUser::where('aamusers_email',$data['aamusers_email'])
+            ->update(['aamusers_code' => $code, 'aamusers_resetdate' => $data['aamusers_resetdate']]);
+              return response()->json(['status' => true, 'message' => 'A verification code has been sent to your mail']);
+            } else {
+              return response()->json(['status' => false, 'message' => 'Something went wrong. Try again later']);
+            }
+            
+          } else {
+            return response()->json(['status' => false, 'message' => 'There is no account with that email']);
+          }
+        
+      }
+
+    }
+
+
+    public function resetPassword(Request $request) {
+      //Session::put('page', 'update-aamuser-password');
+      if($request->isMethod('post')) {
+        $data = $request->all();
+
+
+        $aamuser = DB::table("aamusers")->where('aamusers_email',$data['aamusers_email'])->first();
+        // check if current aamusers_password is correct
+            // Update New Password
+          if($data['aamusers_code'] == $aamuser->aamusers_code) {
+
+            AamUser::where('aamusers_email',$data['aamusers_email'])->update(['aamusers_password' => bcrypt($data['aamusers_password'])]);
+              return response()->json(['status' => true, 'message' => 'Password Reset Successfull']); 
+            
+          } else {
+            return response()->json(['status' => false, 'message' => 'Invalid Verification Code']);
+          }
+        
+      }
 
     }
 

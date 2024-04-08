@@ -33,6 +33,9 @@ use App\Http\Controllers\FrontEndApi\ProductCategoryController;
 use App\Http\Controllers\FrontEndApi\ZipCodeController;
 use App\Http\Controllers\FrontEndApi\StoreOrderController;
 use App\Http\Controllers\FrontEndApi\StorePaymentController;
+use App\Http\Controllers\FrontEndApi\VolCategoryController;
+use App\Http\Controllers\FrontEndApi\KcileController;
+use App\Http\Controllers\FrontEndApi\VersionController;
 
 
 /*
@@ -102,8 +105,17 @@ Route::get('/givingcategory', [GivingCategoryController::class,'index']);
 // DONATION CATEGORY
 Route::get('/donationcategory', [DonationCategoryController::class,'index']);
 
+// Volunteer CATEGORY
+Route::get('/volcategory', [VolCategoryController::class,'index']);
+
 // LIVE COUNT DOWN
 Route::get('/livecountdown', [LiveCountDownController::class,'index']);
+
+// MOBILE LIVE COUNT DOWN
+Route::get('/mobilelivecountdown', [LiveCountDownController::class,'mobileindex']);
+
+// VERSION
+Route::get('/version', [VersionController::class,'index']);
 
 
 // RESOURCES
@@ -140,6 +152,15 @@ Route::post('/newsletter', [NewsLetterController::class,'store']);
 // Volunteers
 Route::post('/volunteer', [VolunteerController::class,'store']);
 
+// Mobile Volunteers
+Route::post('/mobilevolunteer', [VolunteerController::class,'mobilestore']);
+
+// KCILE REG MODULW
+Route::post('/mobileregmodule', [KcileController::class,'mobileregmodulestore']);
+
+// KCILE
+Route::post('/mobilekcile', [KcileController::class,'mobilestore']);
+
 // Review
 Route::post('/reviewsearch', [ReviewController::class,'reviewSearch']);
 
@@ -148,6 +169,9 @@ Route::get('/podcast', [PodcastController::class,'podcastSearch']);
 
 // volforms
 Route::get('/volform', [VolFormController::class,'index']);
+
+// mobilevolforms
+Route::get('/mobilevolform/{id?}', [VolFormController::class,'mobileindex']);
 
 
 //AAM USERS
@@ -164,6 +188,8 @@ Route::match(['get'],'/aamusers/{id?}',[AAMUserController::class, 'index']);
     Route::match(['post'],'/aamupdatepnum', [AAMUserController::class,'updatePnum']);
     Route::post('/aamcheckcurrentpassword', [AAMUserController::class,'checkCurrentPassword']);
     Route::match(['post'],'/aamupdateuser', [AAMUserController::class,'updateAamUser']);
+    Route::match(['post'],'/passwordcode', [AAMUserController::class,'sendPasswordCode']);
+    Route::match(['post'],'/resetpassword', [AAMUserController::class,'resetPassword']);
     Route::get('/aamlogout', [AAMuserController::class,'logout']);
 
 //});

@@ -55,13 +55,15 @@ class EventController extends Controller
                 'events_status' => $events_status,
                 );
             }
+            return response()->json(['status' => true, 'events'=>$data]);
           } else {
-            $data [] = array(
+            $data = array(
                 'events_title' => ''
             );
+            return response()->json(['status' => false, 'events'=>$data]);
           }
               
-            return response()->json(['events'=>$data]);
+            //return response()->json(['status' => true, 'events'=>$data]);
 
         } else {
 
@@ -114,7 +116,7 @@ class EventController extends Controller
                   'eventgalleries_file' => ''
                );
            }
-            return response()->json(['eventone'=>$data, 'eventgallery'=>$gallerydata]);
+            return response()->json(['status' => true, 'eventone'=>$data, 'eventgallery'=>$gallerydata]);
 
             
              
@@ -165,7 +167,7 @@ class EventController extends Controller
             );
           }
               
-            return response()->json(['events'=>$data]);
+            return response()->json(['status' => true, 'events'=>$data]);
 
     
 

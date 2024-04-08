@@ -58,11 +58,13 @@ class VersionController extends Controller
 
                 $rules = [
                     'versions_name' => 'required',
-                    'versions_number' => 'required',
+                    'versions_androidnumber' => 'required',
+                    'versions_iosnumber' => 'required',
                 ];
                 $customMessages = [
                     'versions_name.required' => 'Version name is required',
-                    'versions_number.required' => 'Version number is required',
+                    'versions_androidnumber.required' => 'Version number is required',
+                    'versions_iosnumber.required' => 'Version number is required',
                 ];
                      
 
@@ -71,7 +73,8 @@ class VersionController extends Controller
               $store = [
                 [
                 'versions_name' => $data['versions_name'],
-                'versions_number' => $data['versions_number'],
+                'versions_androidnumber' => $data['versions_androidnumber'],
+                'versions_iosnumber' => $data['versions_iosnumber'],
                ]
             ];
 
@@ -113,23 +116,24 @@ class VersionController extends Controller
             //echo "<prev>"; print_r($data); die;
 
             // Banner Vallidations
-                $rules = [
-                    'versions_name' => 'required',
-                    'versions_number' => 'required',
-                ];
-            
+            $rules = [
+                'versions_name' => 'required',
+                'versions_androidnumber' => 'required',
+                'versions_iosnumber' => 'required',
+            ];
             $customMessages = [
                 'versions_name.required' => 'Version name is required',
-                'versions_number.required' => 'Version number is required',
+                'versions_androidnumber.required' => 'Version number is required',
+                'versions_iosnumber.required' => 'Version number is required',
             ];
 
             $this->validate($request,$rules,$customMessages);
 
-              $store = [
-            
+            $store = [
+                
                 'versions_name' => $data['versions_name'],
-                'versions_number' => $data['versions_number'],
-               
+                'versions_androidnumber' => $data['versions_androidnumber'],
+                'versions_iosnumber' => $data['versions_iosnumber'],
             ];
 
               Version::where('versions_id',$data['versions_id'])->update($store);

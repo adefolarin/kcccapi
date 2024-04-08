@@ -23,6 +23,8 @@ return new class extends Migration
                 $table->text('aamusers_city')->nullable();
                 $table->timestamp('email_verified_at')->nullable();
                 $table->string('aamusers_password');
+                $table->text('aamusers_code')->nullable();
+                $table->datetime('aamusers_resetdate')->nullable();
                 $table->rememberToken();
                 $table->timestamps();
             });

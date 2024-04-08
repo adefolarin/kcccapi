@@ -11,15 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        if(!Schema::hasTable('versions')) {
-            Schema::create('versions', function (Blueprint $table) {
-                $table->bigInteger('versions_id')->autoIncrement();
-                $table->text('versions_name');
-                $table->text('versions_androidnumber');
+        Schema::table('versions', function (Blueprint $table) {
+            if (Schema::hasTable('versions')){
+                $table->renameColumn('versions_number', 'versions_androidnumber');
                 $table->text('versions_iosnumber');
-                $table->timestamps();
-            });
-       }
+            }
+        });
     }
 
     /**
@@ -27,6 +24,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('versions');
+        Schema::table('versions', function (Blueprint $table) {
+            //
+        });
     }
 };

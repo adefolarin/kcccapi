@@ -48,7 +48,7 @@ class NewsController extends Controller
             );
           }
               
-            return response()->json(['news'=>$data]);
+            return response()->json(['status' => true, 'news'=>$data]);
 
         } else {
 
@@ -74,7 +74,7 @@ class NewsController extends Controller
             }
   
     
-            return response()->json(['newsone'=>$data]);
+            return response()->json(['status' => true, 'newsone'=>$data]);
             
              
         }

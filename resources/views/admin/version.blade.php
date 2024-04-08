@@ -74,12 +74,16 @@
                         <input type="hidden"  class="form-control" id="admin_id" value="{{ Auth::guard('admin')->user()->id }}" readonly>
                     </div>
                     <div class="form-group">
-                        <label for="version_name">Version Name</label>
-                        <input type="text" class="form-control"  name="version_name" id="version_name" placeholder="Version Name" required >
+                        <label for="versions_name">Version Name</label>
+                        <input type="text" class="form-control"  name="versions_name" id="versions_name" placeholder="Version Name" required >
                     </div> 
                     <div class="form-group">
-                        <label for="version_number">Version Number</label>
-                        <input type="text" class="form-control"  name="version_number" id="version_number" placeholder="Version Number" required >
+                        <label for="versions_androidnumber">Android Version Number</label>
+                        <input type="text" class="form-control"  name="versions_androidnumber" id="versions_androidnumber" placeholder="Android Version Number" required >
+                    </div> 
+                    <div class="form-group">
+                        <label for="version_iosnumber">IOS Version Number</label>
+                        <input type="text" class="form-control"  name="versions_iosnumber" id="versions_iosnumber" placeholder="IOS Version Number" required >
                     </div> 
              
                     </div>
@@ -102,12 +106,16 @@
                     </div> 
 
                     <div class="form-group">
-                        <label for="version_name">Version Name</label>
-                        <input type="text" class="form-control"  name="version_name" id="version_name" placeholder="Version Name" required value="{{ $versionone['version_id'] }}">
+                        <label for="versions_name">Version Name</label>
+                        <input type="text" class="form-control"  name="versions_name" id="versions_name" placeholder="Version Name" required value="{{ $versionone['version_id'] }}">
                     </div> 
                     <div class="form-group">
-                        <label for="version_number">Version Number</label>
-                        <input type="text" class="form-control"  name="version_number" id="version_number" placeholder="Version Number" required value="{{ $versionone['version_id'] }}">
+                        <label for="versions_androidnumber">Android Version Number</label>
+                        <input type="text" class="form-control"  name="versions_androidnumber" id="versions_androidnumber" placeholder="Android Version Number" required value="{{ $versionone['version_id'] }}">
+                    </div> 
+                    <div class="form-group">
+                        <label for="versions_iosnumber">Version Number</label>
+                        <input type="text" class="form-control"  name="versions_iosnumber" id="versions_iosnumber" placeholder="IOS Version Number" required value="{{ $versionone['version_id'] }}">
                     </div> 
           
                     </div>
