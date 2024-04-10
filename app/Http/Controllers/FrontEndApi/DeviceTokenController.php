@@ -44,8 +44,13 @@ class DeviceTokenController extends Controller
                ]
             ];
 
+            if (DeviceToken::where('tokens_id', $data['tokens_id'])->exists()) {
+                  DeviceToken::where('tokens_id',$data['tokens_id'])->update(['tokens_id' => $data['tokens_id']]);
+                  return response()->json(['status1' => true], 201);
+            } else {
                   DeviceToken::insert($store);
-                  return response()->json(['status' => true], 201);
+                  return response()->json(['status2' => true], 201);
+            }
                 
                 //return redirect('admin/event')->with('success_message', $message);
               
