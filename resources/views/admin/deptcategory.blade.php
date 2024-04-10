@@ -24,7 +24,7 @@
   </div>
   <!-- /.content-header -->
 
-  <section class="content">
+   <section class="content">
       <div class="container-fluid">
         <div class="row">
           <div class="col-4">
@@ -159,7 +159,7 @@
         <!-- /.row -->
       </div>
       <!-- /.container-fluid -->
-    </section>
+   </section>
 </div>
 <!-- /.content-wrapper -->
 

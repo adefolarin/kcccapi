@@ -75,7 +75,8 @@ class AamUserController extends Controller
             $rules = [
               'aamusers_name' => 'required|regex:/^[\pL\s\-]+$/u|max:255',
               'aamusers_email' => 'required|email|max:255',
-              'aamusers_password' => 'required|max:30'
+              'aamusers_password' => 'required|max:30',
+              'aamusers_confirmpassword' => 'required|max:30'
             ];
 
             $customMessages = [
@@ -84,13 +85,15 @@ class AamUserController extends Controller
               'aamusers_email.required' => 'Email is required',
               'aamusers_email.email' => 'Valid Email is required',
               'aamusers_password.required' => 'Password is required',
+              'aamusers_confirmpassword.required' => 'Confirm Password is required',
             ];
 
             $store = [
                 [
                    'aamusers_name' => $data['aamusers_name'],
                    'aamusers_email' => $data['aamusers_email'],
-                   'aamusers_password' => bcrypt($data['aamusers_password']),
+                   //'aamusers_password' => bcrypt($data['aamusers_password']),
+                   'aamusers_password' => md5($data['aamusers_password']),
                 ]
             ];
 
@@ -101,7 +104,7 @@ class AamUserController extends Controller
             }
 
 
-            if($data['aamusers_password'] != $data['aamusersconfirm_password']) {
+            if($data['aamusers_password'] != $data['aamusers_confirmpassword']) {
                 return response()->json(['status' => false, 'message' => 'Passwords Must Match']);
             }
             else if($data['aamusers_name'] == "" || $data['aamusers_email'] == "" || $data['aamusers_password'] == "") {
@@ -150,7 +153,7 @@ class AamUserController extends Controller
 
             if($usercount > 0) {
             $userdetails = DB::table("aamusers")->where("aamusers_email",$data['aamusers_email'])->first();
-              if(password_verify($data['aamusers_password'],$userdetails->aamusers_password)) {
+              if(md5($data['aamusers_password']) == $userdetails->aamusers_password) {
                 //Session::regenerate();
                 $data = array (
                   'userid' => $userdetails->aamusers_id,
@@ -208,7 +211,7 @@ class AamUserController extends Controller
         $data = $request->all();
         // check if current aamusers_password is correct
             // Update New Password
-            AamUser::where('aamusers_id',$data['aamusers_id'])->update(['aamusers_password' => bcrypt($data['aamusers_password'])]);
+            AamUser::where('aamusers_id',$data['aamusers_id'])->update(['aamusers_password' => md5($data['aamusers_password'])]);
             return response()->json(['status' => true, 'message' => 'Password Updated Succesfully']);
           
 
@@ -323,13 +326,13 @@ class AamUserController extends Controller
           'body' => 'Do not share the code with anyone'
          ];
 
-        $aamuser = DB::table("aamusers")->where('aamusers_email',$data['aamusers_email'])->first();
+        //$aamuser = DB::table("aamusers")->where('aamusers_email',$data['aamusers_email'])->first();
         // check if current aamusers_password is correct
             // Update New Password
-          if($data['aamusers_email'] == $aamuser->aamusers_email) {
-            if(Mail::to($aamuser->aamusers_email)->send(new AamUserMail($mailData))) {
+          if(DB::table("aamusers")->where('aamusers_email',$data['aamusers_email'])->exists()) {
+            if(Mail::to($data['aamusers_email'])->send(new AamUserMail($mailData))) {
             AamUser::where('aamusers_email',$data['aamusers_email'])
-            ->update(['aamusers_code' => $code, 'aamusers_resetdate' => $data['aamusers_resetdate']]);
+            ->update(['aamusers_code' => $code, 'aamusers_resetdate' => $resetdate]);
               return response()->json(['status' => true, 'message' => 'A verification code has been sent to your mail']);
             } else {
               return response()->json(['status' => false, 'message' => 'Something went wrong. Try again later']);
@@ -355,7 +358,7 @@ class AamUserController extends Controller
             // Update New Password
           if($data['aamusers_code'] == $aamuser->aamusers_code) {
 
-            AamUser::where('aamusers_email',$data['aamusers_email'])->update(['aamusers_password' => bcrypt($data['aamusers_password'])]);
+            AamUser::where('aamusers_email',$data['aamusers_email'])->update(['aamusers_password' => md5($data['aamusers_password'])]);
               return response()->json(['status' => true, 'message' => 'Password Reset Successfull']); 
             
           } else {

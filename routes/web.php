@@ -40,6 +40,7 @@ use App\Http\Controllers\Admin\MembRegController;
 use App\Http\Controllers\Admin\GivingController;
 use App\Http\Controllers\Admin\DeptGalleryController;
 use App\Http\Controllers\Admin\ReviewController;
+use App\Http\Controllers\Admin\DelAccController;
 
 
 /*
@@ -421,8 +422,15 @@ Route::get('/', function () {
         Route::post('/admin/review/{id?}', [ReviewController::class,'update']);
         Route::get('/admin/delete-review/{id?}', [ReviewController::class,'destroy']);
         
-
-
      
     });
+
+    Route::get('/mobiledonation', [DonationController::class,'mobileindex']);
+    Route::post('/donation-paypal', [DonationController::class,'paypal']);
+    Route::get('/donation-success', [DonationController::class,'success'])->name('donation-success');
+    Route::get('/donation-cancel', [DonationController::class,'cancel'])->name('donation-cancel');
+
+    Route::get('/delacc', [DelAccController::class,'mobileindex']);
+    Route::post('/delacc', [DelAccController::class,'store']);
+
 //});

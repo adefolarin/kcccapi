@@ -78,7 +78,7 @@ class LiveCountDownController extends Controller
 
                 $data = array(
                 'livecountdowns_id' => $livecountdown->livecountdowns_id,
-                'livecountdowns_datetime' => $livecountdown_countdown * 1000, 
+                'livecountdowns_datetime' => 1000 * $livecountdown_countdown, 
                 'livecountdowns_status' => "true",    
                 );
             

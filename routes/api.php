@@ -25,7 +25,7 @@ use App\Http\Controllers\FrontEndApi\VolunteerController;
 use App\Http\Controllers\FrontEndApi\ReviewController;
 use App\Http\Controllers\FrontEndApi\PodcastController;
 use App\Http\Controllers\FrontEndApi\VolFormController;
-use App\Http\Controllers\FrontEndApi\AAMUserController;
+use App\Http\Controllers\FrontEndApi\AamUserController;
 use App\Http\Controllers\FrontEndApi\StoreUserController;
 use App\Http\Controllers\FrontEndApi\RatingController;
 use App\Http\Controllers\FrontEndApi\ProductController;
@@ -176,21 +176,21 @@ Route::get('/mobilevolform/{id?}', [VolFormController::class,'mobileindex']);
 
 //AAM USERS
 
-Route::match(['post'],'/aamregister',[AAMUserController::class, 'store']);
-Route::match(['post'],'/aamlogin',[AAMUserController::class, 'login']);
+Route::match(['post'],'/aamregister',[AamUserController::class, 'store']);
+Route::match(['post'],'/aamlogin',[AamUserController::class, 'login']);
 
-Route::match(['get'],'/aamusers/{id?}',[AAMUserController::class, 'index']);
+Route::match(['get'],'/aamusers/{id?}',[AamUserController::class, 'index']);
 
 //Route::group(['middleware'=>['aamuser']], function() {
    
-    Route::match(['post'],'/aamupdatepassword', [AAMUserController::class,'updatePassword']);
-    Route::match(['post'],'/aamupdateemail', [AAMUserController::class,'updateEmail']);
-    Route::match(['post'],'/aamupdatepnum', [AAMUserController::class,'updatePnum']);
-    Route::post('/aamcheckcurrentpassword', [AAMUserController::class,'checkCurrentPassword']);
-    Route::match(['post'],'/aamupdateuser', [AAMUserController::class,'updateAamUser']);
-    Route::match(['post'],'/passwordcode', [AAMUserController::class,'sendPasswordCode']);
-    Route::match(['post'],'/resetpassword', [AAMUserController::class,'resetPassword']);
-    Route::get('/aamlogout', [AAMuserController::class,'logout']);
+    Route::match(['post'],'/aamupdatepassword', [AamUserController::class,'updatePassword']);
+    Route::match(['post'],'/aamupdateemail', [AamUserController::class,'updateEmail']);
+    Route::match(['post'],'/aamupdatepnum', [AamUserController::class,'updatePnum']);
+    Route::post('/aamcheckcurrentpassword', [AamUserController::class,'checkCurrentPassword']);
+    Route::match(['post'],'/aamupdateuser', [AamUserController::class,'updateAamUser']);
+    Route::match(['post'],'/passwordcode', [AamUserController::class,'sendPasswordCode']);
+    Route::match(['post'],'/resetpassword', [AamUserController::class,'resetPassword']);
+    Route::get('/aamlogout', [AamuserController::class,'logout']);
 
 //});
 
